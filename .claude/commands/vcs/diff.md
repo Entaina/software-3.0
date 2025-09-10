@@ -16,12 +16,15 @@ Steps to execute:
    - What type of work is being done (new features, bug fixes, configuration changes, etc.)
    - Which parts of the project are affected
    - The scope and impact of the changes
-5. Present a user-friendly summary including:
+5. Present a user-friendly summary with proper formatting including:
    - **Project Impact Summary**: What these changes mean for the project in plain language
    - **Work Summary**: What kind of work has been done
    - **Files Affected**: List of changed files with brief explanations
    - **Readiness Assessment**: Whether changes are ready to be saved
 6. Avoid technical jargon and focus on the practical meaning of changes
+7. Ensure proper line breaks and spacing between all sections for readability
+8. Use clear visual separators (like `---`) between major sections
+9. Format output with consistent spacing and clear section headers
 
 ## Examples
 
@@ -37,20 +40,42 @@ This will show:
 
 Example output:
 ```
-📋 **Project Changes Summary**
+# 📋 Project Changes Summary
 
-You've been working on: Setting up project configuration and development tools
-These changes affect: Project foundation and development workflow
+## You've been working on:
+**Setting up project configuration and development tools** - Improving project foundation
 
-**Work Summary:**
-- Added configuration files for better project management
-- Set up development tools and editor settings
-- Created project structure for team collaboration
+## These changes affect:
+**Project foundation and development workflow** - Core project setup files
 
-**Files Ready to Save:**
-- `.gitignore` - Prevents unwanted files from being tracked
-- `package.json` - Defines project dependencies and scripts
-- `.vscode/settings.json` - Configures editor for consistent formatting
+---
 
-✅ **Ready to save**: These changes form a complete setup that's ready to commit
+## Work Summary:
+- **Configuration files** - Added better project management setup
+- **Development tools** - Set up editor settings for consistency
+- **Project structure** - Created organized team collaboration framework
+
+## Files Ready to Save:
+
+**📄 `.gitignore`** - Git Ignore Rules  
+- **What changed**: Added exclusion patterns for development files
+- **Why it matters**: Prevents unwanted files from being tracked
+- **Impact**: Cleaner repository with only relevant files
+
+**📄 `package.json`** - Project Configuration  
+- **What changed**: Defined project dependencies and build scripts
+- **Why it matters**: Establishes project structure and tooling
+- **Impact**: Enables consistent development environment
+
+**📄 `.vscode/settings.json`** - Editor Configuration  
+- **What changed**: Configured editor for consistent formatting
+- **Why it matters**: Ensures all team members use same code style
+- **Impact**: Improved code quality and collaboration
+
+---
+
+## ✅ Readiness Assessment:
+**Ready to save**: These changes form a complete setup that's ready to commit.
+
+**Recommendation**: Use `vcs:save` to preserve this project foundation setup.
 ```

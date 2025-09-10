@@ -30,30 +30,37 @@ Version control helps you track changes to your files over time, like having a s
 #### Available Commands:
 
 - **`/vcs/init`** - Start version control in this folder
-- **`/vcs/save [message]`** - Save current changes with a description (auto-generates message if not provided)
-- **`/vcs/load <commit>`** - Go back to a previous saved version  
+- **`/vcs/save [file-description] [-m "message"]`** - Save current changes with a description (auto-generates message if not provided, supports natural language file selection)
+- **`/vcs/load [commit]`** - Go back to a previous saved version (shows history if no commit specified)
 - **`/vcs/history [number]`** - See all previous saves
 - **`/vcs/diff`** - See what changes you've made since last save
 - **`/vcs/tag [message]`** - Mark important milestones (auto-generates timestamp if no message)
+- **`/vcs/clean [files...]`** - Discard changes and return to clean state (can target specific files or clean everything)
 - **`/vcs/help`** - Show this help information
 
 #### Common Workflow:
 
 1. **Start a new project**: `/vcs/init`
 2. **Make changes to your files**
-3. **Save your progress**: `/vcs/save "Added new feature"` or simply `/vcs/save` for auto-generated message
-4. **Continue working and saving**: `/vcs/save "Fixed bug"` or `/vcs/save`
-5. **Mark important milestones**: `/vcs/tag "version 1.0"` or `/vcs/tag` for timestamp
-6. **Check your history**: `/vcs/history`
-7. **Go back if needed**: `/vcs/load abc123f` or `/vcs/load version-1-0`
+3. **Check what changed**: `/vcs/diff` to see your progress
+4. **Save your progress**: `/vcs/save "Added new feature"` or simply `/vcs/save` for auto-generated message
+5. **Save specific files**: `/vcs/save "JavaScript files" -m "Fix bugs"` for selective commits
+6. **Continue working and saving**: `/vcs/save "Fixed bug"` or `/vcs/save`
+7. **Mark important milestones**: `/vcs/tag "version 1.0"` or `/vcs/tag` for timestamp
+8. **Check your history**: `/vcs/history` or `/vcs/load` to see all saves
+9. **Go back if needed**: `/vcs/load abc123f` or `/vcs/load version-1-0`
+10. **Discard unwanted changes**: `/vcs/clean` to start fresh or `/vcs/clean specific-file.js`
 
 #### Tips:
 
 - Save often with descriptive messages, or let the system auto-generate them
-- Use `/vcs/diff` before saving to see what changed
+- Use `/vcs/diff` before saving to see what changed and get intelligent impact analysis
+- Save specific files using natural language: `/vcs/save "all JavaScript files"` or `/vcs/save "files in src folder"`
 - Create tags for important milestones like releases or major features
+- Use `/vcs/load` without parameters to see history and choose which version to load
 - Manual commit messages should describe what you did
 - Auto-generated messages analyze your changes and create appropriate descriptions
+- Use `/vcs/clean` to discard unwanted changes and start fresh
 - You can always go back to any previous save or tag
 
 #### Auto-Generated Commit Messages:

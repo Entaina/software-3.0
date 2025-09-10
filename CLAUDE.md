@@ -14,15 +14,16 @@ This is a "Software 3.0" configuration repository that defines custom VCS (Versi
 - Commands wrap git operations with simplified, non-technical interfaces
 
 ### Available VCS Commands
-The repository defines seven custom VCS commands:
+The repository defines eight custom VCS commands:
 
 1. **`vcs:init`** - Initialize git repository with basic .gitignore
-2. **`vcs:save <message>`** - Stage all changes and commit with message
-3. **`vcs:load <commit>`** - Reset repository to specific commit (with warnings)
-4. **`vcs:history [count]`** - Display commit history in readable format
-5. **`vcs:diff`** - Show pending changes with intelligent summaries
+2. **`vcs:save [file-description] [-m "message"]`** - Stage all changes or specific files and commit with message (auto-generates message if not provided, supports natural language file selection)
+3. **`vcs:load [commit]`** - Reset repository to specific commit (with warnings and interactive history display when no commit specified)
+4. **`vcs:history [count]`** - Display commit history in readable format with enhanced formatting
+5. **`vcs:diff`** - Show pending changes with intelligent summaries and project impact analysis
 6. **`vcs:tag [message]`** - Create tags for important commits (auto-timestamps if no message)
-7. **`vcs:help`** - Display comprehensive VCS help for non-developers
+7. **`vcs:clean [files...]`** - Discard modifications and untracked files to return to clean state (can target specific files or clean everything)
+8. **`vcs:help`** - Display comprehensive VCS help for non-developers
 
 ### Configuration Files
 - `.claude/settings.local.json` - Claude Code permissions and output style settings
@@ -72,6 +73,7 @@ Testing these commands requires:
 │   ├── history.md  # vcs:history command
 │   ├── diff.md     # vcs:diff command
 │   ├── tag.md      # vcs:tag command
+│   ├── clean.md    # vcs:clean command
 │   └── help.md     # vcs:help command
 ├── settings.local.json  # Claude Code configuration
 .gitignore          # Standard git exclusions

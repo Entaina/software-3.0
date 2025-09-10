@@ -2,7 +2,7 @@
 
 Restore the repository to a previous commit, tag, or branch state.
 
-**Usage**: `/vcs/load <commit-hash-or-tag-or-reference>`
+**Usage**: `/vcs/load [commit-hash-or-tag-or-reference]`
 
 ## Implementation
 
@@ -10,30 +10,44 @@ Reset the repository to a specific commit, tag, or branch using `git reset --har
 
 Steps to execute:
 1. Check if we're in a git repository
-2. Resolve and validate the provided reference (commit hash, tag name, branch, or description):
+2. **Handle missing reference parameter**:
+   - If no commit reference is provided, display commit history using `git log --oneline --decorate -10`
+   - Format the history in a user-friendly way showing:
+     - Commit hash (short version)
+     - Commit message
+     - Current commit indicator
+   - Ask user to specify which commit to load by hash, tag, or description
+   - Wait for user input and then proceed with the specified reference
+3. Resolve and validate the provided reference (commit hash, tag name, branch, or description):
    - If it looks like a commit hash (starts with alphanumeric), use directly
    - If it matches a tag name, resolve to the tagged commit
    - If it matches a branch name, resolve to the branch head
    - If it's a relative reference (HEAD~1, HEAD^), resolve it
    - If it's a description, search recent commits for matching messages
-3. Check current repository status to analyze what will be lost:
+4. Check current repository status to analyze what will be lost:
    - Modified files that will be discarded
    - Untracked files (these will remain but may conflict with target state)
    - Staged changes that will be lost
-4. Display the target commit information (hash, message, date, author)
-5. Show detailed impact analysis:
+5. Display the target commit information (hash, message, date, author)
+6. Show detailed impact analysis:
    - List modified files with change descriptions
    - Show total count of affected files
    - Compare current state with target commit
-6. **Ask for explicit confirmation** with clear warning about data loss:
+7. **Ask for explicit confirmation** with clear warning about data loss:
    - Display clear warning about permanent data loss
    - Require user to type "yes" or "y" to confirm (case-insensitive)
    - Show exactly what commit they're loading
-7. After confirmation:
+   - **ALWAYS ask for confirmation regardless of whether parameters were provided**
+8. After confirmation:
    - Run `git reset --hard <resolved-reference>`
    - Show confirmation of the reset operation with details
 
 ## Examples
+
+```bash
+/vcs/load
+```
+Show commit history and ask user to select a commit to load.
 
 ```bash
 /vcs/load abc123f
@@ -83,7 +97,31 @@ This will:
 - **Impact analysis**: Compares current state with target commit
 - **Target validation**: Confirms the target commit exists and is accessible
 
-Example interaction:
+## Interactive Examples
+
+### When no commit reference is provided:
+```
+📋 **Recent Commit History**
+
+e03b3a7 (HEAD -> main) enhance: add selective file operations to VCS commands
+1561109 enhance: add destructive operation safeguards to VCS load command  
+3875df4 feat: add VCS clean command with destructive operation safeguards
+ebb367c feat: add VCS tag command and enhance load command functionality
+3a5deda docs: enhance VCS diff command formatting and output structure
+d92ebbb docs: standardize VCS command naming conventions
+106e488 config: expand git permissions for full VCS functionality
+ad4c039 feat: initialize Software 3.0 VCS command system
+
+**Please specify which commit to load**:
+- Enter a commit hash (e.g., "1561109") 
+- Enter a commit message pattern (e.g., "add destructive")
+- Enter a tag name (e.g., "version-1-0")
+- Enter a relative reference (e.g., "HEAD~2")
+
+Which commit would you like to load? _
+```
+
+### Standard load operation:
 ```
 🔄 **Repository Load Analysis**
 

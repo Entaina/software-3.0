@@ -10,18 +10,18 @@ This is a "Software 3.0" configuration repository that defines custom VCS (Versi
 
 ### Command System Structure
 - `.claude/commands/vcs/` - Contains custom slash command definitions
-- Each `.md` file defines a VCS command with implementation steps
+- Each vcs/*.md file defines a VCS command with implementation steps
 - Commands wrap git operations with simplified, non-technical interfaces
 
 ### Available VCS Commands
 The repository defines six custom VCS commands:
 
-1. **`/vcs/init`** - Initialize git repository with basic .gitignore
-2. **`/vcs/save <message>`** - Stage all changes and commit with message  
-3. **`/vcs/load <commit>`** - Reset repository to specific commit (with warnings)
-4. **`/vcs/history [count]`** - Display commit history in readable format
-5. **`/vcs/diff`** - Show pending changes with intelligent summaries
-6. **`/vcs/help`** - Display comprehensive VCS help for non-developers
+1. **`vcs:init`** - Initialize git repository with basic .gitignore
+2. **`vcs:save <message>`** - Stage all changes and commit with message
+3. **`vcs:load <commit>`** - Reset repository to specific commit (with warnings)
+4. **`vcs:history [count]`** - Display commit history in readable format
+5. **`vcs:diff`** - Show pending changes with intelligent summaries
+6. **`vcs:help`** - Display comprehensive VCS help for non-developers
 
 ### Configuration Files
 - `.claude/settings.local.json` - Claude Code permissions and output style settings
@@ -45,9 +45,9 @@ Each VCS command follows a consistent structure:
 5. User-friendly success/error reporting
 
 ### Safety Features
-- `/vcs/load` includes warnings about losing uncommitted changes
+- `vcs:load` includes warnings about losing uncommitted changes
 - Commands check for git repository existence before execution
-- Descriptive commit messages are required for `/vcs/save`
+- Descriptive commit messages are required for `vcs:save`
 - All outputs avoid technical jargon
 
 ## Development Notes
@@ -65,6 +65,12 @@ Testing these commands requires:
 ```
 .claude/
 ├── commands/vcs/    # VCS command definitions
+│   ├── init.md     # vcs:init command
+│   ├── save.md     # vcs:save command
+│   ├── load.md     # vcs:load command
+│   ├── history.md  # vcs:history command
+│   ├── diff.md     # vcs:diff command
+│   └── help.md     # vcs:help command
 ├── settings.local.json  # Claude Code configuration
 .gitignore          # Standard git exclusions
 ```

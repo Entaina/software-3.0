@@ -1,0 +1,72 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a "Software 3.0" configuration repository that defines custom VCS (Version Control System) commands for Claude Code. The project extends Claude Code's functionality with user-friendly git operations designed for non-developers.
+
+## Architecture
+
+### Command System Structure
+- `.claude/commands/vcs/` - Contains custom slash command definitions
+- Each `.md` file defines a VCS command with implementation steps
+- Commands wrap git operations with simplified, non-technical interfaces
+
+### Available VCS Commands
+The repository defines six custom VCS commands:
+
+1. **`/vcs/init`** - Initialize git repository with basic .gitignore
+2. **`/vcs/save <message>`** - Stage all changes and commit with message  
+3. **`/vcs/load <commit>`** - Reset repository to specific commit (with warnings)
+4. **`/vcs/history [count]`** - Display commit history in readable format
+5. **`/vcs/diff`** - Show pending changes with intelligent summaries
+6. **`/vcs/help`** - Display comprehensive VCS help for non-developers
+
+### Configuration Files
+- `.claude/settings.local.json` - Claude Code permissions and output style settings
+- `.gitignore` - Standard exclusions for OS files, IDE settings, build outputs
+- Git repository with standard initialization
+
+## Key Design Principles
+
+### User Experience Focus
+- Commands use plain language instead of git terminology
+- Error messages and outputs are designed for non-technical users
+- Complex git operations are simplified into single commands
+- Confirmations and warnings protect users from data loss
+
+### Command Implementation Pattern
+Each VCS command follows a consistent structure:
+1. Parameter validation and repository checks
+2. Clear explanations of what will happen
+3. User confirmations for destructive operations
+4. Execution of underlying git commands
+5. User-friendly success/error reporting
+
+### Safety Features
+- `/vcs/load` includes warnings about losing uncommitted changes
+- Commands check for git repository existence before execution
+- Descriptive commit messages are required for `/vcs/save`
+- All outputs avoid technical jargon
+
+## Development Notes
+
+### No Traditional Build System
+This repository doesn't contain traditional build, test, or lint commands as it's purely configuration-based. The "code" consists of markdown command definitions that are interpreted by Claude Code's command system.
+
+### Testing Approach
+Testing these commands requires:
+1. Using Claude Code with this configuration loaded
+2. Manual testing of each VCS command in a git repository
+3. Verifying non-technical user experience and error handling
+
+### File Structure
+```
+.claude/
+├── commands/vcs/    # VCS command definitions
+├── settings.local.json  # Claude Code configuration
+.gitignore          # Standard git exclusions
+```
+
+The repository intentionally keeps a minimal structure focused on the command definitions and configuration needed for the VCS command system to function.

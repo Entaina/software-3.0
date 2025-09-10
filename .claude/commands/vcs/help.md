@@ -34,6 +34,7 @@ Version control helps you track changes to your files over time, like having a s
 - **`/vcs/load <commit>`** - Go back to a previous saved version  
 - **`/vcs/history [number]`** - See all previous saves
 - **`/vcs/diff`** - See what changes you've made since last save
+- **`/vcs/tag [message]`** - Mark important milestones (auto-generates timestamp if no message)
 - **`/vcs/help`** - Show this help information
 
 #### Common Workflow:
@@ -42,16 +43,18 @@ Version control helps you track changes to your files over time, like having a s
 2. **Make changes to your files**
 3. **Save your progress**: `/vcs/save "Added new feature"` or simply `/vcs/save` for auto-generated message
 4. **Continue working and saving**: `/vcs/save "Fixed bug"` or `/vcs/save`
-5. **Check your history**: `/vcs/history`
-6. **Go back if needed**: `/vcs/load abc123f`
+5. **Mark important milestones**: `/vcs/tag "version 1.0"` or `/vcs/tag` for timestamp
+6. **Check your history**: `/vcs/history`
+7. **Go back if needed**: `/vcs/load abc123f` or `/vcs/load version-1-0`
 
 #### Tips:
 
 - Save often with descriptive messages, or let the system auto-generate them
 - Use `/vcs/diff` before saving to see what changed
+- Create tags for important milestones like releases or major features
 - Manual commit messages should describe what you did
 - Auto-generated messages analyze your changes and create appropriate descriptions
-- You can always go back to any previous save
+- You can always go back to any previous save or tag
 
 #### Auto-Generated Commit Messages:
 

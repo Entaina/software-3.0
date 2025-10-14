@@ -6,6 +6,7 @@
 @/CLAUDE.md
 @/docs/ai-context/project-structure.md
 @/docs/ai-context/docs-overview.md
+@.claude/commands/feature/_state-management.md
 
 ## Command Overview
 
@@ -13,28 +14,40 @@ You are a Software Engineer tasked with reorganizing a technical implementation 
 
 User provided context: "$ARGUMENTS"
 
-## Step 1: Prerequisites and Context Loading
+## Step 1: Load Current State and Validate Prerequisites
 
-### Required Input Documents
-1. **Product context**: `docs/product-development/resources/product.md`
-2. **Current feature**: Read `docs/product-development/current-feature` file for active feature name
-3. **JTBD analysis**: `docs/product-development/features/active/[feature-name]/JTBD.md`
-4. **PRD requirements**: `docs/product-development/features/active/[feature-name]/PRD.md`
-5. **Technical Implementation Plan**: `docs/product-development/features/active/[feature-name]/plan.md`
+### Load State (Use State Management Protocol)
+1. Read `docs/product-development/current-feature` file to get active feature name
+2. Read `docs/product-development/.feature-state.json` for feature metadata
+3. Validate current feature is set and active
+4. If current_feature is empty:
+   - Error: "No current feature set"
+   - Guidance: "Run /feature-switch [name] to set active feature"
+   - List available features and exit
 
-### Validate Prerequisites
-- **Check current feature**: If `current-feature` file is missing/empty, prompt user to specify feature
-- **Confirm plan.md exists**: If missing, inform user to run `/create-plan` first
-- **Read current implementation checklist**: Extract tasks from existing plan
-- **Understand feature context**: Use JTBD and PRD for user-centered perspective
-- **Load Rails architecture context**: Use auto-loaded files for dependency understanding
+### Determine Feature Paths
+5. Once feature name is confirmed, construct paths:
+   - Feature directory: `docs/product-development/features/active/[feature-name]/`
+   - plan.md: `docs/product-development/features/active/[feature-name]/plan.md`
+   - plan-organized.md: `docs/product-development/features/active/[feature-name]/plan-organized.md` (will be created)
+
+### Required Resources
+6. **Product context**: `docs/product-development/resources/product.md` (recommended)
+
+### Prerequisite Validation
+7. **Required documents** (must exist):
+   - plan.md: If missing, inform user to run `/create-plan` first
+
+8. **Recommended documents** (should exist):
+   - PRD.md: Warn if missing, for user-context perspective
+   - JTBD.md: Warn if missing, for workflow understanding
 
 ### Error Handling for Missing Prerequisites
 If any required documents are missing:
-- **Current feature not set**: "Please specify the current feature name or update the current-feature file"
-- **Plan missing**: "Please run `/create-plan` first to create technical implementation plan"
-- **PRD missing**: "Please run `/create-prd` first to define product requirements"
-- **Context missing**: "Please ensure complete product development documentation exists"
+- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
+- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
+- **Plan missing**: "plan.md not found. Run: /create-plan first (required for organizing)"
+- **Context incomplete**: Display feature status and suggest completing plan stage
 
 ## Step 2: Analyze Current Implementation Structure
 
@@ -216,7 +229,47 @@ Include quality checkpoints:
 1. **Save organized plan** to `docs/product-development/features/active/[feature-name]/plan-organized.md`
 2. **Maintain traceability** to original plan.md and PRD requirements
 3. **Include implementation sequence** and dependency rationale
-4. **Update feature.md** to mark plan organization as completed
+4. **Count total tasks** in the organized plan for progress tracking
+
+### Update Feature State (Use State Management Protocol)
+5. Load current `.feature-state.json`
+6. Count total tasks from plan-organized.md (count [ ] checkboxes)
+7. Update the feature's state:
+   ```
+   state.features[current_feature].workflow.stages_completed += ["plan_organized"]
+   state.features[current_feature].workflow.current_stage = "planning"
+   state.features[current_feature].workflow.next_recommended_command = "/implement-code"
+   state.features[current_feature].documents.plan_organized_md = {
+     "exists": true,
+     "last_modified": current_date
+   }
+   state.features[current_feature].implementation.total_tasks = task_count
+   state.features[current_feature].implementation.completed_tasks = 0
+   state.features[current_feature].updated_at = current_date
+   ```
+8. Write updated state to `.feature-state.json`
+
+### Display Progress (Use State Management Protocol)
+9. Show progress visualization:
+   ```
+   Feature: [feature-name]
+   Status: active
+   Progress: [████████░░] 85% (4.25/5 stages)
+
+   Workflow Stage: Planning Complete
+   ✓ Definition (feature.md)
+   ✓ Design - JTBD Analysis (JTBD.md)
+   ✓ Design - Product Requirements (PRD.md)
+   ✓ Planning - Technical Plan (plan.md)
+   ✓ Planning - Organized Plan (plan-organized.md)
+   ▶ Development - Implementation (next)
+
+   Implementation Ready:
+   - Total Tasks: [X]
+   - Ready to implement: /implement-code
+
+   Next Recommended: /implement-code
+   ```
 
 ### Reorganization Summary
 Provide summary of changes:

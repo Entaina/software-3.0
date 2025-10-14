@@ -6,6 +6,7 @@
 @/CLAUDE.md
 @/docs/ai-context/project-structure.md
 @/docs/ai-context/docs-overview.md
+@.claude/commands/feature/_state-management.md
 
 ## Command Overview
 
@@ -13,28 +14,43 @@ You are a Product Manager tasked with creating a Product Requirements Document (
 
 User provided feature context: "$ARGUMENTS"
 
-## Step 1: Prerequisites and Validation
+## Step 1: Load Current State and Validate Prerequisites
 
-### Required Input Documents
-1. **Product context**: `docs/product-development/resources/product.md`
-2. **Current feature**: Read `docs/product-development/current-feature` file for active feature name
-3. **JTBD analysis**: `docs/product-development/features/active/[feature-name]/JTBD.md`
-4. **Feature documentation**: `docs/product-development/features/active/[feature-name]/feature.md`
-5. **PRD template**: `docs/product-development/resources/PRD-template.md`
+### Load State (Use State Management Protocol)
+1. Read `docs/product-development/current-feature` file to get active feature name
+2. Read `docs/product-development/.feature-state.json` for feature metadata
+3. Validate current feature is set and active
+4. If current_feature is empty:
+   - Error: "No current feature set"
+   - Guidance: "Run /feature-switch [name] to set active feature"
+   - List available features and exit
 
-### Validate Prerequisites
-- **Check current feature**: If `current-feature` file is missing/empty, prompt user to specify feature
-- **Confirm JTBD document exists**: If missing, inform user to run `/create-jtbd` first
-- **Read and understand user needs**: Extract key insights from JTBD analysis
-- **Verify feature context**: Ensure feature.md provides sufficient background
-- **Load PRD template**: Use standardized template for consistency
+### Determine Feature Paths
+5. Once feature name is confirmed, construct paths:
+   - Feature directory: `docs/product-development/features/active/[feature-name]/`
+   - feature.md: `docs/product-development/features/active/[feature-name]/feature.md`
+   - JTBD.md: `docs/product-development/features/active/[feature-name]/JTBD.md`
+   - PRD.md: `docs/product-development/features/active/[feature-name]/PRD.md` (will be created)
+
+### Required Resources
+6. **Product context**: `docs/product-development/resources/product.md`
+7. **PRD template**: `docs/product-development/resources/PRD-template.md`
+   - If template missing: Warn user but continue with inline template
+
+### Prerequisite Validation
+8. **Required documents** (must exist):
+   - feature.md: If missing, warn but allow proceeding
+
+9. **Strongly recommended** (should exist):
+   - JTBD.md: If missing, warn strongly and suggest running `/create-jtbd` first
+   - Allow proceeding but note that PRD quality will be lower without JTBD
 
 ### Error Handling for Missing Prerequisites
 If any required documents are missing:
-- **Current feature not set**: "Please specify the current feature name or update the current-feature file"
-- **JTBD missing**: "Please run `/create-jtbd` first to analyze user needs"
-- **Feature.md missing**: "Please ensure feature documentation exists in features/active/[feature-name] directory"
-- **Templates missing**: "Please ensure product-development resources are set up"
+- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
+- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
+- **JTBD strongly recommended**: "JTBD.md not found. Run: /create-jtbd first (strongly recommended for quality PRD)"
+- **Context incomplete**: Display feature status and suggest completing JTBD stage
 
 ## Step 2: Analyze User Needs from JTBD
 
@@ -162,7 +178,37 @@ Ensure the PRD addresses:
 1. **Save PRD** to `docs/product-development/features/active/[feature-name]/PRD.md`
 2. **Use template structure** with feature-specific content
 3. **Include cross-references** to JTBD.md and product.md
-4. **Update feature.md** to mark PRD as completed
+
+### Update Feature State (Use State Management Protocol)
+4. Load current `.feature-state.json`
+5. Update the feature's state:
+   ```
+   state.features[current_feature].workflow.stages_completed += ["prd"]
+   state.features[current_feature].workflow.current_stage = "design"
+   state.features[current_feature].workflow.next_recommended_command = "/create-plan"
+   state.features[current_feature].documents.prd_md = {
+     "exists": true,
+     "last_modified": current_date
+   }
+   state.features[current_feature].updated_at = current_date
+   ```
+6. Write updated state to `.feature-state.json`
+
+### Display Progress (Use State Management Protocol)
+7. Show progress visualization:
+   ```
+   Feature: [feature-name]
+   Status: active
+   Progress: [█████░░░░░] 50% (2.5/5 stages)
+
+   Workflow Stage: Design
+   ✓ Definition (feature.md)
+   ✓ Design - JTBD Analysis (JTBD.md)
+   ✓ Design - Product Requirements (PRD.md)
+   ▶ Planning - Technical Plan (next)
+
+   Next Recommended: /create-plan
+   ```
 
 ### Preparation for Next Steps
 The completed PRD will be used by:

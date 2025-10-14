@@ -5,6 +5,7 @@
 ## Auto-Loaded Project Context:
 @/CLAUDE.md
 @/docs/ai-context/project-structure.md
+@.claude/commands/feature/_state-management.md
 
 ## Command Overview
 
@@ -38,10 +39,12 @@ If input is invalid:
 2. Check for existing features with same name
 3. Determine next available feature slot
 
-### State Structure
+### State Structure (Use Enhanced Schema from State Management Protocol)
 ```json
 {
+  "version": "1.0",
   "current_feature": "current-feature-name",
+  "last_updated": "2025-10-14T10:30:00Z",
   "features": {
     "feature-name": {
       "name": "feature-name",
@@ -49,12 +52,28 @@ If input is invalid:
       "status": "active|archived|trashed",
       "created_at": "YYYY-MM-DD",
       "updated_at": "YYYY-MM-DD",
-      "progress": {
-        "jtbd": false,
-        "prd": false,
-        "plan": false,
-        "plan_organized": false,
-        "implementation": false
+      "archived_at": null,
+      "trashed_at": null,
+
+      "workflow": {
+        "current_stage": "definition",
+        "stages_completed": ["definition"],
+        "next_recommended_command": "/feature-switch feature-name"
+      },
+
+      "documents": {
+        "feature_md": {"exists": true, "last_modified": "YYYY-MM-DD"},
+        "jtbd_md": {"exists": false, "last_modified": null},
+        "prd_md": {"exists": false, "last_modified": null},
+        "plan_md": {"exists": false, "last_modified": null},
+        "plan_organized_md": {"exists": false, "last_modified": null}
+      },
+
+      "implementation": {
+        "total_tasks": 0,
+        "completed_tasks": 0,
+        "in_progress_task": null,
+        "last_implementation": null
       }
     }
   }

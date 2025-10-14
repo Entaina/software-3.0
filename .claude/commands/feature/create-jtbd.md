@@ -4,42 +4,48 @@ Generate comprehensive Job-to-be-Done analysis for product features within the m
 
 **Usage**: `/project:create-jtbd [feature-name]`
 
+## Auto-Loaded Project Context:
+@.claude/commands/feature/_state-management.md
+
 ## Implementation
 
 Execute JTBD analysis for the specified feature or current active feature. The directory path should be already created using the create-feature command. This folder might or might not include a feature.md already. If it exists, this can be updated by this command.
 
 User provided feature context: "$ARGUMENTS"
 
-## Step 1: Prerequisites and Setup
+## Step 1: Load Current State and Validate Prerequisites
+
+### Load State (Use State Management Protocol)
+1. Read `docs/product-development/current-feature` file to get active feature name
+2. Read `docs/product-development/.feature-state.json` for feature metadata
+3. Validate current feature is set and active
+4. If current_feature is empty:
+   - Error: "No current feature set"
+   - Guidance: "Run /feature-switch [name] to set active feature"
+   - List available features and exit
+
+### Determine Feature Paths
+5. Once feature name is confirmed, construct paths:
+   - Feature directory: `docs/product-development/features/active/[feature-name]/`
+   - feature.md: `docs/product-development/features/active/[feature-name]/feature.md`
+   - JTBD.md: `docs/product-development/features/active/[feature-name]/JTBD.md` (will be created)
 
 ### Required Resources
-1. **Read product context**: `docs/product-development/resources/product.md`
-2. **Read JTBD template**: `docs/product-development/resources/JTBD-template.md`
-3. **Understand current product**: Use product.md to understand Brainsome's vision, users, and positioning
+6. **Read product context**: `docs/product-development/resources/product.md`
+7. **Read JTBD template**: `docs/product-development/resources/JTBD-template.md`
+   - If template missing: Warn user but continue with inline template
+8. **Read feature.md**: For original feature request context
+
+### Prerequisite Validation
+9. Check that feature.md exists (recommended):
+   - If missing: Warn "feature.md not found. Consider documenting feature first."
+   - Allow proceeding but note this in JTBD
 
 ### Parse Feature Request
 Analyze the user's input to determine:
-- **Feature name**: Extract or create a descriptive kebab-case name
 - **Feature scope**: Understand what functionality is being requested
 - **User context**: Identify who would use this feature
-
-### Determine Current Feature Directory
-Read the current feature name from the already created feature directory:
-
-1. **Read current feature**: Check `docs/product-development/current-feature` file for the active feature name
-2. **Validate feature directory**: Ensure the feature directory exists in `docs/product-development/features/active/[feature-name]/`
-3. **Use existing directory**: The directory should already be created by the create-feature command
-
-```
-docs/product-development/features/active/[feature-name]/
-├── feature.md          # Original feature idea/request
-├── JTBD.md            # This document (Jobs to be Done)
-├── PRD.md             # Product Requirements (created later)
-├── plan.md            # Technical implementation plan (created later)
-└── plan-organized.md  # Organized implementation plan (created later)
-```
-
-**Important**: Use the feature name from `current-feature` file to construct the correct directory path.
+- **User problems**: What pain points this addresses
 
 ## Step 2: Research and Context Gathering
 
@@ -114,6 +120,36 @@ Before finalizing the JTBD:
 1. **Save JTBD analysis** to `docs/product-development/features/active/[feature-name]/JTBD.md`
 2. **Use template structure** but populate with feature-specific content
 3. **Include cross-references** to product.md where relevant
+
+### Update Feature State (Use State Management Protocol)
+4. Load current `.feature-state.json`
+5. Update the feature's state:
+   ```
+   state.features[current_feature].workflow.stages_completed += ["jtbd"]
+   state.features[current_feature].workflow.current_stage = "design"
+   state.features[current_feature].workflow.next_recommended_command = "/create-prd"
+   state.features[current_feature].documents.jtbd_md = {
+     "exists": true,
+     "last_modified": current_date
+   }
+   state.features[current_feature].updated_at = current_date
+   ```
+6. Write updated state to `.feature-state.json`
+
+### Display Progress (Use State Management Protocol)
+7. Show progress visualization:
+   ```
+   Feature: [feature-name]
+   Status: active
+   Progress: [███░░░░░░░] 30% (2/5 stages)
+
+   Workflow Stage: Design
+   ✓ Definition (feature.md)
+   ✓ Design - JTBD Analysis (JTBD.md)
+   ▶ Design - Product Requirements (next)
+
+   Next Recommended: /create-prd
+   ```
 
 ### Next Steps Preparation
 The completed JTBD will be used by:

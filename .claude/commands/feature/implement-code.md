@@ -6,6 +6,7 @@
 @/CLAUDE.md
 @/docs/ai-context/project-structure.md
 @/docs/ai-context/docs-overview.md
+@.claude/commands/feature/_state-management.md
 
 ## Command Overview
 
@@ -13,25 +14,39 @@ You are an experienced Software Engineer tasked with building a new feature. You
 
 User provided implementation context: "$ARGUMENTS"
 
-## Step 1: Prerequisites and Context Loading
+## Step 1: Load Current State and Validate Context
 
-### Required Input Documents
-1. **Product context**: `docs/product-development/resources/product.md`
-2. **JTBD analysis**: `docs/product-development/current-feature/JTBD.md`
-3. **PRD requirements**: `docs/product-development/current-feature/PRD.md`
-4. **Organized Implementation Plan**: `docs/product-development/current-feature/plan-organized.md`
+### Load State (Use State Management Protocol)
+1. Read `docs/product-development/current-feature` file to get active feature name
+2. Read `docs/product-development/.feature-state.json` for feature metadata
+3. Validate current feature is set and active
+4. If current_feature is empty:
+   - Error: "No current feature set"
+   - Guidance: "Run /feature-switch [name] to set active feature"
+   - List available features and exit
+
+### Determine Feature Paths
+5. Once feature name is confirmed, construct paths:
+   - Feature directory: `docs/product-development/features/active/[feature-name]/`
+   - JTBD: `docs/product-development/features/active/[feature-name]/JTBD.md`
+   - PRD: `docs/product-development/features/active/[feature-name]/PRD.md`
+   - Plan organized: `docs/product-development/features/active/[feature-name]/plan-organized.md`
 
 ### Validate Prerequisites
-- **Confirm plan-organized.md exists**: If missing, inform user to run `/organize-plan` first
-- **Read organized implementation plan**: Identify next uncompleted task
-- **Understand feature context**: Use JTBD and PRD for user workflow understanding
-- **Load Rails architecture context**: Use auto-loaded files for implementation patterns
+6. **Required documents** (must exist):
+   - `plan-organized.md`: If missing, inform user to run `/organize-plan` first
+
+7. **Recommended documents** (should exist):
+   - `PRD.md`: Warn if missing, suggest running `/create-prd`
+   - `JTBD.md`: Warn if missing, suggest running `/create-jtbd`
 
 ### Error Handling for Missing Prerequisites
 If any required documents are missing:
-- **Organized plan missing**: "Please run `/organize-plan` first to structure implementation tasks"
-- **PRD missing**: "Please run `/create-prd` first to define product requirements"
-- **Context missing**: "Please ensure complete product development documentation exists"
+- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
+- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
+- **Organized plan missing**: "plan-organized.md not found. Run: /organize-plan first"
+- **PRD recommended**: "PRD.md not found (recommended). Consider: /create-prd"
+- **Context incomplete**: Display feature status and suggest completing previous stages
 
 ## Step 2: Identify Next Implementation Task
 
@@ -188,10 +203,32 @@ Before marking task complete:
 ## Step 6: Progress Tracking and Documentation
 
 ### Update Implementation Plan
-1. **Mark current task as completed**: Update checkbox in plan-organized.md
+1. **Mark current task as completed**: Update checkbox in plan-organized.md from [ ] to [x]
 2. **Add implementation notes**: Include any important decisions or deviations
 3. **Update dependencies**: Mark any downstream tasks as ready if applicable
 4. **Document issues**: Note any blockers or issues encountered
+
+### Update Feature State (Use State Management Protocol)
+5. Load current `.feature-state.json`
+6. Update the feature's state:
+   ```
+   state.features[current_feature].workflow.current_stage = "development"
+   state.features[current_feature].implementation.completed_tasks += 1
+   state.features[current_feature].implementation.last_implementation = current_timestamp
+   state.features[current_feature].documents.plan_organized_md.last_modified = current_date
+   state.features[current_feature].updated_at = current_date
+   ```
+7. Check if all tasks are complete:
+   - If `completed_tasks == total_tasks`:
+     ```
+     state.features[current_feature].workflow.current_stage = "complete"
+     state.features[current_feature].workflow.next_recommended_command = "/feature-archive " + feature_name
+     ```
+   - Else:
+     ```
+     state.features[current_feature].workflow.next_recommended_command = "/implement-code"
+     ```
+8. Write updated state to `.feature-state.json`
 
 ### Documentation Updates
 If implementation introduces new patterns:

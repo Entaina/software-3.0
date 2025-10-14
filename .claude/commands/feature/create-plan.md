@@ -6,6 +6,7 @@
 @/CLAUDE.md
 @/docs/ai-context/project-structure.md
 @/docs/ai-context/docs-overview.md
+@.claude/commands/feature/_state-management.md
 
 ## Command Overview
 
@@ -13,28 +14,41 @@ You are a Technical Lead tasked with creating a comprehensive technical implemen
 
 User provided feature context: "$ARGUMENTS"
 
-## Step 1: Prerequisites and Context Gathering
+## Step 1: Load Current State and Validate Prerequisites
 
-### Required Input Documents
-1. **Product context**: `docs/product-development/resources/product.md`
-2. **Current feature**: Read `docs/product-development/current-feature` file for active feature name
-3. **JTBD analysis**: `docs/product-development/features/active/[feature-name]/JTBD.md`
-4. **PRD requirements**: `docs/product-development/features/active/[feature-name]/PRD.md`
-5. **Feature background**: `docs/product-development/features/active/[feature-name]/feature.md`
+### Load State (Use State Management Protocol)
+1. Read `docs/product-development/current-feature` file to get active feature name
+2. Read `docs/product-development/.feature-state.json` for feature metadata
+3. Validate current feature is set and active
+4. If current_feature is empty:
+   - Error: "No current feature set"
+   - Guidance: "Run /feature-switch [name] to set active feature"
+   - List available features and exit
 
-### Validate Prerequisites
-- **Check current feature**: If `current-feature` file is missing/empty, prompt user to specify feature
-- **Confirm PRD exists**: If missing, inform user to run `/create-prd` first
-- **Read product requirements**: Extract technical requirements from PRD
-- **Understand user context**: Reference JTBD for user workflow understanding
-- **Load project context**: Use auto-loaded files for Rails architecture understanding
+### Determine Feature Paths
+5. Once feature name is confirmed, construct paths:
+   - Feature directory: `docs/product-development/features/active/[feature-name]/`
+   - JTBD.md: `docs/product-development/features/active/[feature-name]/JTBD.md`
+   - PRD.md: `docs/product-development/features/active/[feature-name]/PRD.md`
+   - plan.md: `docs/product-development/features/active/[feature-name]/plan.md` (will be created)
+
+### Required Resources
+6. **Product context**: `docs/product-development/resources/product.md`
+
+### Prerequisite Validation
+7. **Required documents** (must exist):
+   - PRD.md: If missing, inform user to run `/create-prd` first
+
+8. **Recommended documents** (should exist):
+   - JTBD.md: Warn if missing, suggest for better context
+   - feature.md: Warn if missing
 
 ### Error Handling for Missing Prerequisites
 If any required documents are missing:
-- **Current feature not set**: "Please specify the current feature name or update the current-feature file"
-- **PRD missing**: "Please run `/create-prd` first to define product requirements"
-- **JTBD missing**: "Please run `/create-jtbd` first to understand user needs"
-- **Feature.md missing**: "Please ensure feature documentation exists in features/active/[feature-name] directory"
+- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
+- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
+- **PRD missing**: "PRD.md not found. Run: /create-prd first (required for technical planning)"
+- **Context incomplete**: Display feature status and suggest completing PRD stage
 
 ## Step 2: Enhanced Context Analysis with Full-Context Integration
 
@@ -272,7 +286,38 @@ Ensure the plan addresses:
 1. **Save technical plan** to `docs/product-development/features/active/[feature-name]/plan.md`
 2. **Reference PRD requirements** throughout the implementation plan
 3. **Include specific file paths** and Rails conventions
-4. **Update feature.md** to mark technical planning as completed
+
+### Update Feature State (Use State Management Protocol)
+4. Load current `.feature-state.json`
+5. Update the feature's state:
+   ```
+   state.features[current_feature].workflow.stages_completed += ["plan"]
+   state.features[current_feature].workflow.current_stage = "planning"
+   state.features[current_feature].workflow.next_recommended_command = "/organize-plan"
+   state.features[current_feature].documents.plan_md = {
+     "exists": true,
+     "last_modified": current_date
+   }
+   state.features[current_feature].updated_at = current_date
+   ```
+6. Write updated state to `.feature-state.json`
+
+### Display Progress (Use State Management Protocol)
+7. Show progress visualization:
+   ```
+   Feature: [feature-name]
+   Status: active
+   Progress: [███████░░░] 70% (3.5/5 stages)
+
+   Workflow Stage: Planning
+   ✓ Definition (feature.md)
+   ✓ Design - JTBD Analysis (JTBD.md)
+   ✓ Design - Product Requirements (PRD.md)
+   ✓ Planning - Technical Plan (plan.md)
+   ▶ Planning - Organize Plan (next)
+
+   Next Recommended: /organize-plan
+   ```
 
 ### Preparation for Next Steps
 The completed technical plan will be used by:

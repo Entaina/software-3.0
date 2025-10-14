@@ -180,6 +180,24 @@ Start tracking changes in your project.
 /contexts:init
 ```
 
+### Application Initialization (Multi-Agent Collaboration)
+
+Initialize a new application with all specialized agents working together:
+
+```bash
+# Initialize with collaborative multi-agent workflow
+/app:init "CRM system for managing sales leads with kanban board"
+
+# The system orchestrates 5 agents sequentially:
+# 1. Product Owner → JTBD analysis and lean PRD
+# 2. Design System Manager → Visual guidelines and design tokens
+# 3. Rails Architect → Database schema and architecture
+# 4. Tailwind Specialist → CSS configuration with design system
+# 5. Hotwire Specialist → Interactive features planning
+
+# Output: Complete initialization plan with checklist
+```
+
 ### Using Specialized Agents
 
 The specialized agents are automatically available and can be invoked directly in your conversations:
@@ -241,6 +259,12 @@ The specialized agents are automatically available and can be invoked directly i
 | `/contexts:save [description]` | Save current development context |
 | `/contexts:load [name]` | Load saved context |
 | `/contexts:update [name]` | Update existing context |
+
+### Application Commands
+
+| Command | Description |
+|---------|-------------|
+| `/app:init <description>` | Initialize new app with multi-agent collaboration |
 
 ### Utility Commands
 
@@ -408,6 +432,7 @@ Custom commands defined as markdown files in `.claude/commands/`:
 - **VCS commands** (`vcs/`) - 8 commands for version control
 - **Feature commands** (`feature/`) - 12 commands for feature lifecycle management
 - **Context commands** (`contexts/`) - 4 commands for context management
+- **App commands** (`app/`) - 1 command for multi-agent app initialization
 - **Utility commands** - Command manager for creating/editing commands
 
 #### 2. Specialized Agents
@@ -432,6 +457,8 @@ Persistent state tracking for features and contexts:
 │   ├── vcs/           # 8 VCS commands
 │   ├── feature/       # 12 feature management commands
 │   ├── contexts/      # 4 context commands
+│   ├── app/           # 1 multi-agent initialization command
+│   │   └── init.md    # Collaborative app setup
 │   └── commands-manager.md
 ├── agents/
 │   ├── rails-architect.md        # 55,278 lines

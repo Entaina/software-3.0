@@ -1,166 +1,166 @@
-# CRUD Claude Commands - Dynamic Command Management
+# CRUD Comandos Claude - Gestión Dinámica de Comandos
 
-Manage Claude Code custom commands through Create, Read, Update, and Delete operations.
+Gestiona comandos personalizados de Claude Code mediante operaciones de Crear, Leer, Actualizar y Eliminar.
 
-**Usage**: `/project:commands-manager <operation> <command-name> [content]`
+**Uso**: `/project:commands-manager <operación> <nombre-comando> [contenido]`
 
-## Operations
+## Operaciones
 
 ### CREATE
-Create a new Claude command from user instructions.
+Crea un nuevo comando de Claude a partir de instrucciones del usuario.
 
-**Usage**: `/project:commands-manager create <command-name> "description of what the command should do"`
+**Uso**: `/project:commands-manager create <nombre-comando> "descripción de lo que debe hacer el comando"`
 
-**Example**:
+**Ejemplo**:
 ```bash
-/project:commands-manager create git-flow "Create a command that automates git flow operations like creating feature branches, PRs, and merging"
+/project:commands-manager create git-flow "Crear un comando que automatice las operaciones de git flow como crear ramas de características, PRs y fusiones"
 ```
 
 ### READ
-Display the content of an existing Claude command.
+Muestra el contenido de un comando de Claude existente.
 
-**Usage**: `/project:commands-manager read <command-name>`
+**Uso**: `/project:commands-manager read <nombre-comando>`
 
-**Example**:
+**Ejemplo**:
 ```bash
 /project:commands-manager read multi-mind
 ```
 
 ### UPDATE
-Modify an existing Claude command based on user instructions.
+Modifica un comando de Claude existente según las instrucciones del usuario.
 
-**Usage**: `/project:commands-manager update <command-name> "description of changes"`
+**Uso**: `/project:commands-manager update <nombre-comando> "descripción de los cambios"`
 
-**Example**:
+**Ejemplo**:
 ```bash
-/project:commands-manager update page "Add support for JSON export format and include timestamp in filenames"
+/project:commands-manager update page "Añadir soporte para formato de exportación JSON e incluir marca temporal en los nombres de archivo"
 ```
 
 ### DELETE
-Remove a Claude command from the system.
+Elimina un comando de Claude del sistema.
 
-**Usage**: `/project:commands-manager delete <command-name>`
+**Uso**: `/project:commands-manager delete <nombre-comando>`
 
-**Example**:
+**Ejemplo**:
 ```bash
 /project:commands-manager delete old-command
 ```
 
 ### LIST
-Show all available Claude commands.
+Muestra todos los comandos de Claude disponibles.
 
-**Usage**: `/project:commands-manager list`
+**Uso**: `/project:commands-manager list`
 
-## Implementation Instructions
+## Instrucciones de Implementación
 
-**IMPORTANT: Before executing any operation, always fetch the official Claude Code slash commands documentation:**
+**IMPORTANTE: Antes de ejecutar cualquier operación, consulta siempre la documentación oficial de comandos slash de Claude Code:**
 
-1. Use WebFetch to read: `https://docs.claude.com/en/docs/claude-code/slash-commands`
-2. Review the documentation to ensure compliance with:
-   - Command structure and syntax requirements
-   - Frontmatter options and metadata
-   - Argument placeholder patterns (`$1`, `$2`, `$ARGUMENTS`)
-   - Best practices for command creation
-   - Permissions and tool configurations
+1. Usa WebFetch para leer: `https://docs.claude.com/en/docs/claude-code/slash-commands`
+2. Revisa la documentación para garantizar el cumplimiento de:
+   - Requisitos de estructura y sintaxis de comandos
+   - Opciones de frontmatter y metadatos
+   - Patrones de marcadores de posición de argumentos (`$1`, `$2`, `$ARGUMENTS`)
+   - Buenas prácticas para la creación de comandos
+   - Configuraciones de permisos y herramientas
 
-Execute the requested CRUD operation:
+Ejecuta la operación CRUD solicitada:
 
-### For CREATE:
-1. Parse the command name and description
-2. Generate appropriate command content based on description
-3. Create the command file at `.claude/commands/{command-name}.md`
-4. Follow the standard command template:
+### Para CREATE:
+1. Analiza el nombre del comando y la descripción
+2. Genera el contenido del comando apropiado basándose en la descripción
+3. Crea el archivo de comando en `.claude/commands/{nombre-comando}.md`
+4. Sigue la plantilla estándar de comando:
    ```markdown
-   # Command Title
+   # Título del Comando
 
 
-   Brief description of the command.
+   Breve descripción del comando.
 
-   **Usage**: `/project:{command-name} $ARGUMENTS`
+   **Uso**: `/project:{nombre-comando} $ARGUMENTS`
 
-   ## Implementation
+   ## Implementación
 
-   [Detailed instructions for Claude]
+   [Instrucciones detalladas para Claude]
 
-   ## Examples
+   ## Ejemplos
 
-   [Usage examples]
+   [Ejemplos de uso]
    ```
-5. Confirm creation with file path
+5. Confirma la creación con la ruta del archivo
 
-### For READ:
-1. Check if command exists at `.claude/commands/{command-name}.md`
-2. Read and display the full content
-3. Show usage examples if present
+### Para READ:
+1. Comprueba si el comando existe en `.claude/commands/{nombre-comando}.md`
+2. Lee y muestra el contenido completo
+3. Muestra ejemplos de uso si están presentes
 
-### For UPDATE:
-1. Read existing command content
-2. Apply requested modifications based on user description
-3. Preserve command structure while updating functionality
-4. Save updated content
-5. Show before/after summary of changes
+### Para UPDATE:
+1. Lee el contenido del comando existente
+2. Aplica las modificaciones solicitadas según la descripción del usuario
+3. Conserva la estructura del comando mientras actualizas la funcionalidad
+4. Guarda el contenido actualizado
+5. Muestra un resumen antes/después de los cambios
 
-### For DELETE:
-1. Confirm command exists
-2. Display command content for reference
-3. Delete the file
-4. Confirm deletion
+### Para DELETE:
+1. Confirma que el comando existe
+2. Muestra el contenido del comando como referencia
+3. Elimina el archivo
+4. Confirma la eliminación
 
-### For LIST:
-1. List all `.md` files in `.claude/commands/`
-2. Extract and display:
-    - Command name
-    - Brief description (first paragraph)
-    - Usage syntax
+### Para LIST:
+1. Lista todos los archivos `.md` en `.claude/commands/`
+2. Extrae y muestra:
+    - Nombre del comando
+    - Descripción breve (primer párrafo)
+    - Sintaxis de uso
 
-## Command Synchronization
+## Sincronización de Comandos
 
-After any CREATE, UPDATE, or DELETE operation:
+Después de cualquier operación CREATE, UPDATE o DELETE:
 
-1. **Agent-guides repository reference**:
-    - Repository: `https://github.com/tokenbender/agent-guides`
-    - Commands directory: `/claude-commands/`
-    - Scripts directory: `/scripts/`
+1. **Referencia al repositorio agent-guides**:
+    - Repositorio: `https://github.com/tokenbender/agent-guides`
+    - Directorio de comandos: `/claude-commands/`
+    - Directorio de scripts: `/scripts/`
 
-2. **Sync instructions**:
-    - Inform user to manually sync changes to the agent-guides repository
-    - Provide the command content for easy copy/paste
-    - Suggest creating a PR if appropriate
+2. **Instrucciones de sincronización**:
+    - Informar al usuario para sincronizar manualmente los cambios al repositorio agent-guides
+    - Proporcionar el contenido del comando para copiar/pegar fácilmente
+    - Sugerir crear un PR si es apropiado
 
-3. **Reference examples**:
-    - View existing commands: https://github.com/tokenbender/agent-guides/tree/main/claude-commands
-    - Extract session script: https://github.com/tokenbender/agent-guides/blob/main/scripts/extract-claude-session.py
-    - Repository README: https://github.com/tokenbender/agent-guides/blob/main/README.md
+3. **Ejemplos de referencia**:
+    - Ver comandos existentes: https://github.com/tokenbender/agent-guides/tree/main/claude-commands
+    - Script de extracción de sesión: https://github.com/tokenbender/agent-guides/blob/main/scripts/extract-claude-session.py
+    - README del repositorio: https://github.com/tokenbender/agent-guides/blob/main/README.md
 
-## Error Handling
+## Gestión de Errores
 
-- **Command not found**: Suggest similar commands using fuzzy matching
-- **Invalid operation**: Show valid operations (create, read, update, delete, list)
-- **Permission errors**: Inform user about file access issues
-- **Git errors**: Report but don't fail the primary operation
+- **Comando no encontrado**: Sugerir comandos similares usando coincidencia difusa
+- **Operación inválida**: Mostrar operaciones válidas (create, read, update, delete, list)
+- **Errores de permisos**: Informar al usuario sobre problemas de acceso a archivos
+- **Errores de Git**: Reportar pero no fallar la operación principal
 
-## Success Criteria
+## Criterios de Éxito
 
-- Command operations complete successfully
-- Files are properly formatted and functional
-- Changes are synchronized to agent-guides if available
-- User receives clear confirmation of actions taken
-- Git commits are descriptive and accurate
+- Las operaciones de comandos se completan satisfactoriamente
+- Los archivos están correctamente formateados y son funcionales
+- Los cambios se sincronizan con agent-guides si está disponible
+- El usuario recibe una confirmación clara de las acciones realizadas
+- Los commits de Git son descriptivos y precisos
 
-## Examples of Generated Commands
+## Ejemplos de Comandos Generados
 
-When creating commands, consider these patterns:
+Al crear comandos, considera estos patrones:
 
-1. **Analysis commands**: Like analyze-function, multi-mind
-2. **Workflow commands**: Like page, search-prompts
-3. **Automation commands**: Git operations, testing, deployment
-4. **Documentation commands**: Generate docs, update READMEs
+1. **Comandos de análisis**: Como analyze-function, multi-mind
+2. **Comandos de flujo de trabajo**: Como page, search-prompts
+3. **Comandos de automatización**: Operaciones Git, pruebas, despliegue
+4. **Comandos de documentación**: Generar documentación, actualizar READMEs
 
-Ensure generated commands are:
-- Reusable across projects
-- Well-documented with examples
-- Follow established patterns
-- Include error handling
-- Provide clear output
+Asegúrate de que los comandos generados sean:
+- Reutilizables entre proyectos
+- Bien documentados con ejemplos
+- Sigan patrones establecidos
+- Incluyan gestión de errores
+- Proporcionen salidas claras
 
-Execute the requested CRUD operation now.
+Ejecuta ahora la operación CRUD solicitada.

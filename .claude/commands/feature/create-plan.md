@@ -1,356 +1,271 @@
-# /create-plan
+---
+argument-hint: [contexto-adicional]
+description: Crear plan técnico de implementación para la feature actual
+---
 
-*Creates a comprehensive technical implementation plan enhanced with full codebase context analysis.*
+# Crear Plan Técnico
 
-## Auto-Loaded Project Context:
-@/CLAUDE.md
-@/docs/ai-context/project-structure.md
-@/docs/ai-context/docs-overview.md
-@.claude/commands/feature/_state-management.md
+Genera plan técnico de implementación orquestando agentes especializados y usando Feature Flow Manager.
 
-## Command Overview
+**Uso**: `/create-plan [contexto-adicional]`
 
-You are a Technical Lead tasked with creating a comprehensive technical implementation plan for a new feature. Your goal is to translate product requirements into specific, actionable technical tasks while leveraging deep codebase understanding.
+## Qué Hace Este Comando
 
-User provided feature context: "$ARGUMENTS"
+Orquesta múltiples agentes especializados para crear un plan técnico completo:
+1. **En paralelo**: Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager
+2. **Después**: Sintetiza resultados en plan técnico
+3. **Finalmente**: Feature Flow Manager valida y actualiza el estado
 
-## Step 1: Load Current State and Validate Prerequisites
+## Implementación
 
-### Load State (Use State Management Protocol)
-1. Read `docs/product-development/current-feature` file to get active feature name
-2. Read `docs/product-development/.feature-state.json` for feature metadata
-3. Validate current feature is set and active
-4. If current_feature is empty:
-   - Error: "No current feature set"
-   - Guidance: "Run /feature-switch [name] to set active feature"
-   - List available features and exit
+**Paso 1: Analizar PRD y Determinar Agentes Necesarios**
 
-### Determine Feature Paths
-5. Once feature name is confirmed, construct paths:
-   - Feature directory: `docs/product-development/features/active/[feature-name]/`
-   - JTBD.md: `docs/product-development/features/active/[feature-name]/JTBD.md`
-   - PRD.md: `docs/product-development/features/active/[feature-name]/PRD.md`
-   - plan.md: `docs/product-development/features/active/[feature-name]/plan.md` (will be created)
+Lee el PRD de la feature actual en `.contexts/.product/features/active/[feature-actual]/PRD.md` y determina qué agentes especializados se necesitan:
 
-### Required Resources
-6. **Product context**: `docs/product-development/resources/product.md`
+- **Rails Architect**: Siempre necesario para arquitectura backend
+- **Tailwind Specialist**: Si hay UI/frontend nuevo
+- **Hotwire Specialist**: Si hay interactividad (formularios, modales, actualizaciones en tiempo real)
+- **Design System Manager**: Si hay componentes nuevos de UI
 
-### Prerequisite Validation
-7. **Required documents** (must exist):
-   - PRD.md: If missing, inform user to run `/create-prd` first
+**Paso 2: Lanzar Agentes Especializados EN PARALELO**
 
-8. **Recommended documents** (should exist):
-   - JTBD.md: Warn if missing, suggest for better context
-   - feature.md: Warn if missing
+Lanza todos los agentes necesarios EN PARALELO en un solo mensaje con múltiples invocaciones Task.
 
-### Error Handling for Missing Prerequisites
-If any required documents are missing:
-- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
-- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
-- **PRD missing**: "PRD.md not found. Run: /create-prd first (required for technical planning)"
-- **Context incomplete**: Display feature status and suggest completing PRD stage
+**IMPORTANTE**: Usa un solo mensaje con múltiples bloques <invoke name="Task"> para ejecutar en paralelo.
 
-## Step 2: Enhanced Context Analysis with Full-Context Integration
-
-### Intelligent Analysis Strategy Decision
-
-Think deeply about the optimal technical analysis approach based on the PRD requirements and auto-loaded project context. Based on the feature requirements from the PRD AND the auto-loaded project context, intelligently decide the optimal approach:
-
-#### Strategy Options:
-
-**Direct Planning** (0-1 sub-agents):
-- Simple features with clear Rails patterns (CRUD operations, basic integrations)
-- Features with minimal cross-system dependencies
-- Standard patterns already well-established in the codebase
-- Low architectural complexity and risk
-
-**Focused Analysis** (2-3 sub-agents):
-- Moderate complexity features affecting multiple Rails components
-- Features requiring new integrations or extending existing patterns
-- Changes that span 2-3 architectural areas (frontend, backend, external services)
-- Novel implementations that need careful architectural consideration
-
-**Comprehensive Analysis** (3+ sub-agents):
-- Complex features affecting multiple system areas and integrations
-- Major architectural changes or new system capabilities
-- Features requiring extensive Rails ecosystem integration
-- High-risk implementations needing thorough dependency analysis
-
-### For Sub-Agent Approaches: Autonomous Architecture Analysis
-
-You have complete autonomy to design sub-agents based on the specific feature requirements. Consider these investigation areas and design custom agents to cover what's most relevant:
-
-**Core Investigation Areas to Consider:**
-- **Rails Architecture Analysis**: How this fits with existing Rails 8.0 + Jumpstart Pro patterns
-- **Multi-Tenant Implementation**: Account isolation, user roles, data segregation strategies
-- **Integration Points Mapping**: External services, APIs, webhooks, existing system connections
-- **Database Design Analysis**: Schema changes, migrations, performance implications
-- **AI/LLM Integration Planning**: LangChain.rb usage, content processing pipeline integration
-- **Frontend Architecture Planning**: Hotwire/Stimulus implementation, UI component design
-- **Background Processing Design**: Solid Queue integration, async operation patterns
-- **Security and Performance Analysis**: Authentication, authorization, scalability considerations
-
-**Autonomous Sub-Agent Design Principles:**
-- **Custom Specialization**: Define agents based on the specific feature's technical complexity
-- **Flexible Agent Count**: Use as many agents as needed - scale based on actual architectural scope
-- **Adaptive Coverage**: Ensure all critical technical aspects are covered without unnecessary overlap
-- **Implementation-Focused Analysis**: Prioritize investigation that directly supports actionable technical planning
-
-**Sub-Agent Task Template:**
+**Tarea para rails-architect**:
 ```
-Task: "Analyze [SPECIFIC_TECHNICAL_AREA] for comprehensive technical planning of [FEATURE] based on PRD requirements: [PRD_SUMMARY]"
+Analiza arquitectura Rails para la feature actual.
 
-Standard Investigation Workflow:
-1. Read /CLAUDE.md - **CRITICAL:** AI instructions, coding standards, and development protocols
-2. Read /docs/ai-context/project-structure.md - **CRITICAL:** Technology stack and architecture patterns
-3. Read /docs/ai-context/docs-overview.md - **CRITICAL:** Documentation architecture understanding
-4. Read the PRD requirements to understand technical scope
-5. [CUSTOM_ANALYSIS_STEPS] - Investigate the specific technical area thoroughly
-6. Return actionable findings that support comprehensive technical planning
+Contexto:
+- Lee PRD en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Contexto adicional del usuario: $ARGUMENTS
 
-Return comprehensive findings addressing this technical area for implementation planning."
+Proporciona recomendaciones técnicas detalladas cubriendo:
+- Decisiones arquitectónicas (modelos, servicios, controladores)
+- Esquema de base de datos y migraciones
+- Patrones Rails a seguir (Service Objects, concerns, etc.)
+- Consideraciones multi-tenancy y aislamiento de datos
+- Jobs en background si necesario (Solid Queue)
+- Endpoints API y rutas REST
+- Dependencias internas y externas
+- Estrategia de testing (RSpec)
+- Evaluación de riesgos técnicos
+
+Devuelve un informe detallado con todas las decisiones arquitectónicas recomendadas.
 ```
 
-**CRITICAL: When launching sub-agents, always use parallel execution with a single message containing multiple Task tool invocations.**
+**Tarea para tailwind-specialist** (si UI necesario):
+```
+Analiza necesidades de UI/frontend para la feature actual.
 
-## Step 3: Synthesize Technical Architecture
+Contexto:
+- Lee PRD en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Contexto adicional del usuario: $ARGUMENTS
 
-### For Sub-Agent Approaches:
-Think deeply about integrating findings from all sub-agent investigations for optimal technical implementation planning. Combine findings from all agents to create comprehensive technical architecture:
+Proporciona especificaciones de UI detalladas cubriendo:
+- Componentes UI necesarios (botones, formularios, cards, etc.)
+- Clases Tailwind CSS específicas para cada componente
+- Layout y estructura responsive (mobile-first)
+- Estados visuales (hover, focus, active, disabled, loading)
+- Animaciones y transiciones
+- Consideraciones de accesibilidad (ARIA, contraste, navegación)
+- Integración con sistema de diseño existente
 
-**Integration Analysis:**
-- **Rails Architecture**: Use Architecture Analysis Agent's patterns and conventions
-- **Multi-Tenancy**: Apply Multi-Tenant Agent's isolation and permission strategies
-- **Integrations**: Implement Integration Points Agent's external service connections
-- **Data Design**: Execute Database Analysis Agent's schema and migration plans
-- **AI/LLM Systems**: Leverage AI Integration Agent's LangChain.rb patterns
-- **Frontend Implementation**: Apply Frontend Agent's Hotwire/Stimulus designs
-- **Background Processing**: Implement Async Processing Agent's job queue strategies
+Devuelve un informe detallado con todas las especificaciones de UI.
+```
 
-**Technical Decision Framework:**
-Based on synthesized analysis, determine:
-- **Architecture patterns**: Which Rails patterns and conventions to follow
-- **Implementation approach**: Phased rollout vs. complete implementation
-- **Integration strategy**: How to connect with existing systems
-- **Data modeling**: Database changes and migration approach
-- **Performance considerations**: Scalability and optimization requirements
+**Tarea para hotwire-specialist** (si interactividad necesaria):
+```
+Analiza interactividad y actualizaciones en tiempo real para la feature actual.
 
-### For Direct Planning:
-Use the PRD requirements and auto-loaded project context to create technical architecture directly.
+Contexto:
+- Lee PRD en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Contexto adicional del usuario: $ARGUMENTS
 
-## Step 4: Create Comprehensive Technical Plan
+Proporciona especificaciones de interactividad detalladas cubriendo:
+- Turbo Frames para actualizaciones parciales de página
+- Turbo Streams para actualizaciones en tiempo real
+- Stimulus controllers necesarios con actions y targets
+- Estrategia de broadcasting con ActionCable (si tiempo real)
+- Validaciones y feedback instantáneo al usuario
+- Manejo de errores y estados de carga
+- Optimistic UI updates donde corresponda
 
-### Technical Implementation Plan Structure
+Devuelve un informe detallado con todas las especificaciones de interactividad.
+```
+
+**Tarea para design-system-manager** (si componentes UI nuevos):
+```
+Consulta sistema de diseño para la feature actual.
+
+Contexto:
+- Lee PRD en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Lee sistema de diseño en .contexts/design-system/
+- Contexto adicional del usuario: $ARGUMENTS
+
+Proporciona especificaciones del sistema de diseño cubriendo:
+- Componentes existentes que se pueden reutilizar
+- Especificaciones exactas de componentes (colores, espaciado, tipografía)
+- Clases Tailwind CSS del sistema de diseño
+- Patrones de UI establecidos en el proyecto
+- Gaps: componentes nuevos necesarios que no existen
+- Recomendaciones de componentes a crear
+
+Devuelve un informe detallado con componentes reutilizables y necesarios.
+```
+
+**Paso 3: Esperar Resultados de Agentes**
+
+Los agentes trabajarán en paralelo y devolverán sus hallazgos. Espera a que todos completen antes de continuar.
+
+**Paso 4: Sintetizar Plan Técnico Completo**
+
+Una vez que todos los agentes han devuelto sus informes, sintetiza un plan técnico completo integrando todos los hallazgos:
+
+Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan.md` con la siguiente estructura:
 
 ```markdown
-# [Feature Name] - Technical Implementation Plan
+# [Nombre Feature] - Plan Técnico de Implementación
 
-## Feature Summary
-[Brief overview connecting PRD requirements to technical approach]
+## Resumen de la Feature
+[Breve descripción conectando requisitos PRD con enfoque técnico]
 
-## Architecture Overview
+## Visión General de Arquitectura
 
-### System Integration Points
-[How this feature integrates with existing Rails architecture]
+### Puntos de Integración del Sistema
+[Cómo se integra con arquitectura Rails existente - del rails-architect]
 
-### Multi-Tenant Considerations
-[Account isolation, user permissions, data segregation approach]
+### Consideraciones Multi-Tenant
+[Aislamiento de cuentas, permisos, segregación de datos - del rails-architect]
 
-### Technology Stack Usage
-[How this leverages Rails 8.0, Jumpstart Pro, and existing integrations]
+### Stack Tecnológico Utilizado
+[Rails 8.0, Jumpstart Pro, Hotwire, Tailwind, etc. - del rails-architect]
 
-## Key Technical Decisions
+## Decisiones Técnicas Clave
 
-### Framework and Pattern Choices
-[Service Actor patterns, resource processing integration, AI/LLM usage]
+### Framework y Elección de Patrones
+[Patrones Service Objects, concerns, decorators - del rails-architect]
 
-### Database Design
-[Schema changes, migrations, indexing, performance considerations]
+### Diseño de Base de Datos
+[Esquema, migraciones, índices, performance - del rails-architect]
 
-### Frontend Implementation
-[Hotwire/Stimulus patterns, UI components, user experience implementation]
+### Implementación Frontend
+[Componentes UI, Tailwind classes, responsive - del tailwind-specialist y design-system-manager]
 
-### Background Processing
-[Solid Queue integration, async operations, job scheduling]
+### Interactividad y Tiempo Real
+[Turbo Frames, Turbo Streams, Stimulus - del hotwire-specialist]
 
-### External Service Integration
-[API connections, OAuth flows, webhook handling]
+### Procesamiento en Background
+[Solid Queue jobs, async operations - del rails-architect]
 
-### Security Implementation
-[Authentication, authorization, data protection, compliance]
+### Integración de Servicios Externos
+[APIs, OAuth, webhooks - del rails-architect]
 
-## Dependencies & Assumptions
+### Implementación de Seguridad
+[Autenticación, autorización, protección de datos - del rails-architect]
 
-### Internal Dependencies
-[Existing Rails features, components, and services this depends on]
+## Dependencias y Asunciones
 
-### External Dependencies
-[Third-party services, APIs, libraries, infrastructure requirements]
+### Dependencias Internas
+[Features existentes, componentes, servicios]
 
-### Technical Assumptions
-[Assumptions about system capacity, user load, data volume]
+### Dependencias Externas
+[Servicios terceros, APIs, librerías, infraestructura]
 
-## Implementation Checklist
+### Asunciones Técnicas
+[Capacidad del sistema, carga de usuarios, volumen de datos]
 
-### Backend Implementation
-- [ ] [Specific Rails backend task with file references]
-- [ ] [Database migration and model changes]
-- [ ] [Service Actor implementation for business logic]
-- [ ] [API endpoint creation following Rails conventions]
-- [ ] [Background job implementation with Solid Queue]
-- [ ] [Integration with existing LLM/AI processing pipeline]
+## Checklist de Implementación
 
-### Frontend Implementation
-- [ ] [Hotwire/Stimulus controller creation]
-- [ ] [View template implementation with Rails helpers]
-- [ ] [TailwindCSS styling following design system]
-- [ ] [JavaScript interactions and real-time features]
-- [ ] [Mobile responsiveness and accessibility]
+### Implementación Backend
+- [ ] [Tarea específica con ruta de archivo - del rails-architect]
+- [ ] [Migración y modelo - del rails-architect]
+- [ ] [Service Object para lógica de negocio - del rails-architect]
+- [ ] [Endpoint API REST - del rails-architect]
+- [ ] [Job background Solid Queue - del rails-architect]
 
-### Integration Implementation
-- [ ] [External service OAuth/API integration]
-- [ ] [Webhook endpoint creation and processing]
-- [ ] [Email/notification system integration]
-- [ ] [Multi-channel support (web, Telegram, Discord)]
+### Implementación Frontend
+- [ ] [View template Rails - del tailwind-specialist]
+- [ ] [Componente UI con Tailwind - del tailwind-specialist y design-system-manager]
+- [ ] [Stimulus controller - del hotwire-specialist]
+- [ ] [Turbo Frame/Stream - del hotwire-specialist]
+- [ ] [Responsividad móvil - del tailwind-specialist]
 
-### Testing Implementation
-- [ ] [RSpec test suite creation following project patterns]
-- [ ] [Factory creation for test data]
-- [ ] [Integration test implementation]
-- [ ] [Multi-tenant test coverage]
-- [ ] [Security and permission testing]
+### Implementación Testing
+- [ ] [Test RSpec modelo - del rails-architect]
+- [ ] [Test RSpec servicio - del rails-architect]
+- [ ] [Test integración controller - del rails-architect]
+- [ ] [System test flujo completo - del rails-architect]
+- [ ] [Test multi-tenant - del rails-architect]
 
-### Documentation and Deployment
-- [ ] [Update relevant CLAUDE.md files in 3-tier system]
-- [ ] [API documentation updates]
-- [ ] [Environment variable configuration]
-- [ ] [Database migration deployment plan]
-- [ ] [Feature flag implementation if needed]
+### Documentación y Deployment
+- [ ] [Actualizar CLAUDE.md]
+- [ ] [Documentación API]
+- [ ] [Variables de entorno]
+- [ ] [Plan deployment migración]
 
-## Risk Assessment and Mitigation
+## Evaluación de Riesgos y Mitigación
 
-### Technical Risks
-[Potential implementation challenges and mitigation strategies]
+### Riesgos Técnicos
+[Desafíos potenciales y estrategias de mitigación - de todos los agentes]
 
-### Performance Risks
-[Scalability concerns and optimization approaches]
+### Riesgos de Rendimiento
+[Escalabilidad y optimización - del rails-architect]
 
-### Security Risks
-[Security considerations and protection strategies]
+### Riesgos de Seguridad
+[Consideraciones de seguridad - del rails-architect]
 
-### Integration Risks
-[External service dependencies and fallback plans]
+### Riesgos de Integración
+[Dependencias externas y planes de contingencia - del rails-architect]
 
-## Implementation Phases
+## Fases de Implementación
 
-### Phase 1: Core Foundation
-[Database, models, basic service implementation]
+### Fase 1: Fundación Core
+[Base de datos, modelos, servicios básicos]
 
-### Phase 2: Business Logic
-[Service Actor implementation, core feature functionality]
+### Fase 2: Lógica de Negocio
+[Service Objects, endpoints API, jobs]
 
-### Phase 3: User Interface
-[Frontend implementation, user experience]
+### Fase 3: Interfaz de Usuario
+[Views, componentes UI, interactividad]
 
-### Phase 4: Integration and Polish
-[External integrations, testing, documentation]
+### Fase 4: Integración y Pulido
+[Integraciones externas, testing, documentación]
 
 ---
 
-*This technical plan was created based on PRD requirements and comprehensive Rails architecture analysis.*
+*Plan técnico creado mediante análisis colaborativo de agentes especializados: Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager.*
 ```
 
-## Step 5: Technical Quality Assurance
+**Paso 5: Actualizar Estado con Feature Flow Manager**
 
-### Implementation Plan Quality Checklist
-- [ ] All PRD requirements are addressed with specific technical tasks
-- [ ] Rails architecture patterns are followed consistently
-- [ ] Multi-tenancy implications are properly handled
-- [ ] Integration points with existing systems are identified
-- [ ] Security and performance considerations are addressed
-- [ ] Implementation tasks are specific and actionable
-- [ ] Dependencies and risks are clearly identified
-- [ ] Testing strategy covers all critical functionality
+Ahora que el plan está completo, lanza el agente feature-flow-manager:
 
-### Technical Feasibility Validation
-Ensure the plan addresses:
-- **Rails compatibility**: Works with Rails 8.0 and Jumpstart Pro patterns
-- **System integration**: Properly integrates with existing architecture
-- **Scalability**: Can handle expected load and growth
-- **Maintainability**: Follows established coding standards and patterns
-- **Security**: Implements proper authentication, authorization, and data protection
+**Tarea**:
+```
+Actualiza el estado de la feature actual tras completar el plan técnico.
 
-## Step 6: Documentation Output and Integration
+Acciones requeridas:
+- Lee .contexts/.product/.feature-state.json actual
+- Marca stage 'plan' como completado
+- Actualiza documento plan.md como existente con timestamp
+- Establece workflow.current_stage = "planning"
+- Establece workflow.next_recommended_command = "/organize-plan"
+- Actualiza updated_at con fecha actual
+- Guarda .feature-state.json actualizado
+- Muestra visualización de progreso al usuario
+- Informa siguiente paso recomendado: /organize-plan
+```
 
-### File Creation
-1. **Save technical plan** to `docs/product-development/features/active/[feature-name]/plan.md`
-2. **Reference PRD requirements** throughout the implementation plan
-3. **Include specific file paths** and Rails conventions
+## Criterios de Éxito
 
-### Update Feature State (Use State Management Protocol)
-4. Load current `.feature-state.json`
-5. Update the feature's state:
-   ```
-   state.features[current_feature].workflow.stages_completed += ["plan"]
-   state.features[current_feature].workflow.current_stage = "planning"
-   state.features[current_feature].workflow.next_recommended_command = "/organize-plan"
-   state.features[current_feature].documents.plan_md = {
-     "exists": true,
-     "last_modified": current_date
-   }
-   state.features[current_feature].updated_at = current_date
-   ```
-6. Write updated state to `.feature-state.json`
-
-### Display Progress (Use State Management Protocol)
-7. Show progress visualization:
-   ```
-   Feature: [feature-name]
-   Status: active
-   Progress: [███████░░░] 70% (3.5/5 stages)
-
-   Workflow Stage: Planning
-   ✓ Definition (feature.md)
-   ✓ Design - JTBD Analysis (JTBD.md)
-   ✓ Design - Product Requirements (PRD.md)
-   ✓ Planning - Technical Plan (plan.md)
-   ▶ Planning - Organize Plan (next)
-
-   Next Recommended: /organize-plan
-   ```
-
-### Preparation for Next Steps
-The completed technical plan will be used by:
-- **organize-plan command**: To restructure tasks by feature capability
-- **implement-code command**: For step-by-step implementation guidance
-- **Development team**: For sprint planning and task assignment
-- **Architecture review**: For technical validation and approval
-
-## Error Handling and Edge Cases
-
-**If PRD requirements are insufficient:**
-- Request clarification on specific technical requirements
-- Identify gaps in product requirements that affect technical implementation
-- Flag areas needing product stakeholder input
-
-**If technical complexity exceeds expected scope:**
-- Break implementation into smaller, manageable phases
-- Identify areas requiring additional research or prototyping
-- Suggest alternative approaches or simplified implementations
-
-**If integration conflicts are identified:**
-- Document conflicts clearly with existing systems
-- Propose resolution strategies or architectural changes
-- Flag for technical review and architectural decision
-
-## Integration with Development Workflow
-
-This technical plan serves as the foundation for implementation:
-1. **Architecture validation**: Technical review of approach and decisions
-2. **Task organization**: organize-plan will restructure for optimal implementation
-3. **Implementation execution**: implement-code will reference specific tasks
-4. **Progress tracking**: Development work will follow the structured checklist
-
-The plan ensures that feature implementation follows Rails best practices while meeting all PRD requirements and integrating seamlessly with existing Brainsome architecture.
-
-Now proceed to create the technical implementation plan for: $ARGUMENTS
+- Agentes especializados ejecutados en paralelo exitosamente
+- Rails-architect proporciona arquitectura backend completa
+- Tailwind-specialist proporciona especificaciones UI (si necesario)
+- Hotwire-specialist proporciona diseño de interactividad (si necesario)
+- Design-system-manager proporciona componentes sistema diseño (si necesario)
+- Plan técnico completo sintetizado y guardado en plan.md
+- Feature-flow-manager actualiza .feature-state.json
+- Stage "plan" marcado como completado
+- Usuario recibe progreso visualizado y siguiente comando: /organize-plan

@@ -1,296 +1,217 @@
-# /implement-code
+---
+argument-hint: [contexto-adicional]
+description: Implementar siguiente tarea del plan organizado
+---
 
-*Implements the next uncompleted task from the organized technical implementation plan with full codebase context.*
+# Implementar Código
 
-## Auto-Loaded Project Context:
-@/CLAUDE.md
-@/docs/ai-context/project-structure.md
-@/docs/ai-context/docs-overview.md
-@.claude/commands/feature/_state-management.md
+Implementa la siguiente tarea del plan organizado orquestando agentes especializados según necesidades.
 
-## Command Overview
+**Uso**: `/implement-code [contexto-adicional]`
 
-You are an experienced Software Engineer tasked with building a new feature. Your goal is to implement the next uncompleted task in the organized technical implementation plan while leveraging deep codebase understanding and following established Rails patterns.
+## Qué Hace Este Comando
 
-User provided implementation context: "$ARGUMENTS"
+Orquesta agentes especializados para implementar la siguiente tarea:
+1. **Identifica** siguiente tarea pendiente en plan-organized.md
+2. **En paralelo** (si necesario): Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager
+3. **Después**: Implementa código basándose en análisis de agentes
+4. **Finalmente**: Feature Flow Manager actualiza progreso
 
-## Step 1: Load Current State and Validate Context
+## Implementación
 
-### Load State (Use State Management Protocol)
-1. Read `docs/product-development/current-feature` file to get active feature name
-2. Read `docs/product-development/.feature-state.json` for feature metadata
-3. Validate current feature is set and active
-4. If current_feature is empty:
-   - Error: "No current feature set"
-   - Guidance: "Run /feature-switch [name] to set active feature"
-   - List available features and exit
+**Paso 1: Identificar Siguiente Tarea**
 
-### Determine Feature Paths
-5. Once feature name is confirmed, construct paths:
-   - Feature directory: `docs/product-development/features/active/[feature-name]/`
-   - JTBD: `docs/product-development/features/active/[feature-name]/JTBD.md`
-   - PRD: `docs/product-development/features/active/[feature-name]/PRD.md`
-   - Plan organized: `docs/product-development/features/active/[feature-name]/plan-organized.md`
+Lee `.contexts/.product/features/active/[feature-actual]/plan-organized.md` y:
+- Encuentra la primera tarea con checkbox `[ ]` (no completada)
+- Verifica que sus dependencias previas estén completas `[x]`
+- Identifica qué capacidad de usuario pertenece la tarea
+- Lee contexto de la capacidad (valor usuario, dependencias, riesgos)
 
-### Validate Prerequisites
-6. **Required documents** (must exist):
-   - `plan-organized.md`: If missing, inform user to run `/organize-plan` first
+Si todas las tareas están completadas `[x]`, informa: "¡Todas las tareas están completas! Ejecuta /feature-archive para archivar la feature."
 
-7. **Recommended documents** (should exist):
-   - `PRD.md`: Warn if missing, suggest running `/create-prd`
-   - `JTBD.md`: Warn if missing, suggest running `/create-jtbd`
+**Paso 2: Analizar Complejidad de la Tarea**
 
-### Error Handling for Missing Prerequisites
-If any required documents are missing:
-- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
-- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
-- **Organized plan missing**: "plan-organized.md not found. Run: /organize-plan first"
-- **PRD recommended**: "PRD.md not found (recommended). Consider: /create-prd"
-- **Context incomplete**: Display feature status and suggest completing previous stages
+Basándose en la descripción de la tarea, determina qué agentes especializados se necesitan:
 
-## Step 2: Identify Next Implementation Task
+**Tarea Backend (modelos, servicios, jobs, API)**:
+- Rails Architect: Siempre necesario
 
-### Parse Implementation Progress
-From plan-organized.md, identify:
-- **Completed tasks**: Tasks marked as done with checkboxes [x]
-- **Next uncompleted task**: First task marked as todo [ ] in logical sequence
-- **Task context**: Which feature capability the task belongs to
-- **Task dependencies**: Whether prerequisites are completed
+**Tarea Frontend (views, componentes UI)**:
+- Rails Architect: Para estructura Rails
+- Tailwind Specialist: Para implementación UI
+- Design System Manager: Para componentes reutilizables
 
-### Validate Task Readiness
-Before implementing, ensure:
-- **Dependencies completed**: All prerequisite tasks are marked as done
-- **Context is clear**: Task description provides sufficient implementation guidance
-- **Rails patterns understood**: Implementation approach aligns with existing codebase
+**Tarea Interactividad (Turbo, Stimulus, tiempo real)**:
+- Rails Architect: Para endpoints backend
+- Hotwire Specialist: Para interactividad
+- Tailwind Specialist: Para estados visuales (si necesario)
 
-### Handle Task Selection Edge Cases
-- **No uncompleted tasks**: Inform user that implementation is complete
-- **Dependencies not met**: Identify which prerequisite tasks need completion first
-- **Ambiguous task**: Request clarification on implementation approach
-- **Multiple parallel options**: Suggest logical next task based on feature capability flow
+**Tarea Testing**:
+- Rails Architect: Para estrategia y patrones de testing
 
-## Step 3: Enhanced Context Analysis for Implementation
+**Paso 3: Lanzar Agentes Especializados EN PARALELO (si múltiples)**
 
-### Intelligent Implementation Strategy Decision
+Si necesitas múltiples agentes, lánzalos EN PARALELO en un solo mensaje con múltiples invocaciones Task.
 
-Think deeply about the optimal implementation approach based on the specific task and auto-loaded project context. Based on the identified task AND the auto-loaded project context, intelligently decide the optimal approach:
+**IMPORTANTE**: Usa un solo mensaje con múltiples bloques <invoke name="Task"> para ejecutar en paralelo.
 
-#### Strategy Options:
-
-**Direct Implementation** (0-1 sub-agents):
-- Standard Rails CRUD operations following established patterns
-- Simple service implementations using existing Service Actor patterns
-- Straightforward frontend additions using established Hotwire patterns
-- Minor modifications to existing features with clear precedents
-
-**Focused Analysis** (2-3 sub-agents):
-- Complex business logic requiring careful architecture decisions
-- New integration patterns not yet established in the codebase
-- Frontend features requiring novel Stimulus controller patterns
-- Database changes with performance or migration complexity
-
-**Comprehensive Analysis** (3+ sub-agents):
-- Major architectural additions affecting multiple system areas
-- Complex integrations with external services requiring OAuth/webhook setup
-- Advanced AI/LLM features requiring LangChain.rb pattern extensions
-- Multi-tenant features requiring careful permission and isolation design
-
-### For Sub-Agent Approaches: Autonomous Implementation Analysis
-
-You have complete autonomy to design sub-agents based on the specific implementation task. Consider these investigation areas and design custom agents to cover what's most relevant:
-
-**Core Investigation Areas to Consider:**
-- **Existing Pattern Analysis**: How similar features are implemented in the current codebase
-- **Rails Convention Research**: Best practices for the specific type of implementation
-- **Integration Point Investigation**: How this connects with existing system components
-- **Multi-Tenant Implementation Analysis**: Account isolation and permission patterns for this feature
-- **Testing Strategy Development**: RSpec patterns and test coverage approach
-- **Performance and Security Analysis**: Optimization and security considerations for implementation
-
-**Autonomous Sub-Agent Design Principles:**
-- **Implementation-Focused**: Agents should provide actionable code and pattern guidance
-- **Context-Aware**: Leverage understanding of existing Rails application patterns
-- **Quality-Oriented**: Ensure implementation follows established coding standards
-- **Risk-Conscious**: Identify potential issues before they become problems
-
-**Sub-Agent Task Template:**
+**Tarea para rails-architect** (siempre para implementación):
 ```
-Task: "Analyze [SPECIFIC_IMPLEMENTATION_AREA] for implementing [TASK_DESCRIPTION] in the Rails application"
+Implementa la siguiente tarea del plan organizado.
 
-Standard Investigation Workflow:
-1. Read /CLAUDE.md - **CRITICAL:** AI instructions, coding standards, and development protocols
-2. Read /docs/ai-context/project-structure.md - **CRITICAL:** Technology stack and architecture patterns
-3. Read /docs/ai-context/docs-overview.md - **CRITICAL:** Documentation architecture understanding
-4. Search existing codebase for similar implementation patterns
-5. [CUSTOM_ANALYSIS_STEPS] - Investigate the specific implementation area thoroughly
-6. Return actionable implementation guidance with code examples and file paths
+Contexto:
+- Tarea a implementar: [descripción de la tarea desde plan-organized.md]
+- Capacidad de usuario: [nombre de la capacidad]
+- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
+- Lee PRD.md en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Contexto adicional del usuario: $ARGUMENTS
 
-Return comprehensive implementation guidance for this specific area."
+Implementa siguiendo:
+- Patrones Rails establecidos en el proyecto
+- Principios SOLID y código limpio
+- Consideraciones multi-tenancy
+- Convenciones de testing RSpec
+- Mejores prácticas de seguridad
+
+Devuelve:
+- Código completo a crear/modificar
+- Rutas de archivos específicas
+- Explicación de decisiones arquitectónicas
+- Tests necesarios
+- Próximos pasos tras completar esta tarea
 ```
 
-**CRITICAL: When launching sub-agents, always use parallel execution with a single message containing multiple Task tool invocations.**
+**Tarea para tailwind-specialist** (si UI necesaria):
+```
+Implementa UI para la siguiente tarea del plan organizado.
 
-## Step 4: Implementation Execution
+Contexto:
+- Tarea a implementar: [descripción de la tarea]
+- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
+- Lee sistema de diseño en .contexts/design-system/
+- Contexto adicional del usuario: $ARGUMENTS
 
-### For Sub-Agent Approaches:
-Think deeply about integrating findings from all sub-agent investigations for optimal implementation. Combine findings from all agents to execute optimal implementation:
+Implementa:
+- Componentes UI con Tailwind CSS
+- Clases específicas del sistema de diseño
+- Estados visuales (hover, focus, disabled, loading)
+- Diseño responsive mobile-first
+- Consideraciones de accesibilidad
 
-**Integration Analysis:**
-- **Pattern Guidance**: Use Pattern Analysis Agent's existing implementation examples
-- **Rails Conventions**: Apply Rails Convention Agent's best practice recommendations
-- **Integration Strategy**: Implement Integration Point Agent's connection approaches
-- **Multi-Tenant Design**: Execute Multi-Tenant Agent's isolation and permission patterns
-- **Testing Approach**: Follow Testing Strategy Agent's RSpec and coverage guidelines
-- **Quality Assurance**: Implement Performance/Security Agent's optimization recommendations
+Devuelve:
+- Código HTML/ERB completo
+- Clases Tailwind específicas
+- Variantes de estados
+- Código CSS custom si absolutamente necesario
+```
 
-### For Direct Implementation:
-Use the task description and auto-loaded project context to implement directly.
+**Tarea para hotwire-specialist** (si interactividad necesaria):
+```
+Implementa interactividad para la siguiente tarea del plan organizado.
 
-### Implementation Execution Process
+Contexto:
+- Tarea a implementar: [descripción de la tarea]
+- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
+- Contexto adicional del usuario: $ARGUMENTS
 
-1. **Create/Modify Files**: Follow Rails conventions and existing patterns
-2. **Implement Business Logic**: Use Service Actor patterns for complex operations
-3. **Add Frontend Features**: Follow Hotwire/Stimulus patterns for interactive elements
-4. **Create Database Changes**: Generate migrations following multi-tenant patterns
-5. **Add Test Coverage**: Create RSpec tests following project testing patterns
-6. **Update Documentation**: Update relevant CLAUDE.md files if patterns change
+Implementa:
+- Turbo Frames para actualizaciones parciales
+- Turbo Streams para actualizaciones tiempo real
+- Stimulus controllers con actions y targets
+- Broadcasting ActionCable si necesario
+- Manejo de errores y estados de carga
 
-### Rails-Specific Implementation Guidelines
+Devuelve:
+- Código Stimulus JavaScript completo
+- Configuración Turbo Frames/Streams
+- Código backend para broadcasts si necesario
+- Manejo de edge cases
+```
 
-**Backend Implementation:**
-- **Models**: Follow multi-tenant patterns with `acts_as_tenant`
-- **Services**: Use Service Actor gem for business logic organization
-- **Controllers**: Follow Rails RESTful conventions and authentication patterns
-- **Jobs**: Use Solid Queue for background processing
-- **APIs**: Follow established API patterns and serialization
+**Tarea para design-system-manager** (si componentes UI):
+```
+Consulta sistema de diseño para la siguiente tarea del plan organizado.
 
-**Frontend Implementation:**
-- **Views**: Use Rails helpers and Hotwire Turbo patterns
-- **Stimulus**: Create controllers following existing naming and organization
-- **Styling**: Use TailwindCSS following the established design system
-- **JavaScript**: Minimize custom JavaScript, prefer Stimulus patterns
+Contexto:
+- Tarea a implementar: [descripción de la tarea]
+- Lee sistema de diseño en .contexts/design-system/
+- Contexto adicional del usuario: $ARGUMENTS
 
-**Integration Implementation:**
-- **OAuth**: Follow existing OAuth integration patterns
-- **Webhooks**: Use established webhook processing patterns
-- **External APIs**: Follow HTTP client patterns and error handling
-- **Email**: Use Action Mailbox patterns for inbound email processing
+Proporciona:
+- Componentes existentes reutilizables
+- Especificaciones exactas (colores, espaciado, tipografía)
+- Clases Tailwind del sistema de diseño
+- Helpers Rails disponibles
+- Si necesita crear componente nuevo, especificaciones completas
 
-## Step 5: Code Quality and Testing
+Devuelve:
+- Referencias a componentes existentes
+- Código helper Rails si existe
+- Especificaciones para nuevos componentes
+```
 
-### Implementation Quality Standards
-Ensure implementation follows:
-- **Coding standards**: Follow Standard Ruby and project-specific conventions
-- **Security practices**: Implement proper authentication, authorization, and data protection
-- **Performance optimization**: Use efficient queries and caching where appropriate
-- **Error handling**: Provide proper error handling and user feedback
-- **Accessibility**: Follow web accessibility standards in frontend implementation
+**Paso 4: Esperar Resultados de Agentes**
 
-### Testing Implementation
-Create comprehensive test coverage:
-- **Unit tests**: RSpec tests for models, services, and business logic
-- **Integration tests**: Request tests for controllers and API endpoints
-- **System tests**: Feature tests for complete user workflows
-- **Multi-tenant tests**: Verify account isolation and permission enforcement
+Los agentes trabajarán en paralelo (si múltiples) y devolverán sus hallazgos. Espera a que todos completen.
 
-### Code Review Preparation
-Before marking task complete:
-- **Self-review**: Check implementation against Rails conventions and project patterns
-- **Test execution**: Run test suite to ensure no regressions
-- **Manual testing**: Verify functionality works as expected in development
-- **Documentation updates**: Update relevant documentation for any new patterns
+**Paso 5: Implementar Código Integrando Hallazgos**
 
-## Step 6: Progress Tracking and Documentation
+Con los informes de los agentes, implementa el código:
 
-### Update Implementation Plan
-1. **Mark current task as completed**: Update checkbox in plan-organized.md from [ ] to [x]
-2. **Add implementation notes**: Include any important decisions or deviations
-3. **Update dependencies**: Mark any downstream tasks as ready if applicable
-4. **Document issues**: Note any blockers or issues encountered
+1. **Crear/Modificar archivos** según recomendaciones de agentes
+2. **Integrar hallazgos**:
+   - Arquitectura backend del rails-architect
+   - UI del tailwind-specialist y design-system-manager
+   - Interactividad del hotwire-specialist
+3. **Seguir convenciones** del proyecto
+4. **Crear tests** según estrategia del rails-architect
+5. **Validar implementación** manualmente si es posible
 
-### Update Feature State (Use State Management Protocol)
-5. Load current `.feature-state.json`
-6. Update the feature's state:
-   ```
-   state.features[current_feature].workflow.current_stage = "development"
-   state.features[current_feature].implementation.completed_tasks += 1
-   state.features[current_feature].implementation.last_implementation = current_timestamp
-   state.features[current_feature].documents.plan_organized_md.last_modified = current_date
-   state.features[current_feature].updated_at = current_date
-   ```
-7. Check if all tasks are complete:
-   - If `completed_tasks == total_tasks`:
-     ```
-     state.features[current_feature].workflow.current_stage = "complete"
-     state.features[current_feature].workflow.next_recommended_command = "/feature-archive " + feature_name
-     ```
-   - Else:
-     ```
-     state.features[current_feature].workflow.next_recommended_command = "/implement-code"
-     ```
-8. Write updated state to `.feature-state.json`
+**Paso 6: Actualizar Plan Organizado**
 
-### Documentation Updates
-If implementation introduces new patterns:
-- **Update CLAUDE.md files**: Document new patterns in appropriate tier
-- **Update API documentation**: Add new endpoints or modify existing ones
-- **Update README**: Add any new setup or configuration requirements
+Marca la tarea como completada en plan-organized.md:
+- Cambia `[ ]` a `[x]` para la tarea implementada
+- Añade nota si hay decisiones importantes: `[x] Tarea completada (nota: decisión X tomada)`
 
-### Prepare for Code Review
-Set up for quality assurance:
-- **Commit changes**: Create clear, descriptive commit messages
-- **Prepare review context**: Summarize what was implemented and why
-- **Identify review focus**: Highlight areas needing particular attention
-- **Document testing approach**: Explain how the implementation was validated
+**Paso 7: Actualizar Estado con Feature Flow Manager**
 
-## Step 7: Next Steps and Handoff
+Ahora que la tarea está completa, lanza el agente feature-flow-manager:
 
-### Implementation Completion Summary
-Provide clear summary:
-- **Task completed**: Specific task that was implemented
-- **Files modified**: List of files created or changed
-- **Testing added**: Test coverage created
-- **Next recommended task**: Suggested next implementation task
+**Tarea**:
+```
+Actualiza el estado de la feature actual tras completar una tarea de implementación.
 
-### Integration with Quality Workflow
-After implementation, recommend:
-- **commit-review**: For code quality validation
-- **architecture-review**: For complex implementations affecting multiple components
-- **refactor**: If technical debt was identified during implementation
-- **update-docs**: If broader documentation updates are needed
+Acciones requeridas:
+- Lee .contexts/.product/.feature-state.json actual
+- Lee plan-organized.md y cuenta tareas completadas [x]
+- Incrementa implementation.completed_tasks en 1
+- Actualiza implementation.last_implementation con timestamp actual
+- Actualiza documento plan-organized.md.last_modified con timestamp
+- Si completed_tasks == total_tasks:
+  - Establece workflow.current_stage = "complete"
+  - Establece workflow.next_recommended_command = "/feature-archive [nombre-feature]"
+- Si completed_tasks < total_tasks:
+  - Establece workflow.current_stage = "development"
+  - Establece workflow.next_recommended_command = "/implement-code"
+- Actualiza updated_at con fecha actual
+- Guarda .feature-state.json actualizado
+- Muestra visualización de progreso al usuario con:
+  - Progreso: [█████░░░] X% (completed/total tareas)
+  - Última tarea completada: [descripción]
+  - Siguiente tarea pendiente: [descripción] (si existe)
+- Informa siguiente paso recomendado
+```
 
-### Continuous Improvement
-Track implementation learnings:
-- **Pattern refinements**: Improvements to existing implementation patterns
-- **Tooling gaps**: Areas where better tooling could improve efficiency
-- **Documentation gaps**: Areas where better documentation would help future implementation
+## Criterios de Éxito
 
-## Error Handling and Edge Cases
-
-**If task description is insufficient:**
-- Request clarification on implementation requirements
-- Suggest breaking complex tasks into smaller, more specific subtasks
-- Provide implementation alternatives and ask for direction
-
-**If implementation reveals design issues:**
-- Document the design concern clearly
-- Propose alternative approaches
-- Suggest updating the organized plan to address the issue
-
-**If testing reveals integration problems:**
-- Identify the root cause of integration issues
-- Propose fixes for both current implementation and affected systems
-- Update documentation to prevent similar issues
-
-## Integration with Development Workflow
-
-This implementation approach ensures:
-1. **Systematic progress**: Logical advancement through organized implementation plan
-2. **Quality implementation**: Following Rails conventions and project patterns
-3. **Comprehensive testing**: Proper test coverage and validation
-4. **Documentation maintenance**: Keeping project documentation current
-5. **Team coordination**: Clear progress tracking and handoff preparation
-
-The implementation maintains alignment with user needs (JTBD/PRD) while ensuring technical quality and system integration.
-
-Now proceed to implement the next task from the organized plan: $ARGUMENTS
+- Siguiente tarea identificada correctamente desde plan-organized.md
+- Agentes especializados ejecutados según complejidad de tarea
+- Rails-architect proporciona implementación backend (siempre)
+- Tailwind-specialist proporciona implementación UI (si necesario)
+- Hotwire-specialist proporciona interactividad (si necesario)
+- Design-system-manager proporciona componentes (si necesario)
+- Código implementado correctamente con tests
+- Tarea marcada como completada [x] en plan-organized.md
+- Feature-flow-manager actualiza .feature-state.json
+- Contador de tareas incrementado
+- Usuario recibe progreso visualizado y siguiente acción

@@ -1,324 +1,181 @@
-# /organize-plan
+---
+argument-hint: [contexto-adicional]
+description: Organizar plan técnico por capacidades de usuario
+---
 
-*Reorganizes technical implementation plan from infrastructure-focused to feature-capability-focused structure.*
+# Organizar Plan Técnico
 
-## Auto-Loaded Project Context:
-@/CLAUDE.md
-@/docs/ai-context/project-structure.md
-@/docs/ai-context/docs-overview.md
-@.claude/commands/feature/_state-management.md
+Reorganiza el plan técnico desde estructura de infraestructura a capacidades de usuario usando Feature Flow Manager.
 
-## Command Overview
+**Uso**: `/organize-plan [contexto-adicional]`
 
-You are a Software Engineer tasked with reorganizing a technical implementation plan. Your goal is to restructure the current implementation checklist from infrastructure-component organization into feature-capability groupings that consider dependencies and enable more logical development flow.
+## Qué Hace Este Comando
 
-User provided context: "$ARGUMENTS"
+Orquesta agentes para reorganizar el plan técnico:
+1. **Rails Architect**: Analiza dependencias técnicas y secuenciación
+2. **Después**: Sintetiza plan organizado por capacidades
+3. **Finalmente**: Feature Flow Manager valida y actualiza el estado
 
-## Step 1: Load Current State and Validate Prerequisites
+## Implementación
 
-### Load State (Use State Management Protocol)
-1. Read `docs/product-development/current-feature` file to get active feature name
-2. Read `docs/product-development/.feature-state.json` for feature metadata
-3. Validate current feature is set and active
-4. If current_feature is empty:
-   - Error: "No current feature set"
-   - Guidance: "Run /feature-switch [name] to set active feature"
-   - List available features and exit
+**Paso 1: Validar Prerequisitos**
 
-### Determine Feature Paths
-5. Once feature name is confirmed, construct paths:
-   - Feature directory: `docs/product-development/features/active/[feature-name]/`
-   - plan.md: `docs/product-development/features/active/[feature-name]/plan.md`
-   - plan-organized.md: `docs/product-development/features/active/[feature-name]/plan-organized.md` (will be created)
+Lee el plan técnico actual en `.contexts/.product/features/active/[feature-actual]/plan.md` y valida que existe.
 
-### Required Resources
-6. **Product context**: `docs/product-development/resources/product.md` (recommended)
+Si no existe, informa al usuario: "Necesitas ejecutar /create-plan primero"
 
-### Prerequisite Validation
-7. **Required documents** (must exist):
-   - plan.md: If missing, inform user to run `/create-plan` first
+**Paso 2: Lanzar Rails Architect para Análisis de Dependencias**
 
-8. **Recommended documents** (should exist):
-   - PRD.md: Warn if missing, for user-context perspective
-   - JTBD.md: Warn if missing, for workflow understanding
+Lanza el agente rails-architect:
 
-### Error Handling for Missing Prerequisites
-If any required documents are missing:
-- **Current feature not set**: "No current feature set. Run: /feature-switch [name]"
-- **Feature not active**: "Feature '[name]' is {status}. Run: /feature-restore [name]"
-- **Plan missing**: "plan.md not found. Run: /create-plan first (required for organizing)"
-- **Context incomplete**: Display feature status and suggest completing plan stage
+**Tarea**:
+```
+Analiza dependencias técnicas y reorganiza por capacidades de usuario.
 
-## Step 2: Analyze Current Implementation Structure
+Contexto:
+- Lee plan.md en .contexts/.product/features/active/[feature-actual]/plan.md
+- Lee PRD.md en .contexts/.product/features/active/[feature-actual]/PRD.md
+- Lee JTBD.md en .contexts/.product/features/active/[feature-actual]/JTBD.md (si existe)
+- Contexto adicional del usuario: $ARGUMENTS
 
-### Extract Current Task Organization
-From the existing plan.md, identify:
-- **Backend Implementation tasks**: Rails-specific backend work
-- **Frontend Implementation tasks**: Hotwire/Stimulus and UI work
-- **Integration Implementation tasks**: External service connections
-- **Testing Implementation tasks**: RSpec and quality assurance
-- **Documentation tasks**: Documentation and deployment work
+Objetivos:
+1. Identificar capacidades de usuario desde el JTBD y PRD
+2. Mapear tareas técnicas del plan.md a capacidades de usuario
+3. Analizar dependencias entre tareas (qué debe completarse primero)
+4. Identificar oportunidades de desarrollo en paralelo
+5. Agrupar tareas por capacidad funcional (no por capa técnica)
+6. Considerar patrones Rails de dependencia (modelo->servicio->controlador->vista)
+7. Evaluar riesgos de bloqueo entre tareas
 
-### Identify Infrastructure-Component Groupings
-Current organization typically groups by:
-- **Technology layer**: Backend vs Frontend vs Integration
-- **System component**: Database vs API vs UI vs Jobs
-- **Development phase**: Foundation vs Logic vs Interface vs Testing
-
-### Assess Current Dependencies
-Analyze existing task structure for:
-- **Sequential dependencies**: Tasks that must be completed before others
-- **Parallel opportunities**: Tasks that can be worked on simultaneously
-- **Cross-component dependencies**: How different system parts interact
-- **Risk dependencies**: Tasks that might block others if they fail
-
-## Step 3: Feature-Capability Analysis
-
-### Define User-Facing Capabilities
-Using JTBD and PRD context, identify:
-- **Primary user workflows**: Main user journeys and interactions
-- **Core feature capabilities**: Distinct functional areas users will experience
-- **Supporting capabilities**: Technical features that enable user-facing functionality
-- **Integration capabilities**: External service interactions that deliver user value
-
-### Map Technical Tasks to User Capabilities
-For each user-facing capability, identify:
-- **Required backend tasks**: Models, services, APIs needed
-- **Required frontend tasks**: Controllers, views, JavaScript needed
-- **Required integration tasks**: External service connections needed
-- **Required testing tasks**: Test coverage for the capability
-- **Required documentation**: Documentation updates for the capability
-
-### Consider Rails-Specific Dependency Patterns
-Account for Rails architecture dependencies:
-- **Model-first dependencies**: Database and model creation before service logic
-- **Service-before-controller**: Business logic before API endpoints
-- **API-before-frontend**: Backend endpoints before frontend integration
-- **Integration sequencing**: OAuth setup before API calls
-- **Multi-tenant considerations**: Account-level setup before user features
-
-## Step 4: Create Feature-Capability Structure
-
-### Reorganization Framework
-
-Restructure tasks into logical feature groupings:
-
-```markdown
-# [Feature Name] - Organized Implementation Plan
-
-## Implementation Overview
-[Brief summary of reorganization approach and capability groupings]
-
-## Feature Capability 1: [Primary User Workflow]
-
-### User Value
-[What user capability this enables, referencing JTBD]
-
-### Implementation Tasks
-#### Foundation (Must Complete First)
-- [ ] [Database/model tasks that other tasks depend on]
-- [ ] [Core service setup that enables functionality]
-
-#### Core Functionality
-- [ ] [Business logic implementation]
-- [ ] [API endpoint creation]
-- [ ] [Background job setup if needed]
-
-#### User Interface
-- [ ] [Frontend controller and view creation]
-- [ ] [Hotwire/Stimulus interactive features]
-- [ ] [CSS styling and responsive design]
-
-#### Testing & Validation
-- [ ] [Unit tests for models and services]
-- [ ] [Integration tests for full workflow]
-- [ ] [Multi-tenant test coverage]
-
-### Dependencies
-- **Internal**: [Other capabilities this depends on]
-- **External**: [Third-party services or setup required]
-
-### Risk Factors
-- [Potential blockers or challenges for this capability]
-
-## Feature Capability 2: [Secondary User Workflow]
-[Continue same structure]
-
-## Supporting Infrastructure
-
-### Cross-Capability Requirements
-- [ ] [Tasks that support multiple capabilities]
-- [ ] [Infrastructure setup needed across features]
-- [ ] [Security and permission framework]
-
-### Integration Framework
-- [ ] [OAuth and authentication setup]
-- [ ] [Webhook infrastructure]
-- [ ] [External service configuration]
-
-### Documentation and Deployment
-- [ ] [CLAUDE.md updates for new patterns]
-- [ ] [API documentation updates]
-- [ ] [Environment configuration]
-- [ ] [Migration deployment plans]
-
-## Implementation Sequence Recommendation
-
-### Phase 1: Foundation
-[Which capabilities to implement first and why]
-
-### Phase 2: Core Features
-[Primary user workflows and their dependencies]
-
-### Phase 3: Enhanced Capabilities
-[Secondary features and optimizations]
-
-### Parallel Development Opportunities
-[Tasks that can be worked on simultaneously by different developers]
+Devuelve:
+- Lista de capacidades de usuario identificadas
+- Mapeo de tareas a capacidades
+- Análisis de dependencias entre tareas
+- Secuencia recomendada de implementación
+- Oportunidades de trabajo en paralelo
+- Riesgos identificados por capacidad
 ```
 
-## Step 5: Dependency and Risk Analysis
+**Paso 3: Esperar Resultado del Rails Architect**
 
-### Cross-Capability Dependencies
-Identify dependencies between feature capabilities:
-- **Shared models**: Which capabilities depend on the same data structures
-- **Shared services**: Which capabilities use common business logic
-- **Integration dependencies**: Which capabilities require the same external services
-- **User permission dependencies**: Which capabilities share authentication/authorization
+El agente rails-architect analizará las dependencias y devolverá el análisis completo.
 
-### Internal Package Dependencies
-Consider Rails application internal dependencies:
-- **Gem dependencies**: New gems needed and their impact
-- **Configuration dependencies**: Settings and environment variables
-- **Database dependencies**: Migration sequencing and schema changes
-- **Asset dependencies**: JavaScript, CSS, and image requirements
+**Paso 4: Sintetizar Plan Organizado**
 
-### Risk Mitigation Planning
-For each identified risk:
-- **Dependency risk**: What happens if dependent tasks are delayed
-- **Integration risk**: Fallback plans for external service issues
-- **Complexity risk**: Simplified alternatives for complex implementations
-- **Performance risk**: Monitoring and optimization strategies
+Con el análisis del rails-architect, crea el plan organizado.
 
-## Step 6: Enhanced Task Specification
+Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan-organized.md` con la siguiente estructura:
 
-### Detailed Task Enhancement
-For each reorganized task, provide:
-- **Specific file paths**: Exact Rails files to create or modify
-- **Acceptance criteria**: Clear definition of task completion
-- **Testing requirements**: How to verify the task works correctly
-- **Integration points**: How this task connects with others
+```markdown
+# [Nombre Feature] - Plan Organizado por Capacidades
 
-### Rails Pattern Alignment
-Ensure reorganized tasks follow:
-- **Service Actor patterns**: Proper business logic organization
-- **Multi-tenant patterns**: Account isolation and user roles
-- **Hotwire patterns**: Turbo and Stimulus integration approaches
-- **Testing patterns**: RSpec and factory patterns used in the project
+## Resumen de Reorganización
+[Cómo se reorganizaron las tareas desde infraestructura a capacidades de usuario]
 
-### Quality Assurance Integration
-Include quality checkpoints:
-- **Code review points**: When to pause for architectural review
-- **Integration testing milestones**: When to test cross-capability functionality
-- **Performance validation**: When to check scalability and optimization
-- **Security review**: When to validate authentication and authorization
+## Capacidad 1: [Nombre Capacidad de Usuario]
 
-## Step 7: Documentation Output
+### Valor para el Usuario
+[Qué Job To Be Done satisface, referenciando JTBD.md]
 
-### File Creation
-1. **Save organized plan** to `docs/product-development/features/active/[feature-name]/plan-organized.md`
-2. **Maintain traceability** to original plan.md and PRD requirements
-3. **Include implementation sequence** and dependency rationale
-4. **Count total tasks** in the organized plan for progress tracking
+### Tareas de Implementación
 
-### Update Feature State (Use State Management Protocol)
-5. Load current `.feature-state.json`
-6. Count total tasks from plan-organized.md (count [ ] checkboxes)
-7. Update the feature's state:
-   ```
-   state.features[current_feature].workflow.stages_completed += ["plan_organized"]
-   state.features[current_feature].workflow.current_stage = "planning"
-   state.features[current_feature].workflow.next_recommended_command = "/implement-code"
-   state.features[current_feature].documents.plan_organized_md = {
-     "exists": true,
-     "last_modified": current_date
-   }
-   state.features[current_feature].implementation.total_tasks = task_count
-   state.features[current_feature].implementation.completed_tasks = 0
-   state.features[current_feature].updated_at = current_date
-   ```
-8. Write updated state to `.feature-state.json`
+#### Fundación (Completar Primero)
+- [ ] [Tarea base de datos/modelo con ruta archivo]
+- [ ] [Tarea setup servicio core]
 
-### Display Progress (Use State Management Protocol)
-9. Show progress visualization:
-   ```
-   Feature: [feature-name]
-   Status: active
-   Progress: [████████░░] 85% (4.25/5 stages)
+#### Funcionalidad Core
+- [ ] [Implementación lógica de negocio]
+- [ ] [Creación endpoint API]
+- [ ] [Setup job background si necesario]
 
-   Workflow Stage: Planning Complete
-   ✓ Definition (feature.md)
-   ✓ Design - JTBD Analysis (JTBD.md)
-   ✓ Design - Product Requirements (PRD.md)
-   ✓ Planning - Technical Plan (plan.md)
-   ✓ Planning - Organized Plan (plan-organized.md)
-   ▶ Development - Implementation (next)
+#### Interfaz de Usuario
+- [ ] [Creación controller y view frontend]
+- [ ] [Features interactivas Hotwire/Stimulus]
+- [ ] [Estilado CSS y diseño responsive]
 
-   Implementation Ready:
-   - Total Tasks: [X]
-   - Ready to implement: /implement-code
+#### Testing y Validación
+- [ ] [Tests unitarios modelos y servicios]
+- [ ] [Tests integración workflow completo]
+- [ ] [Cobertura test multi-tenant]
 
-   Next Recommended: /implement-code
-   ```
+### Dependencias
+- **Internas**: [Otras capacidades de las que depende]
+- **Externas**: [Servicios terceros o setup requerido]
 
-### Reorganization Summary
-Provide summary of changes:
-- **Capability groupings**: How tasks were regrouped by user value
-- **Dependency improvements**: How new structure improves development flow
-- **Risk mitigation**: How organization reduces implementation risk
-- **Parallel opportunities**: How multiple developers can work efficiently
+### Factores de Riesgo
+- [Bloqueos potenciales o desafíos para esta capacidad]
 
-## Step 8: Preparation for Implementation
+## Capacidad 2: [Nombre Capacidad de Usuario]
+[Continuar misma estructura]
 
-### Implementation Readiness
-The organized plan prepares for:
-- **implement-code command**: Clear next-step guidance for development
-- **Team coordination**: Parallel development opportunities
-- **Progress tracking**: Feature-capability milestone tracking
-- **Risk management**: Early identification and mitigation of blockers
+## Infraestructura de Soporte
 
-### Quality Integration Points
-Identify integration points with existing quality commands:
-- **architecture-review**: When to conduct comprehensive reviews
-- **commit-review**: Regular code quality checkpoints
-- **refactor**: Opportunities for code improvement
-- **update-docs**: Documentation maintenance triggers
+### Requisitos Cross-Capacidad
+- [ ] [Tareas que soportan múltiples capacidades]
+- [ ] [Setup infraestructura necesaria entre features]
+- [ ] [Framework seguridad y permisos]
 
-## Error Handling and Edge Cases
+### Framework Integración
+- [ ] [Setup OAuth y autenticación]
+- [ ] [Infraestructura webhooks]
+- [ ] [Configuración servicio externo]
 
-**If current plan lacks sufficient detail:**
-- Request additional technical planning before reorganization
-- Identify specific areas needing more detailed task breakdown
-- Suggest iterative refinement of implementation approach
+### Documentación y Deployment
+- [ ] [Actualizaciones CLAUDE.md para nuevos patrones]
+- [ ] [Actualizaciones documentación API]
+- [ ] [Configuración entorno]
+- [ ] [Planes deployment migración]
 
-**If dependency analysis reveals circular dependencies:**
-- Restructure to break circular dependencies
-- Identify minimal viable implementation approaches
-- Suggest architectural changes if needed
+## Secuencia de Implementación Recomendada
 
-**If feature scope is too large for single reorganization:**
-- Break into multiple feature capability sets
-- Create phased implementation with clear milestones
-- Ensure each phase delivers user value independently
+### Fase 1: Fundación
+[Qué capacidades implementar primero y por qué]
 
-## Integration with Development Workflow
+### Fase 2: Features Core
+[Workflows usuarios primarios y sus dependencias]
 
-This organized plan enables efficient implementation:
-1. **Clear development sequence**: Logical order of implementation
-2. **Parallel development**: Multiple team members can work simultaneously
-3. **Risk mitigation**: Early identification and resolution of blockers
-4. **User value delivery**: Each capability delivers measurable user benefit
+### Fase 3: Capacidades Mejoradas
+[Features secundarias y optimizaciones]
 
-The reorganization transforms infrastructure-focused tasks into user-centered implementation that maintains technical quality while optimizing for development efficiency and user value delivery.
+### Oportunidades de Desarrollo Paralelo
+[Tareas que pueden trabajarse simultáneamente por diferentes desarrolladores]
 
-Now proceed to organize the implementation plan for: $ARGUMENTS
+---
+
+*Plan organizado por capacidades de usuario mediante análisis de Rails Architect.*
+*Total de tareas: [X]*
+```
+
+**Paso 5: Actualizar Estado con Feature Flow Manager**
+
+Ahora que el plan está organizado, lanza el agente feature-flow-manager:
+
+**Tarea**:
+```
+Actualiza el estado de la feature actual tras completar el plan organizado.
+
+Acciones requeridas:
+- Lee .contexts/.product/.feature-state.json actual
+- Lee plan-organized.md y cuenta total de tareas (checkboxes [ ])
+- Marca stage 'plan_organized' como completado
+- Actualiza documento plan-organized.md como existente con timestamp
+- Establece implementation.total_tasks = [número de tareas contadas]
+- Establece implementation.completed_tasks = 0
+- Establece workflow.current_stage = "planning"
+- Establece workflow.next_recommended_command = "/implement-code"
+- Actualiza updated_at con fecha actual
+- Guarda .feature-state.json actualizado
+- Muestra visualización de progreso al usuario
+- Informa siguiente paso recomendado: /implement-code
+```
+
+## Criterios de Éxito
+
+- Rails-architect analiza dependencias y reorganiza por capacidades
+- Plan organizado sintetizado y guardado en plan-organized.md
+- Tareas agrupadas por valor de usuario (no por capa técnica)
+- Dependencias y secuencia de implementación claras
+- Total de tareas contado correctamente
+- Feature-flow-manager actualiza .feature-state.json
+- Stage "plan_organized" marcado como completado
+- Usuario recibe progreso visualizado y siguiente comando: /implement-code

@@ -7,9 +7,9 @@ description: Cambiar la feature actual del pipeline
 
 Cambia la feature actual sobre la que operarán los comandos de desarrollo.
 
-**Uso**: `/feature-switch <nombre-feature>`
+**Uso**: `/feature:switch <nombre-feature>`
 
-**Ejemplo**: `/feature-switch user-authentication`
+**Ejemplo**: `/feature:switch user-authentication`
 
 ## Qué Hace Este Comando
 

@@ -7,9 +7,9 @@ description: Mover feature a papelera
 
 Mueve una feature a la papelera (eliminación soft, recuperable).
 
-**Uso**: `/feature-trash <nombre-feature>`
+**Uso**: `/feature:trash <nombre-feature>`
 
-**Ejemplo**: `/feature-trash user-authentication`
+**Ejemplo**: `/feature:trash user-authentication`
 
 ## Qué Hace Este Comando
 
@@ -37,4 +37,4 @@ El agente feature-flow-manager hará autónomamente:
 - Estado actualizado a "trashed"
 - .feature-state.json refleja eliminación
 - Usuario recibe confirmación
-- Guía para restaurar si necesario: /feature-restore
+- Guía para restaurar si necesario: /feature:restore

@@ -7,11 +7,11 @@ description: Mostrar estado detallado de una feature
 
 Muestra estado detallado y progreso de una feature en el pipeline.
 
-**Uso**: `/feature-status [nombre-feature]`
+**Uso**: `/feature:status [nombre-feature]`
 
 **Ejemplos**:
-- `/feature-status` - Estado de la feature actual
-- `/feature-status user-auth` - Estado de feature específica
+- `/feature:status` - Estado de la feature actual
+- `/feature:status user-auth` - Estado de feature específica
 
 ## Qué Hace Este Comando
 

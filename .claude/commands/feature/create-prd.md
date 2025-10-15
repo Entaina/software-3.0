@@ -7,7 +7,7 @@ description: Crear Product Requirements Document para la feature actual
 
 Genera Product Requirements Document para la feature actual usando Product Owner y Feature Flow Manager.
 
-**Uso**: `/create-prd [contexto-feature]`
+**Uso**: `/feature:create-prd [contexto-feature]`
 
 ## Qué Hace Este Comando
 
@@ -34,4 +34,4 @@ Lanzar agente feature-flow-manager:
 - Product-owner crea PRD.md exitosamente
 - Feature-flow-manager actualiza .feature-state.json
 - Stage "prd" marcado como completado
-- Usuario recibe siguiente comando recomendado: /create-plan
+- Usuario recibe siguiente comando recomendado: /feature:create-plan

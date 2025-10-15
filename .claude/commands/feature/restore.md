@@ -7,9 +7,9 @@ description: Restaurar feature archivada o eliminada
 
 Restaura una feature archivada o eliminada volviéndola al estado activo.
 
-**Uso**: `/feature-restore <nombre-feature>`
+**Uso**: `/feature:restore <nombre-feature>`
 
-**Ejemplo**: `/feature-restore user-authentication`
+**Ejemplo**: `/feature:restore user-authentication`
 
 ## Qué Hace Este Comando
 

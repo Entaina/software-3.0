@@ -7,9 +7,9 @@ description: Crear nueva feature con estructura y tracking
 
 Crea una nueva feature con estructura de directorios y tracking inicial usando Feature Flow Manager.
 
-**Uso**: `/feature-create <nombre-y-descripción>`
+**Uso**: `/feature:create <nombre-y-descripción>`
 
-**Ejemplo**: `/feature-create user-authentication Sistema de autenticación con JWT`
+**Ejemplo**: `/feature:create user-authentication Sistema de autenticación con JWT`
 
 ## Qué Hace Este Comando
 
@@ -35,4 +35,4 @@ El agente feature-flow-manager hará autónomamente:
 - Directorio creado en `features/active/[nombre-feature]/`
 - feature.md generado con descripción y tracking
 - .feature-state.json actualizado con nueva feature
-- Usuario recibe guía: usar /feature-switch para activarla
+- Usuario recibe guía: usar /feature:switch para activarla

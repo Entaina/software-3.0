@@ -7,7 +7,7 @@ description: Organizar plan técnico por capacidades de usuario
 
 Reorganiza el plan técnico desde estructura de infraestructura a capacidades de usuario usando Feature Flow Manager.
 
-**Uso**: `/organize-plan [contexto-adicional]`
+**Uso**: `/feature:organize-plan [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -22,7 +22,7 @@ Orquesta agentes para reorganizar el plan técnico:
 
 Lee el plan técnico actual en `.contexts/.product/features/active/[feature-actual]/plan.md` y valida que existe.
 
-Si no existe, informa al usuario: "Necesitas ejecutar /create-plan primero"
+Si no existe, informa al usuario: "Necesitas ejecutar /feature:create-plan primero"
 
 **Paso 2: Lanzar Rails Architect para Análisis de Dependencias**
 
@@ -162,11 +162,11 @@ Acciones requeridas:
 - Establece implementation.total_tasks = [número de tareas contadas]
 - Establece implementation.completed_tasks = 0
 - Establece workflow.current_stage = "planning"
-- Establece workflow.next_recommended_command = "/implement-code"
+- Establece workflow.next_recommended_command = "/feature:implement-code"
 - Actualiza updated_at con fecha actual
 - Guarda .feature-state.json actualizado
 - Muestra visualización de progreso al usuario
-- Informa siguiente paso recomendado: /implement-code
+- Informa siguiente paso recomendado: /feature:implement-code
 ```
 
 ## Criterios de Éxito
@@ -178,4 +178,4 @@ Acciones requeridas:
 - Total de tareas contado correctamente
 - Feature-flow-manager actualiza .feature-state.json
 - Stage "plan_organized" marcado como completado
-- Usuario recibe progreso visualizado y siguiente comando: /implement-code
+- Usuario recibe progreso visualizado y siguiente comando: /feature:implement-code

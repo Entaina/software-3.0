@@ -7,7 +7,7 @@ description: Implementar siguiente tarea del plan organizado
 
 Implementa la siguiente tarea del plan organizado orquestando agentes especializados según necesidades.
 
-**Uso**: `/implement-code [contexto-adicional]`
+**Uso**: `/feature:implement-code [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -27,7 +27,7 @@ Lee `.contexts/.product/features/active/[feature-actual]/plan-organized.md` y:
 - Identifica qué capacidad de usuario pertenece la tarea
 - Lee contexto de la capacidad (valor usuario, dependencias, riesgos)
 
-Si todas las tareas están completadas `[x]`, informa: "¡Todas las tareas están completas! Ejecuta /feature-archive para archivar la feature."
+Si todas las tareas están completadas `[x]`, informa: "¡Todas las tareas están completas! Ejecuta /feature:archive para archivar la feature."
 
 **Paso 2: Analizar Complejidad de la Tarea**
 
@@ -189,10 +189,10 @@ Acciones requeridas:
 - Actualiza documento plan-organized.md.last_modified con timestamp
 - Si completed_tasks == total_tasks:
   - Establece workflow.current_stage = "complete"
-  - Establece workflow.next_recommended_command = "/feature-archive [nombre-feature]"
+  - Establece workflow.next_recommended_command = "/feature:archive [nombre-feature]"
 - Si completed_tasks < total_tasks:
   - Establece workflow.current_stage = "development"
-  - Establece workflow.next_recommended_command = "/implement-code"
+  - Establece workflow.next_recommended_command = "/feature:implement-code"
 - Actualiza updated_at con fecha actual
 - Guarda .feature-state.json actualizado
 - Muestra visualización de progreso al usuario con:

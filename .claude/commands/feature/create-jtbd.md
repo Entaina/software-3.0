@@ -7,7 +7,7 @@ description: Crear análisis Job-to-be-Done para la feature actual
 
 Genera análisis Jobs To Be Done para la feature actual usando Product Owner y Feature Flow Manager.
 
-**Uso**: `/create-jtbd [contexto-feature]`
+**Uso**: `/feature:create-jtbd [contexto-feature]`
 
 ## Qué Hace Este Comando
 
@@ -34,4 +34,4 @@ Lanzar agente feature-flow-manager:
 - Product-owner crea JTBD.md exitosamente
 - Feature-flow-manager actualiza .feature-state.json
 - Stage "jtbd" marcado como completado
-- Usuario recibe siguiente comando recomendado: /create-prd
+- Usuario recibe siguiente comando recomendado: /feature:create-prd

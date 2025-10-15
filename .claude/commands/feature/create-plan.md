@@ -7,7 +7,7 @@ description: Crear plan técnico de implementación para la feature actual
 
 Genera plan técnico de implementación orquestando agentes especializados y usando Feature Flow Manager.
 
-**Uso**: `/create-plan [contexto-adicional]`
+**Uso**: `/feature:create-plan [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -251,11 +251,11 @@ Acciones requeridas:
 - Marca stage 'plan' como completado
 - Actualiza documento plan.md como existente con timestamp
 - Establece workflow.current_stage = "planning"
-- Establece workflow.next_recommended_command = "/organize-plan"
+- Establece workflow.next_recommended_command = "/feature:organize-plan"
 - Actualiza updated_at con fecha actual
 - Guarda .feature-state.json actualizado
 - Muestra visualización de progreso al usuario
-- Informa siguiente paso recomendado: /organize-plan
+- Informa siguiente paso recomendado: /feature:organize-plan
 ```
 
 ## Criterios de Éxito
@@ -268,4 +268,4 @@ Acciones requeridas:
 - Plan técnico completo sintetizado y guardado en plan.md
 - Feature-flow-manager actualiza .feature-state.json
 - Stage "plan" marcado como completado
-- Usuario recibe progreso visualizado y siguiente comando: /organize-plan
+- Usuario recibe progreso visualizado y siguiente comando: /feature:organize-plan

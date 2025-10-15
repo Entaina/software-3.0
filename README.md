@@ -179,23 +179,6 @@ Start tracking changes in your project.
 /contexts:init
 ```
 
-### Application Initialization (Multi-Agent Collaboration)
-
-Initialize a new application with all specialized agents working together:
-
-```bash
-# Initialize with collaborative multi-agent workflow
-/app:init "CRM system for managing sales leads with kanban board"
-
-# The system orchestrates 4 agents sequentially:
-# 1. Product Owner → JTBD analysis and lean PRD
-# 2. Rails Architect → Database schema and architecture
-# 3. Tailwind Specialist → CSS configuration
-# 4. Hotwire Specialist → Interactive features planning
-
-# Output: Complete initialization plan with checklist
-```
-
 ### Using Specialized Agents
 
 The specialized agents are automatically available and can be invoked directly in your conversations:
@@ -254,12 +237,6 @@ The specialized agents are automatically available and can be invoked directly i
 | `/contexts:save [description]` | Save current development context |
 | `/contexts:load [name]` | Load saved context |
 | `/contexts:update [name]` | Update existing context |
-
-### Application Commands
-
-| Command | Description |
-|---------|-------------|
-| `/app:init <description>` | Initialize new app with multi-agent collaboration |
 
 ### Utility Commands
 
@@ -418,7 +395,6 @@ Custom commands defined as markdown files in `.claude/commands/`:
 - **VCS commands** (`vcs/`) - 8 commands for version control
 - **Feature commands** (`feature/`) - 12 commands for feature lifecycle management
 - **Context commands** (`contexts/`) - 4 commands for context management
-- **App commands** (`app/`) - 1 command for multi-agent app initialization
 - **Utility commands** - Command manager for creating/editing commands
 
 #### 2. Specialized Agents
@@ -430,10 +406,10 @@ AI agents with domain expertise in `.claude/agents/`:
 
 #### 3. State Management
 Persistent state tracking for features and contexts:
-- `.product/features/` - Active feature development
-- `.product/archive/` - Completed features
-- `.product/trash/` - Soft-deleted features
-- `.product/.state/` - Current feature and metadata
+- `.features/active/` - Active feature development
+- `.features/archive/` - Completed features
+- `.features/trash/` - Soft-deleted features
+- `.features/state.json` - Current feature and metadata
 - `.contexts/` - Saved development contexts
 
 ### File Structure
@@ -443,8 +419,6 @@ Persistent state tracking for features and contexts:
 │   ├── vcs/           # 8 VCS commands
 │   ├── feature/       # 12 feature management commands
 │   ├── contexts/      # 4 context commands
-│   ├── app/           # 1 multi-agent initialization command
-│   │   └── init.md    # Collaborative app setup
 │   └── commands-manager.md
 ├── agents/
 │   ├── rails-architect.md        # 55,278 lines
@@ -453,11 +427,11 @@ Persistent state tracking for features and contexts:
 │   └── product-owner.md          # 46,326 lines
 └── settings.local.json
 
-.product/
-├── features/          # Active features
+.features/
+├── active/           # Active features
 ├── archive/          # Archived features
 ├── trash/            # Soft-deleted features
-└── .state/           # Current state
+└── state.json        # Current feature state
 
 .contexts/            # Saved contexts
 ```

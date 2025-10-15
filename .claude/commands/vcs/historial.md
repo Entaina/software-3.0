@@ -1,58 +1,58 @@
-# VCS History - Show Commit History
+# VCS Historial - Mostrar Historial de Commits
 
-Display the commit history of the repository in a user-friendly format.
+Muestra el historial de commits del repositorio en un formato fácil de usar.
 
-**Usage**: `/vcs/history [number-of-commits]`
+**Uso**: `/vcs:historial [número-de-commits]`
 
-## Implementation
+## Implementación
 
-Show the commit history using `git log` with formatting optimized for non-developers. Display commits in a clear, readable format with essential information.
+Muestra el historial de commits usando `git log` con formato optimizado para personas no técnicas. Muestra los commits en un formato claro y legible con información esencial.
 
-Steps to execute:
-1. Check if we're in a git repository
-2. Use `git log` with custom formatting to show:
-   - Commit hash (short version)
-   - Commit date
-   - Author name
-   - Commit message
-3. Limit to specified number of commits (default: 10)
-4. Format output in a clean, readable way with proper line breaks between commits
-5. Use a clear visual format that separates each commit entry with blank lines
-6. Include proper spacing and formatting for terminal display readability
+Pasos a ejecutar:
+1. Comprobar si estamos en un repositorio git
+2. Usar `git log` con formato personalizado para mostrar:
+   - Hash del commit (versión corta)
+   - Fecha del commit
+   - Nombre del autor
+   - Mensaje del commit
+3. Limitar al número especificado de commits (predeterminado: 10)
+4. Formatear la salida de forma limpia y legible con saltos de línea apropiados entre commits
+5. Usar un formato visual claro que separe cada entrada de commit con líneas en blanco
+6. Incluir espaciado y formato apropiados para legibilidad en pantalla de terminal
 
-## Examples
+## Ejemplos
 
 ```bash
-/vcs/history
-/vcs/history 5
-/vcs/history 20
+/vcs:historial
+/vcs:historial 5
+/vcs:historial 20
 ```
 
-This will:
-- Show the last 10 commits (or specified number)
-- Display each commit with hash, date, author, and message
-- Format the output for easy reading with proper line breaks
-- Include blank lines between commits for better visual separation
-- Use consistent formatting that's easy to scan in terminal output
+Esto hará:
+- Mostrar los últimos 10 commits (o el número especificado)
+- Mostrar cada commit con hash, fecha, autor y mensaje
+- Formatear la salida para lectura fácil con saltos de línea apropiados
+- Incluir líneas en blanco entre commits para mejor separación visual
+- Usar formato consistente que sea fácil de escanear en salida de terminal
 
-## Output Format
+## Formato de Salida
 
-Each commit should be displayed with:
-- Proper line spacing between entries
-- Clear visual separation using blank lines
-- Consistent indentation and formatting
-- Easy-to-read structure that avoids cramped text display
+Cada commit debe mostrarse con:
+- Espaciado de línea apropiado entre entradas
+- Separación visual clara usando líneas en blanco
+- Sangría y formato consistentes
+- Estructura fácil de leer que evite visualización de texto comprimido
 
-Example output format:
+Ejemplo de formato de salida:
 ```
-📋 **Repository History** (Last 10 commits)
+📋 **Historial del Repositorio** (Últimos 10 commits)
 
-**abc123** - *2025-09-10* by **Author**
-commit message here
+**abc123** - *2025-09-10* por **Autor**
+mensaje del commit aquí
 
-**def456** - *2025-09-10* by **Author**  
-another commit message
+**def456** - *2025-09-10* por **Autor**
+otro mensaje de commit
 
-**ghi789** - *2025-09-10* by **Author**
-third commit message
+**ghi789** - *2025-09-10* por **Autor**
+tercer mensaje de commit
 ```

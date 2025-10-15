@@ -1,26 +1,26 @@
-# VCS Init - Initialize Version Control System
+# VCS Iniciar - Inicializar Sistema de Control de Versiones
 
-Initialize a new version control repository in the current directory.
+Inicializa un nuevo repositorio de control de versiones en el directorio actual.
 
-**Usage**: `/vcs/init`
+**Uso**: `/vcs:iniciar`
 
-## Implementation
+## Implementación
 
-Initialize a git repository in the current directory using `git init`. This command provides a simplified interface for non-developers to start version control in their project.
+Inicializa un repositorio git en el directorio actual usando `git init`. Este comando proporciona una interfaz simplificada para que usuarios no técnicos puedan comenzar a utilizar control de versiones en su proyecto.
 
-Steps to execute:
-1. Run `git init` in the current directory
-2. Create an initial .gitignore file with common exclusions if it doesn't exist
-3. Confirm successful initialization
-4. Provide guidance on next steps
+Pasos a ejecutar:
+1. Ejecutar `git init` en el directorio actual
+2. Crear un archivo .gitignore inicial con exclusiones comunes si no existe
+3. Confirmar la inicialización exitosa
+4. Proporcionar orientación sobre los siguientes pasos
 
-## Examples
+## Ejemplos
 
 ```bash
-/vcs/init
+/vcs:iniciar
 ```
 
-This will:
-- Initialize a new git repository
-- Create a basic .gitignore file if needed
-- Show confirmation message with next steps
+Esto hará lo siguiente:
+- Inicializar un nuevo repositorio git
+- Crear un archivo .gitignore básico si es necesario
+- Mostrar mensaje de confirmación con los siguientes pasos

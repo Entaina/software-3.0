@@ -1,74 +1,74 @@
-# VCS Help - Version Control System Help
+# VCS Ayuda - Ayuda del Sistema de Control de Versiones
 
-Display helpful information about all available VCS commands.
+Muestra información útil sobre todos los comandos VCS disponibles.
 
-**Usage**: `/vcs/help`
+**Uso**: `/vcs:ayuda`
 
-## Implementation
+## Implementación
 
-Show a comprehensive help guide for all VCS commands, designed for non-developers to understand version control concepts and usage.
+Muestra una guía de ayuda completa para todos los comandos VCS, diseñada para que personas no técnicas entiendan los conceptos y uso del control de versiones.
 
-Steps to execute:
-1. Display an overview of what version control is
-2. List all available VCS commands with descriptions
-3. Provide common workflow examples
-4. Include troubleshooting tips
-5. Show git concepts explained in simple terms
+Pasos a ejecutar:
+1. Mostrar una visión general de qué es el control de versiones
+2. Listar todos los comandos VCS disponibles con descripciones
+3. Proporcionar ejemplos de flujo de trabajo común
+4. Incluir consejos de resolución de problemas
+5. Mostrar conceptos de git explicados en términos simples
 
-## Examples
+## Ejemplos
 
 ```bash
-/vcs/help
+/vcs:ayuda
 ```
 
-This will display:
+Esto mostrará:
 
-### Version Control System (VCS) Commands
+### Comandos del Sistema de Control de Versiones (VCS)
 
-Version control helps you track changes to your files over time, like having a save history for your entire project.
+El control de versiones te ayuda a rastrear cambios en tus archivos a lo largo del tiempo, como tener un historial de guardado para todo tu proyecto.
 
-#### Available Commands:
+#### Comandos Disponibles:
 
-- **`/vcs/init`** - Start version control in this folder
-- **`/vcs/save [file-description] [-m "message"]`** - Save current changes with a description (auto-generates message if not provided, supports natural language file selection)
-- **`/vcs/load [commit]`** - Go back to a previous saved version (shows history if no commit specified)
-- **`/vcs/history [number]`** - See all previous saves
-- **`/vcs/diff`** - See what changes you've made since last save
-- **`/vcs/tag [message]`** - Mark important milestones (auto-generates timestamp if no message)
-- **`/vcs/clean [files...]`** - Discard changes and return to clean state (can target specific files or clean everything)
-- **`/vcs/help`** - Show this help information
+- **`/vcs:iniciar`** - Iniciar control de versiones en esta carpeta
+- **`/vcs:guardar [descripción-archivos] [-m "mensaje"]`** - Guardar cambios actuales con una descripción (genera mensaje automáticamente si no se proporciona, soporta selección de archivos en lenguaje natural)
+- **`/vcs:cargar [commit]`** - Volver a una versión guardada anterior (muestra historial si no se especifica commit)
+- **`/vcs:historial [número]`** - Ver todos los guardados anteriores
+- **`/vcs:diferencias`** - Ver qué cambios has hecho desde el último guardado
+- **`/vcs:etiquetar [mensaje]`** - Marcar hitos importantes (genera marca de tiempo automáticamente si no hay mensaje)
+- **`/vcs:limpiar [archivos...]`** - Descartar cambios y volver a estado limpio (puede seleccionar archivos específicos o limpiar todo)
+- **`/vcs:ayuda`** - Mostrar esta información de ayuda
 
-#### Common Workflow:
+#### Flujo de Trabajo Común:
 
-1. **Start a new project**: `/vcs/init`
-2. **Make changes to your files**
-3. **Check what changed**: `/vcs/diff` to see your progress
-4. **Save your progress**: `/vcs/save "Added new feature"` or simply `/vcs/save` for auto-generated message
-5. **Save specific files**: `/vcs/save "JavaScript files" -m "Fix bugs"` for selective commits
-6. **Continue working and saving**: `/vcs/save "Fixed bug"` or `/vcs/save`
-7. **Mark important milestones**: `/vcs/tag "version 1.0"` or `/vcs/tag` for timestamp
-8. **Check your history**: `/vcs/history` or `/vcs/load` to see all saves
-9. **Go back if needed**: `/vcs/load abc123f` or `/vcs/load version-1-0`
-10. **Discard unwanted changes**: `/vcs/clean` to start fresh or `/vcs/clean specific-file.js`
+1. **Iniciar un nuevo proyecto**: `/vcs:iniciar`
+2. **Hacer cambios en tus archivos**
+3. **Comprobar qué cambió**: `/vcs:diferencias` para ver tu progreso
+4. **Guardar tu progreso**: `/vcs:guardar "Añadida nueva funcionalidad"` o simplemente `/vcs:guardar` para mensaje generado automáticamente
+5. **Guardar archivos específicos**: `/vcs:guardar "archivos JavaScript" -m "Corregir errores"` para confirmaciones selectivas
+6. **Continuar trabajando y guardando**: `/vcs:guardar "Corregido error"` o `/vcs:guardar`
+7. **Marcar hitos importantes**: `/vcs:etiquetar "versión 1.0"` o `/vcs:etiquetar` para marca de tiempo
+8. **Comprobar tu historial**: `/vcs:historial` o `/vcs:cargar` para ver todos los guardados
+9. **Volver atrás si es necesario**: `/vcs:cargar abc123f` o `/vcs:cargar versión-1-0`
+10. **Descartar cambios no deseados**: `/vcs:limpiar` para empezar de nuevo o `/vcs:limpiar archivo-específico.js`
 
-#### Tips:
+#### Consejos:
 
-- Save often with descriptive messages, or let the system auto-generate them
-- Use `/vcs/diff` before saving to see what changed and get intelligent impact analysis
-- Save specific files using natural language: `/vcs/save "all JavaScript files"` or `/vcs/save "files in src folder"`
-- Create tags for important milestones like releases or major features
-- Use `/vcs/load` without parameters to see history and choose which version to load
-- Manual commit messages should describe what you did
-- Auto-generated messages analyze your changes and create appropriate descriptions
-- Use `/vcs/clean` to discard unwanted changes and start fresh
-- You can always go back to any previous save or tag
+- Guarda frecuentemente con mensajes descriptivos, o deja que el sistema los genere automáticamente
+- Usa `/vcs:diferencias` antes de guardar para ver qué cambió y obtener análisis inteligente de impacto
+- Guarda archivos específicos usando lenguaje natural: `/vcs:guardar "todos los archivos JavaScript"` o `/vcs:guardar "archivos en carpeta src"`
+- Crea etiquetas para hitos importantes como lanzamientos o funcionalidades principales
+- Usa `/vcs:cargar` sin parámetros para ver el historial y elegir qué versión cargar
+- Los mensajes de confirmación manuales deben describir lo que hiciste
+- Los mensajes generados automáticamente analizan tus cambios y crean descripciones apropiadas
+- Usa `/vcs:limpiar` para descartar cambios no deseados y empezar de nuevo
+- Siempre puedes volver a cualquier guardado o etiqueta anterior
 
-#### Auto-Generated Commit Messages:
+#### Mensajes de Confirmación Generados Automáticamente:
 
-When you use `/vcs/save` without a message, the system will:
-- Analyze what files you've changed
-- Understand the type of work you've done
-- Generate a professional commit message like:
+Cuando usas `/vcs:guardar` sin un mensaje, el sistema:
+- Analiza qué archivos has cambiado
+- Entiende el tipo de trabajo que has realizado
+- Genera un mensaje de confirmación profesional como:
   - `feat: add user login functionality`
   - `fix: resolve database connection issue`
   - `docs: update installation guide`

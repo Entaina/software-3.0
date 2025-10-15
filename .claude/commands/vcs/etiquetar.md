@@ -1,69 +1,69 @@
-# VCS Tag - Create Version Tags
+# VCS Etiquetar - Crear Etiquetas de Versión
 
-Create a tag for the current commit to mark important milestones or versions. Tags help you identify specific points in your project's history that are significant.
+Crea una etiqueta para el commit actual para marcar hitos o versiones importantes. Las etiquetas te ayudan a identificar puntos específicos en el historial de tu proyecto que son significativos.
 
-**Usage**: `/vcs/tag [tag-message]`
+**Uso**: `/vcs:etiquetar [mensaje-etiqueta]`
 
-## Implementation
+## Implementación
 
-Create a git tag on the current commit with either a provided message or an automatically generated timestamp. This command provides an easy way to mark important versions or milestones in your project.
+Crea una etiqueta git en el commit actual con un mensaje proporcionado o una marca de tiempo generada automáticamente. Este comando proporciona una forma fácil de marcar versiones o hitos importantes en tu proyecto.
 
-Steps to execute:
-1. Check if we're in a git repository
-2. Verify that there are commits to tag (repository is not empty)
-3. If a tag message is provided:
-   - Use the provided message as the tag name (sanitized for git compatibility)
-   - Remove special characters and spaces, replace with hyphens
-4. If no tag message is provided:
-   - Generate a timestamp in format: "YYYY-MM-DD_HH-MM" (using current local time)
-   - Use this timestamp as the tag name
-5. Check if the tag already exists to avoid conflicts
-6. Create the tag using `git tag "<tag-name>"`
-7. Show confirmation with:
-   - The tag name that was created
-   - The commit hash and message it points to
-   - Explanation of what the tag represents
-   - Instructions on how to push tags if needed
+Pasos a ejecutar:
+1. Comprobar si estamos en un repositorio git
+2. Verificar que hay commits para etiquetar (el repositorio no está vacío)
+3. Si se proporciona un mensaje de etiqueta:
+   - Usar el mensaje proporcionado como nombre de la etiqueta (saneado para compatibilidad con git)
+   - Eliminar caracteres especiales y espacios, reemplazar con guiones
+4. Si no se proporciona mensaje de etiqueta:
+   - Generar una marca de tiempo en formato: "AAAA-MM-DD_HH-MM" (usando hora local actual)
+   - Usar esta marca de tiempo como nombre de la etiqueta
+5. Comprobar si la etiqueta ya existe para evitar conflictos
+6. Crear la etiqueta usando `git tag "<nombre-etiqueta>"`
+7. Mostrar confirmación con:
+   - El nombre de la etiqueta que fue creada
+   - El hash del commit y mensaje al que apunta
+   - Explicación de lo que representa la etiqueta
+   - Instrucciones sobre cómo enviar etiquetas si es necesario
 
-## Tag Naming Rules
+## Reglas de Nomenclatura de Etiquetas
 
-- Convert spaces to hyphens
-- Remove or replace special characters that aren't git-compatible
-- Keep tag names concise and meaningful
-- Timestamp format: YYYY-MM-DD_HH-MM (e.g., "2024-03-15_14-30")
+- Convertir espacios a guiones
+- Eliminar o reemplazar caracteres especiales que no sean compatibles con git
+- Mantener nombres de etiqueta concisos y significativos
+- Formato de marca de tiempo: AAAA-MM-DD_HH-MM (ej., "2024-03-15_14-30")
 
-## Examples
-
-```bash
-/vcs/tag "version 1.0"
-```
-Creates tag named "version-1-0" pointing to current commit.
+## Ejemplos
 
 ```bash
-/vcs/tag "stable release"
+/vcs:etiquetar "versión 1.0"
 ```
-Creates tag named "stable-release" pointing to current commit.
+Crea una etiqueta llamada "versión-1-0" apuntando al commit actual.
 
 ```bash
-/vcs/tag
+/vcs:etiquetar "lanzamiento estable"
 ```
-Creates tag with current timestamp (e.g., "2024-03-15_14-30") pointing to current commit.
+Crea una etiqueta llamada "lanzamiento-estable" apuntando al commit actual.
 
-This will:
-- Create a lightweight git tag on the current commit
-- Use provided message (sanitized) or auto-generate timestamp
-- Show confirmation with tag details and commit information
-- Provide guidance on pushing tags to remote repository if needed
-
-Example output:
+```bash
+/vcs:etiquetar
 ```
-✅ **Tag Created Successfully!**
+Crea una etiqueta con marca de tiempo actual (ej., "2024-03-15_14-30") apuntando al commit actual.
 
-**Tag name**: version-1-0
-**Points to commit**: a1b2c3d - "feat: add user authentication system"
-**Created**: March 15, 2024 at 2:30 PM
+Esto hará:
+- Crear una etiqueta git ligera en el commit actual
+- Usar el mensaje proporcionado (saneado) o generar automáticamente marca de tiempo
+- Mostrar confirmación con detalles de la etiqueta e información del commit
+- Proporcionar orientación sobre cómo enviar etiquetas al repositorio remoto si es necesario
 
-This tag marks: **version 1.0** - A significant milestone in your project
+Ejemplo de salida:
+```
+✅ **¡Etiqueta Creada Correctamente!**
 
-💡 **Tip**: To share this tag with others, use: `git push origin version-1-0`
+**Nombre de etiqueta**: versión-1-0
+**Apunta al commit**: a1b2c3d - "feat: add user authentication system"
+**Creada**: 15 de marzo de 2024 a las 14:30
+
+Esta etiqueta marca: **versión 1.0** - Un hito significativo en tu proyecto
+
+💡 **Consejo**: Para compartir esta etiqueta con otros, usa: `git push origin versión-1-0`
 ```

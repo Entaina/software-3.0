@@ -1,110 +1,110 @@
-# VCS Load - Restore Previous Version
+# VCS Cargar - Restaurar Versión Anterior
 
-Restore the repository to a previous commit, tag, or branch state.
+Restaura el repositorio a un estado de commit, etiqueta o rama anterior.
 
-**Usage**: `/vcs/load [commit-hash-or-tag-or-reference]`
+**Uso**: `/vcs:cargar [hash-commit-o-etiqueta-o-referencia]`
 
-## Implementation
+## Implementación
 
-Reset the repository to a specific commit, tag, or branch using `git reset --hard`. This command allows users to restore their project to any previous state using various reference types.
+Restablece el repositorio a un commit, etiqueta o rama específica usando `git reset --hard`. Este comando permite a los usuarios restaurar su proyecto a cualquier estado anterior usando varios tipos de referencia.
 
-Steps to execute:
-1. Check if we're in a git repository
-2. **Handle missing reference parameter**:
-   - If no commit reference is provided, display commit history using `git log --oneline --decorate -10`
-   - Format the history in a user-friendly way showing:
-     - Commit hash (short version)
-     - Commit message
-     - Current commit indicator
-   - Ask user to specify which commit to load by hash, tag, or description
-   - Wait for user input and then proceed with the specified reference
-3. Resolve and validate the provided reference (commit hash, tag name, branch, or description):
-   - If it looks like a commit hash (starts with alphanumeric), use directly
-   - If it matches a tag name, resolve to the tagged commit
-   - If it matches a branch name, resolve to the branch head
-   - If it's a relative reference (HEAD~1, HEAD^), resolve it
-   - If it's a description, search recent commits for matching messages
-4. Check current repository status to analyze what will be lost:
-   - Modified files that will be discarded
-   - Untracked files (these will remain but may conflict with target state)
-   - Staged changes that will be lost
-5. Display the target commit information (hash, message, date, author)
-6. Show detailed impact analysis:
-   - List modified files with change descriptions
-   - Show total count of affected files
-   - Compare current state with target commit
-7. **Ask for explicit confirmation** with clear warning about data loss:
-   - Display clear warning about permanent data loss
-   - Require user to type "yes" or "y" to confirm (case-insensitive)
-   - Show exactly what commit they're loading
-   - **ALWAYS ask for confirmation regardless of whether parameters were provided**
-8. After confirmation:
-   - Run `git reset --hard <resolved-reference>`
-   - Show confirmation of the reset operation with details
+Pasos a ejecutar:
+1. Comprobar si estamos en un repositorio git
+2. **Gestionar parámetro de referencia ausente**:
+   - Si no se proporciona referencia de commit, mostrar historial de commits usando `git log --oneline --decorate -10`
+   - Formatear el historial de forma fácil de usar mostrando:
+     - Hash del commit (versión corta)
+     - Mensaje del commit
+     - Indicador del commit actual
+   - Pedir al usuario que especifique qué commit cargar por hash, etiqueta o descripción
+   - Esperar entrada del usuario y luego proceder con la referencia especificada
+3. Resolver y validar la referencia proporcionada (hash de commit, nombre de etiqueta, rama o descripción):
+   - Si parece un hash de commit (comienza con alfanumérico), usar directamente
+   - Si coincide con un nombre de etiqueta, resolver al commit etiquetado
+   - Si coincide con un nombre de rama, resolver a la cabeza de la rama
+   - Si es una referencia relativa (HEAD~1, HEAD^), resolverla
+   - Si es una descripción, buscar commits recientes con mensajes coincidentes
+4. Comprobar estado actual del repositorio para analizar qué se perderá:
+   - Archivos modificados que serán descartados
+   - Archivos sin rastrear (estos permanecerán pero pueden entrar en conflicto con el estado objetivo)
+   - Cambios preparados que se perderán
+5. Mostrar la información del commit objetivo (hash, mensaje, fecha, autor)
+6. Mostrar análisis detallado de impacto:
+   - Listar archivos modificados con descripciones de cambios
+   - Mostrar recuento total de archivos afectados
+   - Comparar estado actual con commit objetivo
+7. **Pedir confirmación explícita** con advertencia clara sobre pérdida de datos:
+   - Mostrar advertencia clara sobre pérdida permanente de datos
+   - Requerir que el usuario escriba "yes" o "y" para confirmar (sin distinción de mayúsculas)
+   - Mostrar exactamente qué commit están cargando
+   - **SIEMPRE pedir confirmación independientemente de si se proporcionaron parámetros**
+8. Después de la confirmación:
+   - Ejecutar `git reset --hard <referencia-resuelta>`
+   - Mostrar confirmación de la operación de reinicio con detalles
 
-## Examples
-
-```bash
-/vcs/load
-```
-Show commit history and ask user to select a commit to load.
+## Ejemplos
 
 ```bash
-/vcs/load abc123f
+/vcs:cargar
 ```
-Load specific commit by hash.
+Mostrar historial de commits y pedir al usuario que seleccione un commit para cargar.
 
 ```bash
-/vcs/load version-1-0
+/vcs:cargar abc123f
 ```
-Load tagged version (created with vcs:tag).
+Cargar commit específico por hash.
 
 ```bash
-/vcs/load HEAD~1
+/vcs:cargar version-1-0
 ```
-Load previous commit (relative reference).
+Cargar versión etiquetada (creada con vcs:etiquetar).
 
 ```bash
-/vcs/load main
+/vcs:cargar HEAD~1
 ```
-Load specific branch head.
+Cargar commit anterior (referencia relativa).
 
 ```bash
-/vcs/load "add user authentication"
+/vcs:cargar main
 ```
-Load commit by searching for description match.
+Cargar cabeza de rama específica.
 
-This will:
-- Resolve the reference to a specific commit (hash, tag, branch, or description)
-- Analyze what changes will be lost
-- Show detailed impact preview
-- Ask for explicit confirmation before proceeding
-- Reset the repository to that commit
-- Show confirmation with detailed operation summary
-
-**Reference Types Supported**:
-- **Commit hashes**: `abc123f`, `a1b2c3d4e5f6`
-- **Tags**: `version-1-0`, `2024-03-15_14-30` (created by vcs:tag)
-- **Branches**: `main`, `develop`, `feature-branch`
-- **Relative**: `HEAD~1`, `HEAD~2`, `HEAD^`
-- **Descriptions**: Search commit messages for matches
-
-## Safety Features
-
-- **Detailed preview**: Shows exactly what will be lost before loading
-- **Explicit confirmation**: Requires typing "yes" to proceed, not just pressing Enter
-- **Clear warnings**: Multiple warnings about permanent data loss
-- **Impact analysis**: Compares current state with target commit
-- **Target validation**: Confirms the target commit exists and is accessible
-
-## Interactive Examples
-
-### When no commit reference is provided:
+```bash
+/vcs:cargar "add user authentication"
 ```
-📋 **Recent Commit History**
+Cargar commit buscando coincidencia de descripción.
+
+Esto hará:
+- Resolver la referencia a un commit específico (hash, etiqueta, rama o descripción)
+- Analizar qué cambios se perderán
+- Mostrar vista previa detallada del impacto
+- Pedir confirmación explícita antes de proceder
+- Restablecer el repositorio a ese commit
+- Mostrar confirmación con resumen detallado de la operación
+
+**Tipos de Referencia Soportados**:
+- **Hashes de commit**: `abc123f`, `a1b2c3d4e5f6`
+- **Etiquetas**: `version-1-0`, `2024-03-15_14-30` (creadas por vcs:etiquetar)
+- **Ramas**: `main`, `develop`, `feature-branch`
+- **Relativas**: `HEAD~1`, `HEAD~2`, `HEAD^`
+- **Descripciones**: Buscar coincidencias en mensajes de commit
+
+## Características de Seguridad
+
+- **Vista previa detallada**: Muestra exactamente qué se perderá antes de cargar
+- **Confirmación explícita**: Requiere escribir "yes" para proceder, no solo pulsar Enter
+- **Advertencias claras**: Múltiples advertencias sobre pérdida permanente de datos
+- **Análisis de impacto**: Compara el estado actual con el commit objetivo
+- **Validación de objetivo**: Confirma que el commit objetivo existe y es accesible
+
+## Ejemplos Interactivos
+
+### Cuando no se proporciona referencia de commit:
+```
+📋 **Historial de Commits Recientes**
 
 e03b3a7 (HEAD -> main) enhance: add selective file operations to VCS commands
-1561109 enhance: add destructive operation safeguards to VCS load command  
+1561109 enhance: add destructive operation safeguards to VCS load command
 3875df4 feat: add VCS clean command with destructive operation safeguards
 ebb367c feat: add VCS tag command and enhance load command functionality
 3a5deda docs: enhance VCS diff command formatting and output structure
@@ -112,53 +112,53 @@ d92ebbb docs: standardize VCS command naming conventions
 106e488 config: expand git permissions for full VCS functionality
 ad4c039 feat: initialize Software 3.0 VCS command system
 
-**Please specify which commit to load**:
-- Enter a commit hash (e.g., "1561109") 
-- Enter a commit message pattern (e.g., "add destructive")
-- Enter a tag name (e.g., "version-1-0")
-- Enter a relative reference (e.g., "HEAD~2")
+**Por favor, especifica qué commit cargar**:
+- Introduce un hash de commit (ej., "1561109")
+- Introduce un patrón de mensaje de commit (ej., "add destructive")
+- Introduce un nombre de etiqueta (ej., "version-1-0")
+- Introduce una referencia relativa (ej., "HEAD~2")
 
-Which commit would you like to load? _
+¿Qué commit te gustaría cargar? _
 ```
 
-### Standard load operation:
+### Operación de carga estándar:
 ```
-🔄 **Repository Load Analysis**
+🔄 **Análisis de Carga del Repositorio**
 
-**Target**: Loading commit abc123d - "feat: add user authentication system"
-**Author**: John Doe (2 days ago)
+**Objetivo**: Cargando commit abc123d - "feat: add user authentication system"
+**Autor**: John Doe (hace 2 días)
 
-**Current Status**: Your repository has uncommitted changes
+**Estado Actual**: Tu repositorio tiene cambios sin confirmar
 
-**Files that will be discarded** (2 modified):
-- `src/main.js` - 8 lines changed
-- `config.json` - Modified settings
+**Archivos que serán descartados** (2 modificados):
+- `src/main.js` - 8 líneas cambiadas
+- `config.json` - Configuración modificada
 
-**Files that will be staged/unstaged**:
-- Currently staged changes will be lost
+**Archivos que serán preparados/despreparados**:
+- Los cambios actualmente preparados se perderán
 
 ---
 
-⚠️  **WARNING: This action cannot be undone!**
-All uncommitted changes will be permanently lost.
-You will be moved to commit: abc123d - "feat: add user authentication system"
+⚠️  **ADVERTENCIA: ¡Esta acción no se puede deshacer!**
+Todos los cambios sin confirmar se perderán permanentemente.
+Serás movido al commit: abc123d - "feat: add user authentication system"
 
-**Total impact**: 2 files will be affected
+**Impacto total**: 2 archivos se verán afectados
 
-Type "yes" to proceed with loading: _
+Escribe "yes" para proceder con la carga: _
 ```
 
-After confirmation:
+Después de la confirmación:
 ```
-✅ **Repository Loaded Successfully!**
+✅ **¡Repositorio Cargado Correctamente!**
 
-**Target reached**: abc123d - "feat: add user authentication system"
-**Actions taken**:
-- Discarded modifications in 2 files
-- Reset HEAD to target commit
-- Working directory now matches target exactly
+**Objetivo alcanzado**: abc123d - "feat: add user authentication system"
+**Acciones realizadas**:
+- Descartadas modificaciones en 2 archivos
+- HEAD restablecido al commit objetivo
+- El directorio de trabajo ahora coincide exactamente con el objetivo
 
-Your repository is now at the requested state.
+Tu repositorio está ahora en el estado solicitado.
 ```
 
-**Warning**: This command permanently destroys uncommitted work. Use with extreme caution and ensure you want to lose all current changes.
+**Advertencia**: Este comando destruye permanentemente el trabajo sin confirmar. Úsalo con extrema precaución y asegúrate de que quieres perder todos los cambios actuales.

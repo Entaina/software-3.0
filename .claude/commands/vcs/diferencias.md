@@ -1,81 +1,81 @@
-# VCS Diff - Show Pending Changes
+# VCS Diferencias - Mostrar Cambios Pendientes
 
-Display all current changes that are pending to be committed, with an intelligent summary of what the changes mean for your project.
+Muestra todos los cambios actuales que están pendientes de ser confirmados, con un resumen inteligente de lo que significan los cambios para tu proyecto.
 
-**Usage**: `/vcs/diff`
+**Uso**: `/vcs:diferencias`
 
-## Implementation
+## Implementación
 
-Show all changes in the working directory and staging area with a meaningful summary for non-developer users. This command analyzes changes and explains their impact in plain language.
+Muestra todos los cambios en el directorio de trabajo y el área de preparación con un resumen significativo para usuarios no técnicos. Este comando analiza los cambios y explica su impacto en lenguaje claro.
 
-Steps to execute:
-1. Check if we're in a git repository
-2. Run `git status --porcelain` to get an overview of changed files
-3. Run `git diff` and `git diff --cached` to analyze actual changes
-4. Analyze the changes to understand:
-   - What type of work is being done (new features, bug fixes, configuration changes, etc.)
-   - Which parts of the project are affected
-   - The scope and impact of the changes
-5. Present a user-friendly summary with proper formatting including:
-   - **Project Impact Summary**: What these changes mean for the project in plain language
-   - **Work Summary**: What kind of work has been done
-   - **Files Affected**: List of changed files with brief explanations
-   - **Readiness Assessment**: Whether changes are ready to be saved
-6. Avoid technical jargon and focus on the practical meaning of changes
-7. Ensure proper line breaks and spacing between all sections for readability
-8. Use clear visual separators (like `---`) between major sections
-9. Format output with consistent spacing and clear section headers
+Pasos a ejecutar:
+1. Comprobar si estamos en un repositorio git
+2. Ejecutar `git status --porcelain` para obtener una visión general de los archivos cambiados
+3. Ejecutar `git diff` y `git diff --cached` para analizar los cambios reales
+4. Analizar los cambios para entender:
+   - Qué tipo de trabajo se está realizando (nuevas funcionalidades, correcciones de errores, cambios de configuración, etc.)
+   - Qué partes del proyecto se ven afectadas
+   - El alcance e impacto de los cambios
+5. Presentar un resumen fácil de usar con formato apropiado incluyendo:
+   - **Resumen de Impacto del Proyecto**: Qué significan estos cambios para el proyecto en lenguaje claro
+   - **Resumen del Trabajo**: Qué tipo de trabajo se ha realizado
+   - **Archivos Afectados**: Lista de archivos cambiados con explicaciones breves
+   - **Evaluación de Preparación**: Si los cambios están listos para ser guardados
+6. Evitar jerga técnica y centrarse en el significado práctico de los cambios
+7. Asegurar saltos de línea y espaciado apropiados entre todas las secciones para legibilidad
+8. Usar separadores visuales claros (como `---`) entre secciones principales
+9. Formatear la salida con espaciado consistente y encabezados de sección claros
 
-## Examples
+## Ejemplos
 
 ```bash
-/vcs/diff
+/vcs:diferencias
 ```
 
-This will show:
-- **"You've been working on..."** - A summary of what the changes accomplish
-- **"These changes affect..."** - Which parts of your project are impacted  
-- **"Ready to save?"** - Whether the changes form a complete unit of work
-- Clear, non-technical explanations of what each file change does
+Esto mostrará:
+- **"Has estado trabajando en..."** - Un resumen de lo que logran los cambios
+- **"Estos cambios afectan a..."** - Qué partes de tu proyecto se ven impactadas
+- **"¿Listo para guardar?"** - Si los cambios forman una unidad de trabajo completa
+- Explicaciones claras y no técnicas de lo que hace cada cambio de archivo
 
-Example output:
+Ejemplo de salida:
 ```
-# 📋 Project Changes Summary
+# 📋 Resumen de Cambios del Proyecto
 
-## You've been working on:
-**Setting up project configuration and development tools** - Improving project foundation
+## Has estado trabajando en:
+**Configuración del proyecto y herramientas de desarrollo** - Mejorando la base del proyecto
 
-## These changes affect:
-**Project foundation and development workflow** - Core project setup files
+## Estos cambios afectan a:
+**Base del proyecto y flujo de trabajo de desarrollo** - Archivos principales de configuración del proyecto
 
 ---
 
-## Work Summary:
-- **Configuration files** - Added better project management setup
-- **Development tools** - Set up editor settings for consistency
-- **Project structure** - Created organized team collaboration framework
+## Resumen del Trabajo:
+- **Archivos de configuración** - Añadida mejor configuración de gestión del proyecto
+- **Herramientas de desarrollo** - Configurados ajustes del editor para consistencia
+- **Estructura del proyecto** - Creado marco de colaboración en equipo organizado
 
-## Files Ready to Save:
+## Archivos Listos para Guardar:
 
-**📄 `.gitignore`** - Git Ignore Rules  
-- **What changed**: Added exclusion patterns for development files
-- **Why it matters**: Prevents unwanted files from being tracked
-- **Impact**: Cleaner repository with only relevant files
+**📄 `.gitignore`** - Reglas de Ignorar de Git
+- **Qué cambió**: Añadidos patrones de exclusión para archivos de desarrollo
+- **Por qué importa**: Previene que archivos no deseados sean rastreados
+- **Impacto**: Repositorio más limpio con solo archivos relevantes
 
-**📄 `package.json`** - Project Configuration  
-- **What changed**: Defined project dependencies and build scripts
-- **Why it matters**: Establishes project structure and tooling
-- **Impact**: Enables consistent development environment
+**📄 `package.json`** - Configuración del Proyecto
+- **Qué cambió**: Definidas dependencias del proyecto y scripts de construcción
+- **Por qué importa**: Establece la estructura y herramientas del proyecto
+- **Impacto**: Habilita entorno de desarrollo consistente
 
-**📄 `.vscode/settings.json`** - Editor Configuration  
-- **What changed**: Configured editor for consistent formatting
-- **Why it matters**: Ensures all team members use same code style
-- **Impact**: Improved code quality and collaboration
+**📄 `.vscode/settings.json`** - Configuración del Editor
+- **Qué cambió**: Configurado el editor para formato consistente
+- **Por qué importa**: Asegura que todos los miembros del equipo usen el mismo estilo de código
+- **Impacto**: Mejorada calidad de código y colaboración
 
 ---
 
-## ✅ Readiness Assessment:
-**Ready to save**: These changes form a complete setup that's ready to commit.
+## ✅ Evaluación de Preparación:
+**Listo para guardar**: Estos cambios forman una configuración completa que está lista para confirmar.
 
-**Recommendation**: Use `vcs:save` to preserve this project foundation setup.
+**Recomendación**: Usa `vcs:guardar` para preservar esta configuración base del proyecto.
 ```

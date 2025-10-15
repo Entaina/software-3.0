@@ -13,7 +13,7 @@ Implementa la siguiente tarea del plan organizado orquestando agentes especializ
 
 Orquesta agentes especializados para implementar la siguiente tarea:
 1. **Identifica** siguiente tarea pendiente en plan-organized.md
-2. **En paralelo** (si necesario): Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager
+2. **En paralelo** (si necesario): Rails Architect, Tailwind Specialist, Hotwire Specialist
 3. **Después**: Implementa código basándose en análisis de agentes
 4. **Finalmente**: Feature Flow Manager actualiza progreso
 
@@ -39,7 +39,6 @@ Basándose en la descripción de la tarea, determina qué agentes especializados
 **Tarea Frontend (views, componentes UI)**:
 - Rails Architect: Para estructura Rails
 - Tailwind Specialist: Para implementación UI
-- Design System Manager: Para componentes reutilizables
 
 **Tarea Interactividad (Turbo, Stimulus, tiempo real)**:
 - Rails Architect: Para endpoints backend
@@ -128,28 +127,6 @@ Devuelve:
 - Manejo de edge cases
 ```
 
-**Tarea para design-system-manager** (si componentes UI):
-```
-Consulta sistema de diseño para la siguiente tarea del plan organizado.
-
-Contexto:
-- Tarea a implementar: [descripción de la tarea]
-- Lee sistema de diseño en .contexts/design-system/
-- Contexto adicional del usuario: $ARGUMENTS
-
-Proporciona:
-- Componentes existentes reutilizables
-- Especificaciones exactas (colores, espaciado, tipografía)
-- Clases Tailwind del sistema de diseño
-- Helpers Rails disponibles
-- Si necesita crear componente nuevo, especificaciones completas
-
-Devuelve:
-- Referencias a componentes existentes
-- Código helper Rails si existe
-- Especificaciones para nuevos componentes
-```
-
 **Paso 4: Esperar Resultados de Agentes**
 
 Los agentes trabajarán en paralelo (si múltiples) y devolverán sus hallazgos. Espera a que todos completen.
@@ -161,7 +138,7 @@ Con los informes de los agentes, implementa el código:
 1. **Crear/Modificar archivos** según recomendaciones de agentes
 2. **Integrar hallazgos**:
    - Arquitectura backend del rails-architect
-   - UI del tailwind-specialist y design-system-manager
+   - UI del tailwind-specialist
    - Interactividad del hotwire-specialist
 3. **Seguir convenciones** del proyecto
 4. **Crear tests** según estrategia del rails-architect
@@ -209,7 +186,6 @@ Acciones requeridas:
 - Rails-architect proporciona implementación backend (siempre)
 - Tailwind-specialist proporciona implementación UI (si necesario)
 - Hotwire-specialist proporciona interactividad (si necesario)
-- Design-system-manager proporciona componentes (si necesario)
 - Código implementado correctamente con tests
 - Tarea marcada como completada [x] en plan-organized.md
 - Feature-flow-manager actualiza .feature-state.json

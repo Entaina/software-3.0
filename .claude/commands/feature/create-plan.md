@@ -12,7 +12,7 @@ Genera plan técnico de implementación orquestando agentes especializados y usa
 ## Qué Hace Este Comando
 
 Orquesta múltiples agentes especializados para crear un plan técnico completo:
-1. **En paralelo**: Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager
+1. **En paralelo**: Rails Architect, Tailwind Specialist, Hotwire Specialist
 2. **Después**: Sintetiza resultados en plan técnico
 3. **Finalmente**: Feature Flow Manager valida y actualiza el estado
 
@@ -25,7 +25,6 @@ Lee el PRD de la feature actual en `.contexts/.product/features/active/[feature-
 - **Rails Architect**: Siempre necesario para arquitectura backend
 - **Tailwind Specialist**: Si hay UI/frontend nuevo
 - **Hotwire Specialist**: Si hay interactividad (formularios, modales, actualizaciones en tiempo real)
-- **Design System Manager**: Si hay componentes nuevos de UI
 
 **Paso 2: Lanzar Agentes Especializados EN PARALELO**
 
@@ -95,26 +94,6 @@ Proporciona especificaciones de interactividad detalladas cubriendo:
 Devuelve un informe detallado con todas las especificaciones de interactividad.
 ```
 
-**Tarea para design-system-manager** (si componentes UI nuevos):
-```
-Consulta sistema de diseño para la feature actual.
-
-Contexto:
-- Lee PRD en .contexts/.product/features/active/[feature-actual]/PRD.md
-- Lee sistema de diseño en .contexts/design-system/
-- Contexto adicional del usuario: $ARGUMENTS
-
-Proporciona especificaciones del sistema de diseño cubriendo:
-- Componentes existentes que se pueden reutilizar
-- Especificaciones exactas de componentes (colores, espaciado, tipografía)
-- Clases Tailwind CSS del sistema de diseño
-- Patrones de UI establecidos en el proyecto
-- Gaps: componentes nuevos necesarios que no existen
-- Recomendaciones de componentes a crear
-
-Devuelve un informe detallado con componentes reutilizables y necesarios.
-```
-
 **Paso 3: Esperar Resultados de Agentes**
 
 Los agentes trabajarán en paralelo y devolverán sus hallazgos. Espera a que todos completen antes de continuar.
@@ -151,7 +130,7 @@ Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan.md` co
 [Esquema, migraciones, índices, performance - del rails-architect]
 
 ### Implementación Frontend
-[Componentes UI, Tailwind classes, responsive - del tailwind-specialist y design-system-manager]
+[Componentes UI, Tailwind classes, responsive - del tailwind-specialist]
 
 ### Interactividad y Tiempo Real
 [Turbo Frames, Turbo Streams, Stimulus - del hotwire-specialist]
@@ -187,7 +166,7 @@ Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan.md` co
 
 ### Implementación Frontend
 - [ ] [View template Rails - del tailwind-specialist]
-- [ ] [Componente UI con Tailwind - del tailwind-specialist y design-system-manager]
+- [ ] [Componente UI con Tailwind - del tailwind-specialist]
 - [ ] [Stimulus controller - del hotwire-specialist]
 - [ ] [Turbo Frame/Stream - del hotwire-specialist]
 - [ ] [Responsividad móvil - del tailwind-specialist]
@@ -235,7 +214,7 @@ Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan.md` co
 
 ---
 
-*Plan técnico creado mediante análisis colaborativo de agentes especializados: Rails Architect, Tailwind Specialist, Hotwire Specialist, Design System Manager.*
+*Plan técnico creado mediante análisis colaborativo de agentes especializados: Rails Architect, Tailwind Specialist, Hotwire Specialist.*
 ```
 
 **Paso 5: Actualizar Estado con Feature Flow Manager**
@@ -264,7 +243,6 @@ Acciones requeridas:
 - Rails-architect proporciona arquitectura backend completa
 - Tailwind-specialist proporciona especificaciones UI (si necesario)
 - Hotwire-specialist proporciona diseño de interactividad (si necesario)
-- Design-system-manager proporciona componentes sistema diseño (si necesario)
 - Plan técnico completo sintetizado y guardado en plan.md
 - Feature-flow-manager actualiza .feature-state.json
 - Stage "plan" marcado como completado

@@ -51,14 +51,6 @@ Según la tarea pedida por el usuario, asegúrate de llamar a los agentes pertin
 - Para validar métricas post-lanzamiento
 - Cuando haya que decir NO a características innecesarias
 
-### Design System Manager (design-system-manager)
-Úsalo cuando:
-- Se inicialice el sistema de diseño del proyecto
-- Se necesiten especificaciones de componentes UI
-- Se actualicen colores, tipografía o espaciado
-- Se audite consistencia visual
-- Se registren nuevos componentes
-
 ### Rails Architect (rails-architect)
 Úsalo cuando:
 - Se diseñe arquitectura de nuevas características

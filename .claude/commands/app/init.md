@@ -5,7 +5,7 @@ description: Inicializar una nueva aplicación Rails con decisiones colaborativa
 
 # Inicializar Aplicación - Flujo Colaborativo Multi-Agente
 
-Inicializa una nueva aplicación Rails con orientación coordinada del Product Owner, Design System Manager, Rails Architect, Tailwind Specialist y Hotwire Specialist trabajando colaborativamente.
+Inicializa una nueva aplicación Rails con orientación coordinada del Product Owner, Rails Architect, Tailwind Specialist y Hotwire Specialist trabajando colaborativamente.
 
 **Uso**: `/app:init <descripción-aplicación>`
 
@@ -19,7 +19,7 @@ Este comando orquesta un proceso completo de inicialización de aplicación dond
 2. **Inicializar CLAUDE.md** con instrucciones para usar context-engineer y agentes
 3. **Feature Flow Manager** - Crea la primera tarea para versión inicial
 4. **Product Owner** - Define la funcionalidad mínima viable
-5. **Agentes técnicos en paralelo** - Design System Manager, Rails Architect, Tailwind Specialist y Hotwire Specialist planifican la implementación
+5. **Agentes técnicos en paralelo** - Rails Architect, Tailwind Specialist y Hotwire Specialist planifican la implementación
 6. **Ejecutar el plan** - Implementa lo que los agentes han decidido
 7. **Context Engineer** - Actualiza los contextos con todas las decisiones tomadas
 
@@ -76,14 +76,6 @@ Según la tarea pedida por el usuario, asegúrate de llamar a los agentes pertin
 - Al priorizar características o decidir qué construir
 - Para validar métricas post-lanzamiento
 - Cuando haya que decir NO a características innecesarias
-
-### Design System Manager (design-system-manager)
-Úsalo cuando:
-- Se inicialice el sistema de diseño del proyecto
-- Se necesiten especificaciones de componentes UI
-- Se actualicen colores, tipografía o espaciado
-- Se audite consistencia visual
-- Se registren nuevos componentes
 
 ### Rails Architect (rails-architect)
 Úsalo cuando:
@@ -175,23 +167,9 @@ El Product Owner debe:
 
 ### Paso 5: Planificación Técnica en Paralelo
 
-Lanza **en paralelo** (en un solo mensaje) los siguientes 4 agentes especializados con la información del PRD:
+Lanza **en paralelo** (en un solo mensaje) los siguientes 3 agentes especializados con la información del PRD:
 
-#### 5.1 Design System Manager
-
-**Tarea**: "Establece el sistema de diseño para: $ARGUMENTS (basado en el PRD del Product Owner)"
-
-Debe:
-- Definir paleta de colores (primary, secondary, accent, semantic)
-- Establecer escala tipográfica y familias de fuentes
-- Definir sistema de espaciado (margins, padding, gaps)
-- Especificar estilos de componentes (botones, formularios, cards, navegación)
-- Crear design tokens para consistencia
-- Documentar guías visuales
-
-**Output**: `.design-system/visual-guidelines.md`
-
-#### 5.2 Rails Architect
+#### 5.1 Rails Architect
 
 **Tarea**: "Diseña la arquitectura Rails para: $ARGUMENTS (basado en el PRD y sistema de diseño)"
 
@@ -207,7 +185,7 @@ Debe:
 
 **Output**: Documento de arquitectura con modelos, rutas y decisiones técnicas
 
-#### 5.3 Tailwind Specialist
+#### 5.2 Tailwind Specialist
 
 **Tarea**: "Configura Tailwind CSS para: $ARGUMENTS (basado en el sistema de diseño)"
 
@@ -223,7 +201,7 @@ Debe:
 
 **Output**: `tailwind.config.js` completo e instrucciones de setup
 
-#### 5.4 Hotwire Specialist
+#### 5.3 Hotwire Specialist
 
 **Tarea**: "Planifica las características interactivas para: $ARGUMENTS (basado en PRD y arquitectura)"
 
@@ -238,7 +216,7 @@ Debe:
 
 **Output**: Plan de implementación Hotwire con patrones específicos
 
-**IMPORTANTE**: Estos 4 agentes deben ejecutarse en PARALELO usando múltiples llamadas al tool Task en un solo mensaje.
+**IMPORTANTE**: Estos 3 agentes deben ejecutarse en PARALELO usando múltiples llamadas al tool Task en un solo mensaje.
 
 **Espera a que TODOS los agentes técnicos completen antes de continuar.**
 
@@ -258,7 +236,7 @@ Con toda la información de los agentes:
    - Implementa layout base con navegación y estilos
 
 3. **Implementa vistas con Tailwind**:
-   - Crea vistas siguiendo patrones del Design System Manager
+   - Crea vistas siguiendo especificaciones del Tailwind Specialist
    - Aplica clases Tailwind según especificaciones
    - Implementa componentes reutilizables
 
@@ -373,7 +351,7 @@ Presenta un resumen completo al usuario:
 - **Antes de cada tarea**: Llama a `context-engineer` para cargar contexto
 - **Para nuevas características**: Usa `feature-flow-manager`
 - **Para decisiones de producto**: Usa `product-owner`
-- **Para UI/estilos**: Usa `design-system-manager` y `tailwind-specialist`
+- **Para UI/estilos**: Usa `tailwind-specialist`
 - **Para arquitectura**: Usa `rails-architect`
 - **Para interactividad**: Usa `hotwire-specialist`
 
@@ -386,7 +364,7 @@ Presenta un resumen completo al usuario:
 - ✅ CLAUDE.md inicializado con instrucciones de agentes
 - ✅ Característica v1.0-mvp creada en Feature Flow Manager
 - ✅ Product Owner ha definido MVP con JTBD y PRD
-- ✅ Los 4 agentes técnicos han completado sus planes
+- ✅ Los 3 agentes técnicos han completado sus planes
 - ✅ Código implementado según planes de agentes
 - ✅ Context Engineer ha documentado todas las decisiones
 - ✅ Usuario puede ejecutar `bin/dev` y ver la app funcionando

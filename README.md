@@ -35,7 +35,6 @@ This repository provides a comprehensive development environment for Claude Code
 ⚡ **Hotwire Specialist** - Turbo Frames, Turbo Streams, and Stimulus controllers
 🎨 **Tailwind Specialist** - Utility-first CSS, responsive design, and optimization
 📊 **Product Owner** - Lean product management and prioritization
-🎯 **Design System Manager** - Visual guidelines and component specifications
 
 ### Context Management
 💾 **Save Contexts** - Preserve development state and conversation context
@@ -188,12 +187,11 @@ Initialize a new application with all specialized agents working together:
 # Initialize with collaborative multi-agent workflow
 /app:init "CRM system for managing sales leads with kanban board"
 
-# The system orchestrates 5 agents sequentially:
+# The system orchestrates 4 agents sequentially:
 # 1. Product Owner → JTBD analysis and lean PRD
-# 2. Design System Manager → Visual guidelines and design tokens
-# 3. Rails Architect → Database schema and architecture
-# 4. Tailwind Specialist → CSS configuration with design system
-# 5. Hotwire Specialist → Interactive features planning
+# 2. Rails Architect → Database schema and architecture
+# 3. Tailwind Specialist → CSS configuration
+# 4. Hotwire Specialist → Interactive features planning
 
 # Output: Complete initialization plan with checklist
 ```
@@ -214,9 +212,6 @@ The specialized agents are automatically available and can be invoked directly i
 
 "Should we build this feature?"
 → Product Owner helps with JTBD analysis and prioritization
-
-"What colors should I use for buttons?"
-→ Design System Manager provides visual specifications
 ```
 
 ## Available Commands
@@ -355,7 +350,7 @@ Using `/vcs:load` without parameters shows your commit history and lets you choo
 
 ## Specialized AI Agents
 
-This configuration includes five expert AI agents with deep domain knowledge:
+This configuration includes four expert AI agents with deep domain knowledge:
 
 ### 🏗️ Rails Architect
 **Expertise**: Rails architecture, SOLID principles, design patterns
@@ -391,16 +386,7 @@ This configuration includes five expert AI agents with deep domain knowledge:
 - Post-launch metrics analysis
 - **Lines of code**: 46,326 lines of product knowledge
 
-### 🎯 Design System Manager
-**Expertise**: Visual guidelines, component specifications, design tokens
-- Creating and maintaining design systems
-- Color palettes, typography scales, spacing systems
-- Component specification and documentation
-- Design consistency auditing
-- Tailwind integration
-- **Lines of code**: 35,637 lines of design expertise
-
-**Total Agent Knowledge**: Over 211,700 lines of structured, expert knowledge
+**Total Agent Knowledge**: Over 176,000 lines of structured, expert knowledge
 
 ## Perfect For
 
@@ -464,8 +450,7 @@ Persistent state tracking for features and contexts:
 │   ├── rails-architect.md        # 55,278 lines
 │   ├── hotwire-specialist.md     # 35,940 lines
 │   ├── tailwind-specialist.md    # 38,519 lines
-│   ├── product-owner.md          # 46,326 lines
-│   └── design-system-manager.md  # 35,637 lines
+│   └── product-owner.md          # 46,326 lines
 └── settings.local.json
 
 .product/
@@ -489,11 +474,11 @@ Instead of just writing code, start with customer problems:
 - **Lifecycle Tracking**: Manage features from idea to archive
 
 ### 2. Expert AI Collaboration
-Five specialized agents provide deep domain expertise:
-- **211,700+ lines** of structured knowledge
+Four specialized agents provide deep domain expertise:
+- **176,000+ lines** of structured knowledge
 - **6-context framework** ensures consistent, high-quality responses
 - **Automatic invocation** based on conversation context
-- **Complementary expertise** across product, design, and engineering
+- **Complementary expertise** across product and engineering
 
 ### 3. Context Preservation
 Never lose your place in complex development work:

@@ -289,7 +289,7 @@ Archived Reasons:
   - ❌ Canceled: Deprioritized (document reason)
   - ❌ Failed: Tried and didn't work (document learnings)
 
-Archive Location: docs/features/archive/
+Archive Location: .contexts/features/archive/
 ```
 
 ---
@@ -613,7 +613,7 @@ tech_lead: "@juan"
 developers: ["@ana", "@carlos"]
 
 # Artifacts
-prd: "docs/prds/quick-reply-templates.md"
+prd: ".contexts/product/prds/active/quick-reply-templates.md"
 design: "figma.com/file/xxx"
 epic: "JIRA-123"
 pr: "github.com/org/repo/pull/456"
@@ -1492,7 +1492,7 @@ Flow is healthy, meeting targets, no need to change.
    outcome: "success"
 
    # Move to archive
-   location: "docs/features/archive/2024-q1/feat-035-saved-filters.md"
+   location: ".contexts/features/archive/2024-q1/feat-035-saved-filters.md"
 
    # Update metrics
    total_cycle_time: "8 days"

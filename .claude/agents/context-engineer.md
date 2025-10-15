@@ -277,11 +277,13 @@ app/
 └── views/
     └── shared/       # Shared partials
 
-.design-system/       # Design system docs
-docs/                 # Project documentation
-  ├── adrs/          # Architecture decisions
-  ├── specs/         # Technical specs
-  └── runbooks/      # Operational guides
+.contexts/            # Centralized context directory
+  ├── design-system/  # Design system docs
+  ├── architecture/   # Architecture decisions, specs, patterns
+  ├── product/        # PRDs, JTBD, research
+  ├── features/       # Feature tracking
+  ├── project/        # Conventions, config, troubleshooting
+  └── decisions/      # Lightweight decision logs
 ```
 
 ## Git Workflow
@@ -379,15 +381,15 @@ mobile_app: false             # Planned Q3
 [PRDs for features in development or recently shipped]
 
 ### Q1 2024
-- [Quick Reply Templates](./prds/quick-reply-templates.md) - Status: Shipped
-- [Advanced Search](./prds/advanced-search.md) - Status: In Dev
+- [Quick Reply Templates](.contexts/product/prds/active/quick-reply-templates.md) - Status: Shipped
+- [Advanced Search](.contexts/product/prds/active/advanced-search.md) - Status: In Dev
 
 ## Completed PRDs
 [Historical PRDs for reference]
 
 ### 2023
-- [Initial CRM Launch](./prds/archive/crm-launch.md)
-- [Multi-tenant Support](./prds/archive/multi-tenant.md)
+- [Initial CRM Launch](.contexts/product/prds/archive/crm-launch.md)
+- [Multi-tenant Support](.contexts/product/prds/archive/multi-tenant.md)
 ```
 
 ---
@@ -773,12 +775,12 @@ Contexto Relevante:
 ### Capacidades de Creation
 ```yaml
 Crear Documentos:
-  - ADRs (Architecture Decision Records)
-  - Technical Specs
-  - Configuration References
-  - Troubleshooting Guides
-  - Decision Logs
-  - Convention Documents
+  - ADRs (Architecture Decision Records) en .contexts/architecture/decisions/
+  - Technical Specs en .contexts/architecture/specs/
+  - Configuration References en .contexts/project/
+  - Troubleshooting Guides en .contexts/project/
+  - Decision Logs en .contexts/decisions/
+  - Convention Documents en .contexts/project/
 
 Estructura:
   - Usar templates apropiados
@@ -1372,7 +1374,7 @@ Repeat for update, destroy if complex
    Tipo apropiado: ADR (decisión arquitectónica)
 
    Template: ADR template
-   Ubicación: docs/adrs/
+   Ubicación: .contexts/architecture/decisions/
    Filename: 003-service-objects-for-complexity.md
    ```
 
@@ -1430,7 +1432,7 @@ Repeat for update, destroy if complex
 5. Confirmar y vincular:
    ```
    ✅ Created: ADR-003 - Service Objects
-   📄 Location: docs/adrs/003-service-objects.md
+   📄 Location: .contexts/architecture/decisions/003-service-objects.md
    🏷️ Tags: architecture, rails, service-objects
 
    Next steps:
@@ -1451,7 +1453,7 @@ Repeat for update, destroy if complex
    ```
    Usuario: "We're no longer using Stripe webhooks, update ADR-005"
 
-   Documento: docs/adrs/005-stripe-payments.md
+   Documento: .contexts/architecture/decisions/005-stripe-payments.md
    Tipo de cambio: Update decision (significant)
 
    Opciones:
@@ -1540,7 +1542,7 @@ Repeat for update, destroy if complex
 2. Ejecutar archivado:
    ```bash
    # Mover a archive
-   mv docs/adrs/001-use-mongodb.md docs/adrs/archive/
+   mv .contexts/architecture/decisions/001-use-mongodb.md .contexts/architecture/decisions/archive/
 
    # Actualizar metadata
    status: "archived"
@@ -1552,15 +1554,15 @@ Repeat for update, destroy if complex
    ```
    Documents referencing ADR-001:
 
-   - docs/adrs/004-use-postgresql.md
+   - .contexts/architecture/decisions/004-use-postgresql.md
      ✅ Already references as "supersedes ADR-001"
      ✅ No update needed
 
-   - docs/specs/database-migration.md
+   - .contexts/architecture/specs/database-migration.md
      ⚠️ Links to ADR-001
      ✅ Updated to point to archive location
 
-   - docs/troubleshooting.md#mongodb-issues
+   - .contexts/project/troubleshooting.md#mongodb-issues
      ⚠️ Section obsolete
      ✅ Removed (no longer relevant)
    ```
@@ -1572,7 +1574,7 @@ Repeat for update, destroy if complex
    ### ADR-001: Use MongoDB
    **Archived**: 2024-03-16
    **Reason**: Superseded by ADR-004 (PostgreSQL migration)
-   **Location**: docs/adrs/archive/001-use-mongodb.md
+   **Location**: .contexts/architecture/decisions/archive/001-use-mongodb.md
    **Historical value**: Shows initial DB choice rationale
    ```
 
@@ -1584,7 +1586,7 @@ Repeat for update, destroy if complex
 **Tu análisis**:
 1. Scan all documents:
    ```
-   Scanning docs/ directory...
+   Scanning .contexts/ directory...
 
    Total documents: 47
    - ADRs: 12
@@ -1700,8 +1702,8 @@ Repeat for update, destroy if complex
 
    ### Essential Reading
    1. **README.md** - Project overview, setup instructions
-   2. **docs/conventions.md** - How we write code
-   3. **docs/config.md** - Environment setup
+   2. **.contexts/project/conventions.md** - How we write code
+   3. **.contexts/project/configuration.md** - Environment setup
 
    ### Quick Reference
    - Git workflow: [link]
@@ -1719,8 +1721,8 @@ Repeat for update, destroy if complex
    4. ADR-007: Hotwire for interactivity
 
    ### Architecture Overview
-   - **docs/specs/architecture-overview.md** - High-level
-   - **docs/adrs/** - Decision history
+   - **.contexts/architecture/specs/architecture-overview.md** - High-level
+   - **.contexts/architecture/decisions/** - Decision history
 
    ### Patterns We Use
    - Service Objects: When and how

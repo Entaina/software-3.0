@@ -4,12 +4,13 @@ A **Software 3.0** configuration repository that extends Claude Code with powerf
 
 ## What This Is
 
-This repository provides a comprehensive development environment for Claude Code with three major systems:
+This repository provides a comprehensive development environment for Claude Code with five major systems:
 
 1. **VCS Commands** - Simplified version control operations in plain language
 2. **Feature Management** - Complete product development lifecycle from idea to implementation
 3. **Specialized Agents** - Expert AI agents for Rails, Hotwire, Tailwind, Product Management, and Design Systems
 4. **Context Management** - Save and restore development contexts across sessions
+5. **Learning System** - Automatic documentation updates from conversation analysis
 
 ## Features
 
@@ -41,6 +42,13 @@ This repository provides a comprehensive development environment for Claude Code
 🔄 **Load Contexts** - Restore previous sessions with full context
 📝 **Update Contexts** - Modify existing saved contexts
 🔍 **Initialize Projects** - Set up new project contexts
+
+### Learning System
+🧠 **Conversation Analysis** - Extract insights from development sessions
+📚 **Auto-Documentation** - Update CLAUDE.md with learned patterns
+🔄 **Continuous Learning** - Keep documentation synchronized with project evolution
+🎯 **Selective Updates** - Target specific sections for focused documentation
+📊 **Pattern Recognition** - Identify architectural decisions and best practices
 
 ## Quick Start
 
@@ -179,6 +187,26 @@ Start tracking changes in your project.
 /contexts:init
 ```
 
+### Learning and Documentation
+
+```bash
+# Analyze conversation and update CLAUDE.md
+/learn
+
+# Update specific section only
+/learn architecture
+/learn principles
+```
+
+The `/learn` command analyzes your current conversation to extract:
+- Technical decisions made
+- New patterns discovered
+- Architecture changes
+- Best practices learned
+- Feature additions
+
+It then automatically updates the CLAUDE.md file to keep documentation in sync with the project's evolution.
+
 ### Using Specialized Agents
 
 The specialized agents are automatically available and can be invoked directly in your conversations:
@@ -243,6 +271,7 @@ The specialized agents are automatically available and can be invoked directly i
 | Command | Description |
 |---------|-------------|
 | `/commands-manager` | Manage slash commands (create, edit, delete) |
+| `/learn [section]` | Analyze conversation and update CLAUDE.md with insights |
 
 ## Natural Language File Selection
 
@@ -395,7 +424,7 @@ Custom commands defined as markdown files in `.claude/commands/`:
 - **VCS commands** (`vcs/`) - 8 commands for version control
 - **Feature commands** (`feature/`) - 12 commands for feature lifecycle management
 - **Context commands** (`contexts/`) - 4 commands for context management
-- **Utility commands** - Command manager for creating/editing commands
+- **Utility commands** - Command manager and learning system for self-improvement
 
 #### 2. Specialized Agents
 AI agents with domain expertise in `.claude/agents/`:
@@ -419,7 +448,8 @@ Persistent state tracking for features and contexts:
 │   ├── vcs/           # 8 VCS commands
 │   ├── feature/       # 12 feature management commands
 │   ├── contexts/      # 4 context commands
-│   └── commands-manager.md
+│   ├── commands-manager.md
+│   └── learn.md       # Learning system command
 ├── agents/
 │   ├── rails-architect.md        # 55,278 lines
 │   ├── hotwire-specialist.md     # 35,940 lines
@@ -467,6 +497,14 @@ Complex operations made simple:
 - **Guided workflows** for feature creation
 - **Auto-generated artifacts** (commit messages, PRDs, plans)
 - **Safety confirmations** for destructive operations
+
+### 5. Self-Documenting System
+A learning configuration that improves itself:
+- **Conversation analysis** extracts patterns and decisions automatically
+- **CLAUDE.md updates** keep documentation synchronized with reality
+- **Continuous learning** from every development session
+- **Pattern recognition** identifies architectural best practices
+- **Knowledge accumulation** builds better context for future work
 
 ## Support
 

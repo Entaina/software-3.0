@@ -27,15 +27,15 @@ Ejemplo: `user-authentication Sistema de autenticación con JWT`
 - Descripción: `Sistema de autenticación con JWT`
 
 ### 2. Validar Nombre Único
-- Leer `.contexts/.product/.feature-state.json`
+- Leer `.features/.feature-state.json`
 - Verificar que `features_by_name[nombre-feature]` NO existe
 - Si ya existe, mostrar error: "Feature '[nombre]' ya existe. Usa /feature:list para ver todas las features."
 
 ### 3. Crear Estructura de Directorios
-Crear directorio: `.contexts/.product/features/active/[nombre-feature]/`
+Crear directorio: `.features/active/[nombre-feature]/`
 
 ### 4. Crear feature.md
-Crear archivo `.contexts/.product/features/active/[nombre-feature]/feature.md` con:
+Crear archivo `.features/active/[nombre-feature]/feature.md` con:
 
 ```markdown
 # [Nombre Feature]
@@ -59,7 +59,7 @@ Crear archivo `.contexts/.product/features/active/[nombre-feature]/feature.md` c
 ```
 
 ### 5. Actualizar .feature-state.json
-Modificar `.contexts/.product/.feature-state.json`:
+Modificar `.features/.feature-state.json`:
 
 Agregar entrada en `features_by_name`:
 ```json
@@ -117,7 +117,7 @@ Mostrar al usuario:
 ```
 ✅ Feature "[nombre-feature]" creada exitosamente
 
-📁 Ubicación: .contexts/.product/features/active/[nombre-feature]/
+📁 Ubicación: .features/active/[nombre-feature]/
 📝 Documentos: feature.md creado
 
 🚀 Próximos Pasos:
@@ -131,7 +131,7 @@ Mostrar al usuario:
 
 - ✅ Nombre y descripción parseados correctamente de argumentos
 - ✅ Validación de unicidad exitosa (no existe duplicado)
-- ✅ Directorio creado en `.contexts/.product/features/active/[nombre-feature]/`
+- ✅ Directorio creado en `.features/active/[nombre-feature]/`
 - ✅ `feature.md` generado con estructura y metadata inicial
 - ✅ `.feature-state.json` actualizado con entrada completa de nueva feature
 - ✅ Estado inicial configurado como `"discovery"` con comando recomendado

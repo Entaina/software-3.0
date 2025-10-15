@@ -16,17 +16,17 @@ Reorganiza el plan técnico desde estructura de infraestructura (backend/fronten
 ## Implementación
 
 ### 1. Determinar Feature Actual
-- Leer `.contexts/.product/features/current-feature`
+- Leer `.features/current-feature`
 - Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
 ### 2. Validar Plan Técnico Existe
-- Verificar que existe `.contexts/.product/features/active/[feature-actual]/plan.md`
+- Verificar que existe `.features/active/[feature-actual]/plan.md`
 - Si no existe, mostrar error: "Necesitas ejecutar /feature:create-plan primero"
 
 ### 3. Leer Documentos de Contexto
-- Leer `.contexts/.product/features/active/[feature-actual]/plan.md` completo
-- Leer `.contexts/.product/features/active/[feature-actual]/PRD.md` (User Stories)
-- Leer `.contexts/.product/features/active/[feature-actual]/JTBD.md` (Jobs funcionales)
+- Leer `.features/active/[feature-actual]/plan.md` completo
+- Leer `.features/active/[feature-actual]/PRD.md` (User Stories)
+- Leer `.features/active/[feature-actual]/JTBD.md` (Jobs funcionales)
 - Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
 ### 4. Identificar Capacidades de Usuario
@@ -64,7 +64,7 @@ Migración → Modelo → Service Object → Controller → Routes → View → 
 
 ### 7. Crear Plan Organizado
 
-Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan-organized.md` con la siguiente estructura:
+Crea el archivo `.features/active/[feature-actual]/plan-organized.md` con la siguiente estructura:
 
 ```markdown
 # [Nombre Feature] - Plan Organizado por Capacidades
@@ -157,7 +157,7 @@ Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan-organi
 - Este será el `total_tasks` para tracking de progreso
 
 ### 9. Actualizar Estado de la Feature
-Modificar `.contexts/.product/.feature-state.json`:
+Modificar `.features/.feature-state.json`:
 
 - Marcar stage plan_organized como completado:
   ```json
@@ -201,7 +201,7 @@ Mostrar:
 ```
 ✅ Plan organizado por capacidades para "[nombre-feature]"
 
-📝 Documento: .contexts/.product/features/active/[feature-actual]/plan-organized.md
+📝 Documento: .features/active/[feature-actual]/plan-organized.md
 🎯 Capacidades identificadas: [número de capacidades]
 📋 Total de tareas: [total_tasks]
 

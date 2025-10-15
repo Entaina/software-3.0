@@ -21,16 +21,16 @@ Genera un reporte detallado del estado, progreso, documentos y métricas de una 
 
 ### 1. Determinar Feature Target
 - Si `$ARGUMENTS` está presente, usar como nombre de feature
-- Si no hay argumentos, leer `.contexts/.product/features/current-feature` para obtener feature actual
+- Si no hay argumentos, leer `.features/current-feature` para obtener feature actual
 - Si no hay current-feature definida, mostrar error
 
 ### 2. Cargar Estado de la Feature
-- Leer `.contexts/.product/.feature-state.json`
+- Leer `.features/.feature-state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Si no existe, mostrar error con lista de features disponibles
 
 ### 3. Analizar Documentos de la Feature
-- Leer directorio `.contexts/.product/features/[estado]/[nombre-feature]/`
+- Leer directorio `.features/[estado]/[nombre-feature]/`
   - `estado` puede ser: `active`, `archived`, o `trashed` según el campo `state` en JSON
 - Listar documentos existentes: `feature.md`, `JTBD.md`, `PRD.md`, `plan.md`, `plan-organized.md`
 - Para cada documento, obtener timestamp de última modificación

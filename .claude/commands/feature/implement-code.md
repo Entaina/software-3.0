@@ -16,11 +16,11 @@ Implementa la siguiente tarea pendiente del plan organizado, creando el código 
 ## Implementación
 
 ### 1. Determinar Feature Actual
-- Leer `.contexts/.product/features/current-feature`
+- Leer `.features/current-feature`
 - Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
 ### 2. Validar Plan Organizado Existe
-- Verificar que existe `.contexts/.product/features/active/[feature-actual]/plan-organized.md`
+- Verificar que existe `.features/active/[feature-actual]/plan-organized.md`
 - Si no existe, mostrar error: "Necesitas ejecutar /feature:organize-plan primero"
 
 ### 3. Identificar Siguiente Tarea Pendiente
@@ -36,8 +36,8 @@ Leer `plan-organized.md` y:
 - Terminar ejecución
 
 ### 4. Leer Contexto para Implementación
-- Leer `.contexts/.product/features/active/[feature-actual]/plan-organized.md` completo
-- Leer `.contexts/.product/features/active/[feature-actual]/PRD.md` para requisitos
+- Leer `.features/active/[feature-actual]/plan-organized.md` completo
+- Leer `.features/active/[feature-actual]/PRD.md` para requisitos
 - Leer capacidad específica donde está la tarea
 - Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
@@ -104,7 +104,7 @@ Según el tipo de tarea identificado en paso 5, implementar código siguiendo pa
 
 ### 7. Actualizar Plan Organizado
 
-Modificar `.contexts/.product/features/active/[feature-actual]/plan-organized.md`:
+Modificar `.features/active/[feature-actual]/plan-organized.md`:
 - Cambiar `[ ]` a `[x]` para la tarea recién implementada
 - Opcionalmente añadir nota si hay decisiones importantes: `[x] Tarea completada (nota: decisión X tomada)`
 
@@ -114,7 +114,7 @@ Modificar `.contexts/.product/features/active/[feature-actual]/plan-organized.md
 - Comparar con `implementation.total_tasks` del estado
 
 ### 9. Actualizar Estado de la Feature
-Modificar `.contexts/.product/.feature-state.json`:
+Modificar `.features/.feature-state.json`:
 
 - Actualizar implementation:
   ```json

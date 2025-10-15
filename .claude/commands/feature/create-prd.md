@@ -16,20 +16,20 @@ Crea un Product Requirements Document (PRD) lean para la feature actual, basánd
 ## Implementación
 
 ### 1. Determinar Feature Actual
-- Leer `.contexts/.product/features/current-feature`
+- Leer `.features/current-feature`
 - Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
 ### 2. Validar JTBD Existe
-- Verificar que existe `.contexts/.product/features/active/[feature-actual]/JTBD.md`
+- Verificar que existe `.features/active/[feature-actual]/JTBD.md`
 - Si no existe, recomendar: "Ejecuta /feature:create-jtbd primero para crear el análisis JTBD."
 
 ### 3. Leer Contexto
-- Leer `.contexts/.product/features/active/[feature-actual]/JTBD.md` completo
-- Leer `.contexts/.product/features/active/[feature-actual]/feature.md`
+- Leer `.features/active/[feature-actual]/JTBD.md` completo
+- Leer `.features/active/[feature-actual]/feature.md`
 - Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
 ### 4. Crear Documento PRD
-Crear archivo `.contexts/.product/features/active/[feature-actual]/PRD.md` con estructura lean basada en JTBD:
+Crear archivo `.features/active/[feature-actual]/PRD.md` con estructura lean basada en JTBD:
 
 ```markdown
 # [Nombre Feature] - Product Requirements Document
@@ -119,7 +119,7 @@ Crear archivo `.contexts/.product/features/active/[feature-actual]/PRD.md` con e
 - Aplicar principios lean: enfocarse en QUÉ construir, no CÓMO
 
 ### 5. Actualizar Estado de la Feature
-Modificar `.contexts/.product/.feature-state.json`:
+Modificar `.features/.feature-state.json`:
 
 - Marcar stage PRD como completado:
   ```json
@@ -154,7 +154,7 @@ Mostrar:
 ```
 ✅ PRD completado para "[nombre-feature]"
 
-📝 Documento: .contexts/.product/features/active/[feature-actual]/PRD.md
+📝 Documento: .features/active/[feature-actual]/PRD.md
 🎯 MVP Scope: [extracto breve del MVP scope]
 
 📊 Progreso:

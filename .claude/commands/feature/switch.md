@@ -21,7 +21,7 @@ Cambia la feature actual del contexto de trabajo, actualizando el estado global 
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Validar Feature Existe
-- Leer `.contexts/.product/.feature-state.json`
+- Leer `.features/.feature-state.json`
 - Buscar feature con nombre coincidente en `features_by_name`
 - Validar que existe y su estado es `"active"` (no `"archived"` ni `"trashed"`)
 - Si no existe o no está activa, mostrar error con lista de features activas disponibles
@@ -31,10 +31,10 @@ Extraer el nombre de la feature de `$ARGUMENTS`.
 - Actualizar timestamp `updated_at` con fecha actual ISO 8601
 
 ### 4. Actualizar Archivo Current Feature
-- Escribir nombre de la feature en `.contexts/.product/features/current-feature` (una sola línea)
+- Escribir nombre de la feature en `.features/current-feature` (una sola línea)
 
 ### 5. Cargar y Mostrar Estado
-- Leer directorio `.contexts/.product/features/active/[nombre-feature]/`
+- Leer directorio `.features/active/[nombre-feature]/`
 - Mostrar información de la feature:
   - Nombre y descripción (desde `feature.md`)
   - Etapa actual del workflow (`workflow.current_stage`)

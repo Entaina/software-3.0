@@ -27,7 +27,7 @@ Lista todas las features del pipeline con su estado, progreso y organización po
 - Si no hay argumentos, mostrar todas las features organizadas por estado
 
 ### 2. Cargar Estado Global
-- Leer `.contexts/.product/.feature-state.json`
+- Leer `.features/.feature-state.json`
 - Leer `features_by_name` (objeto con todas las features)
 - Leer `current_feature` para marcar la feature activa actual
 

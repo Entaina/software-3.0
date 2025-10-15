@@ -21,7 +21,7 @@ Mueve una feature a la papelera (eliminación recuperable), manteniendo todos lo
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Validar Feature Existe
-- Leer `.contexts/.product/.feature-state.json`
+- Leer `.features/.feature-state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Validar que existe (puede ser `"active"` o `"archived"`)
 - Si no existe, mostrar error con lista de features disponibles
@@ -37,14 +37,14 @@ Si hay trabajo significativo:
 
 ### 4. Mover Directorio a Trashed
 - Determinar ubicación actual:
-  - Si `state === "active"`: `.contexts/.product/features/active/[nombre-feature]/`
-  - Si `state === "archived"`: `.contexts/.product/features/archived/[nombre-feature]/`
+  - Si `state === "active"`: `.features/active/[nombre-feature]/`
+  - Si `state === "archived"`: `.features/archived/[nombre-feature]/`
 - Usar comando de sistema para mover directorio:
-  - Destino: `.contexts/.product/features/trashed/[nombre-feature]/`
+  - Destino: `.features/trashed/[nombre-feature]/`
 - Validar que el movimiento fue exitoso
 
 ### 5. Actualizar Estado en JSON
-Modificar `.contexts/.product/.feature-state.json`:
+Modificar `.features/.feature-state.json`:
 - Cambiar `features_by_name[nombre-feature].state` a `"trashed"`
 - Agregar campo `trashed_at` con timestamp actual ISO 8601
 - Actualizar `updated_at` con timestamp actual
@@ -55,14 +55,14 @@ Modificar `.contexts/.product/.feature-state.json`:
   - Buscar otra feature activa en `features_by_name`
   - Si existe otra activa, actualizar `current_feature` a esa feature
   - Si no hay otras activas, establecer `current_feature` a `null`
-  - Actualizar archivo `.contexts/.product/features/current-feature` en consecuencia
+  - Actualizar archivo `.features/current-feature` en consecuencia
 
 ### 7. Generar Confirmación
 Mostrar al usuario:
 ```
 🗑️  Feature "[nombre-feature]" movida a papelera
 
-📁 Ubicación: .contexts/.product/features/trashed/[nombre-feature]/
+📁 Ubicación: .features/trashed/[nombre-feature]/
 ♻️  Para restaurar: /feature:restore [nombre-feature]
 
 [Si current_feature cambió]

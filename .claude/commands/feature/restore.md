@@ -13,28 +13,66 @@ Restaura una feature archivada o eliminada volviéndola al estado activo.
 
 ## Qué Hace Este Comando
 
-Delega al agente @feature-flow-manager para restaurar la feature al pipeline activo.
+Restaura una feature archivada o eliminada, devolviéndola al estado activo del pipeline de desarrollo.
 
 ## Implementación
 
-Lanzar agente feature-flow-manager:
+### 1. Parsear Argumentos
+Extraer el nombre de la feature de `$ARGUMENTS`.
 
-**Tarea**: "Restaura la feature al pipeline activo: $ARGUMENTS"
+### 2. Buscar Feature en Archived o Trashed
+- Leer `.contexts/.product/.feature-state.json`
+- Buscar feature en `features_by_name[nombre-feature]`
+- Validar que existe y su estado es `"archived"` o `"trashed"`
+- Si no existe o ya está `"active"`, mostrar error apropiado
 
-El agente feature-flow-manager hará autónomamente:
-- Buscar feature en archived/ o trashed/
-- Validar que puede restaurarse
-- Mover directorio a features/active/
-- Actualizar estado a "active" en .feature-state.json
-- Actualizar timestamps (restored_at)
-- Mostrar estado de la feature restaurada
-- Recomendar siguiente acción según progreso previo
+### 3. Determinar Ubicación Actual
+Basándose en el campo `state`:
+- Si `state === "archived"`: `.contexts/.product/features/archived/[nombre-feature]/`
+- Si `state === "trashed"`: `.contexts/.product/features/trashed/[nombre-feature]/`
+
+### 4. Mover Directorio a Active
+- Usar comando de sistema para mover directorio:
+  - Destino: `.contexts/.product/features/active/[nombre-feature]/`
+- Validar que el movimiento fue exitoso
+
+### 5. Actualizar Estado en JSON
+Modificar `.contexts/.product/.feature-state.json`:
+- Cambiar `features_by_name[nombre-feature].state` a `"active"`
+- Agregar campo `restored_at` con timestamp actual ISO 8601
+- Actualizar `updated_at` con timestamp actual
+- Preservar todos los campos existentes (stages, implementation, workflow, etc.)
+
+### 6. Mostrar Estado de la Feature Restaurada
+Leer y mostrar:
+- Nombre y descripción (desde `feature.md`)
+- Etapa del workflow donde se quedó: `workflow.current_stage`
+- Progreso de implementación: `implementation.completed_tasks / implementation.total_tasks` (si existe)
+- Documentos existentes: listar JTBD.md, PRD.md, plan.md, plan-organized.md
+- Último comando recomendado: `workflow.next_recommended_command`
+
+### 7. Recomendar Siguiente Acción
+Basándose en el estado previo:
+- Si `workflow.next_recommended_command` existe, recomendarlo
+- Si no, analizar el progreso y recomendar:
+  - Si no hay JTBD.md → `/feature:create-jtbd`
+  - Si hay JTBD pero no PRD → `/feature:create-prd`
+  - Si hay PRD pero no plan → `/feature:create-plan`
+  - Si hay plan pero no plan-organized → `/feature:organize-plan`
+  - Si hay plan-organized y tareas pendientes → `/feature:implement-code`
+
+### 8. Ofrecer Cambiar Current Feature
+Preguntar al usuario si desea hacer esta feature la actual:
+```
+¿Deseas cambiar a esta feature como la actual? (Ejecuta /feature:switch [nombre-feature] para hacerlo)
+```
 
 ## Criterios de Éxito
 
-- Feature-flow-manager restaura exitosamente
-- Directorio movido a features/active/
-- Estado actualizado a "active"
-- .feature-state.json refleja restauración
-- Usuario recibe estado actual de feature
-- Siguiente acción recomendada
+- ✅ Feature encontrada en archived/ o trashed/
+- ✅ Directorio movido exitosamente a `active/`
+- ✅ Estado actualizado a `"active"` en `.feature-state.json`
+- ✅ Timestamp `restored_at` registrado
+- ✅ Estado de la feature mostrado (progreso, documentos, workflow)
+- ✅ Siguiente acción recomendada basada en progreso previo
+- ✅ Usuario informado sobre cómo hacer switch si lo desea

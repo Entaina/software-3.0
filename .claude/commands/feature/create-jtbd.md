@@ -11,27 +11,138 @@ Genera análisis Jobs To Be Done para la feature actual usando Product Owner y F
 
 ## Qué Hace Este Comando
 
-Orquesta dos agentes especializados:
-1. **Product Owner** - Crea el documento JTBD aplicando framework completo
-2. **Feature Flow Manager** - Valida y actualiza el estado de la feature
+Crea un análisis Jobs-to-be-Done (JTBD) completo para la feature actual, aplicando el framework JTBD para descubrir el verdadero problema del usuario antes de definir la solución.
 
 ## Implementación
 
-**Paso 1: Crear Documento JTBD**
+### 1. Determinar Feature Actual
+- Leer `.contexts/.product/features/current-feature`
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
-Lanzar agente product-owner:
+### 2. Leer Contexto de la Feature
+- Leer `.contexts/.product/features/active/[feature-actual]/feature.md`
+- Leer descripción de la feature desde `feature.md`
+- Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
-**Tarea**: "Crea análisis JTBD para la feature actual. Contexto: $ARGUMENTS"
+### 3. Crear Documento JTBD
+Crear archivo `.contexts/.product/features/active/[feature-actual]/JTBD.md` con estructura completa de análisis Jobs-to-be-Done:
 
-**Paso 2: Actualizar Estado de Feature**
+```markdown
+# [Nombre Feature] - Jobs To Be Done Analysis
 
-Lanzar agente feature-flow-manager:
+## Job Statement
+**When** [situación/contexto del usuario]
+**I want to** [motivación/objetivo del usuario]
+**So I can** [outcome deseado/beneficio]
 
-**Tarea**: "Actualiza el estado de la feature actual tras completar JTBD. Marca stage 'jtbd' como completado y recomienda siguiente comando."
+## User Context
+### Quién está contratando este "job"
+[Descripción del perfil de usuario específico que necesita esta funcionalidad]
+
+### Circunstancias que disparan el job
+[Eventos o situaciones que hacen que el usuario necesite esta funcionalidad]
+
+### Alternativas actuales (competencia)
+[Qué están usando actualmente para resolver este problema]
+
+## Functional Jobs (qué quieren lograr)
+1. [Job funcional principal]
+2. [Jobs funcionales secundarios]
+
+## Emotional Jobs (cómo quieren sentirse)
+1. [Job emocional - ej: sentirse en control]
+2. [Job emocional - ej: sentirse profesional]
+
+## Social Jobs (cómo quieren ser percibidos)
+1. [Job social - ej: verse organizado ante clientes]
+
+## Success Criteria
+### Cómo el usuario sabrá que el job está "bien hecho"
+- [ ] [Criterio medible de éxito 1]
+- [ ] [Criterio medible de éxito 2]
+- [ ] [Criterio medible de éxito 3]
+
+### Métricas de adopción
+- [Métrica clave de uso esperado]
+- [Indicador de satisfacción del job]
+
+## Constraints & Obstacles
+### Qué podría impedir que el usuario "contrate" esta solución
+- [Obstáculo técnico o de usabilidad]
+- [Preocupación o fricción del usuario]
+
+### Qué debe NO hacer la solución
+- [Anti-pattern a evitar]
+- [Complejidad innecesaria a evitar]
+
+## Job Map (pasos del proceso del usuario)
+1. **[Fase 1 del proceso]**: [Descripción de qué hace el usuario]
+2. **[Fase 2 del proceso]**: [Descripción]
+3. **[Fase 3 del proceso]**: [Descripción]
+
+## Insights & Discoveries
+[Hallazgos importantes del análisis JTBD]
+[Revelaciones sobre el verdadero problema vs. la solución solicitada]
+
+---
+*Análisis JTBD creado: [timestamp ISO 8601 actual]*
+```
+
+**Contenido**: Completar cada sección con análisis detallado basado en:
+- La descripción de la feature
+- El contexto adicional de `$ARGUMENTS`
+- Aplicación rigurosa del framework JTBD (descubrir el "por qué" antes del "qué")
+
+### 4. Actualizar Estado de la Feature
+Modificar `.contexts/.product/.feature-state.json`:
+
+- Marcar stage JTBD como completado:
+  ```json
+  "stages": {
+    "jtbd": {
+      "completed": true,
+      "started_at": "[usar created_at de la feature]",
+      "completed_at": "[timestamp ISO 8601 actual]"
+    }
+  }
+  ```
+- Actualizar documentos:
+  ```json
+  "documents": {
+    "JTBD.md": {
+      "exists": true,
+      "created_at": "[timestamp ISO 8601 actual]"
+    }
+  }
+  ```
+- Actualizar workflow:
+  ```json
+  "workflow": {
+    "current_stage": "definition",
+    "next_recommended_command": "/feature:create-prd"
+  }
+  ```
+- Actualizar `updated_at` con timestamp actual
+
+### 5. Informar Usuario
+Mostrar:
+```
+✅ Análisis JTBD completado para "[nombre-feature]"
+
+📝 Documento: .contexts/.product/features/active/[feature-actual]/JTBD.md
+🎯 Job Principal: [extracto del job statement]
+
+📊 Progreso:
+[✓ JTBD] [○ PRD] [○ Plan] [○ Code]
+
+🚀 Próximo Paso: /feature:create-prd
+```
 
 ## Criterios de Éxito
 
-- Product-owner crea JTBD.md exitosamente
-- Feature-flow-manager actualiza .feature-state.json
-- Stage "jtbd" marcado como completado
-- Usuario recibe siguiente comando recomendado: /feature:create-prd
+- ✅ Feature actual identificada correctamente
+- ✅ `JTBD.md` creado con todas las secciones completas
+- ✅ Análisis riguroso aplicando framework JTBD (Jobs, Contexts, Success Criteria)
+- ✅ Stage "jtbd" marcado como completado en `.feature-state.json`
+- ✅ Workflow actualizado a "definition" con próximo comando `/feature:create-prd`
+- ✅ Usuario recibe resumen y siguiente paso recomendado

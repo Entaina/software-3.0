@@ -15,27 +15,64 @@ Muestra estado detallado y progreso de una feature en el pipeline.
 
 ## Qué Hace Este Comando
 
-Delega al agente @feature-flow-manager para generar reporte completo de estado, progreso, blockers y métricas de la feature.
+Genera un reporte detallado del estado, progreso, documentos y métricas de una feature específica o de la feature actual.
 
 ## Implementación
 
-Lanzar agente feature-flow-manager:
+### 1. Determinar Feature Target
+- Si `$ARGUMENTS` está presente, usar como nombre de feature
+- Si no hay argumentos, leer `.contexts/.product/features/current-feature` para obtener feature actual
+- Si no hay current-feature definida, mostrar error
 
-**Tarea**: "Genera reporte de estado completo para feature. Target: $ARGUMENTS"
+### 2. Cargar Estado de la Feature
+- Leer `.contexts/.product/.feature-state.json`
+- Buscar feature en `features_by_name[nombre-feature]`
+- Si no existe, mostrar error con lista de features disponibles
 
-El agente feature-flow-manager hará autónomamente:
-- Determinar feature target (argumento o current-feature)
-- Cargar estado desde .feature-state.json
-- Analizar todos los documentos de la feature
-- Calcular progreso y tiempo en cada estado
-- Identificar blockers activos
-- Generar reporte con visualización de progreso
-- Recomendar siguiente acción
+### 3. Analizar Documentos de la Feature
+- Leer directorio `.contexts/.product/features/[estado]/[nombre-feature]/`
+  - `estado` puede ser: `active`, `archived`, o `trashed` según el campo `state` en JSON
+- Listar documentos existentes: `feature.md`, `JTBD.md`, `PRD.md`, `plan.md`, `plan-organized.md`
+- Para cada documento, obtener timestamp de última modificación
+
+### 4. Calcular Progreso
+- **Stage Progress**: Analizar objeto `stages` en el estado de la feature
+  - Contar stages completados (donde `completed: true`)
+  - Total de stages: jtbd, prd, plan, plan_organized
+- **Implementation Progress**:
+  - Leer `implementation.completed_tasks` y `implementation.total_tasks`
+  - Calcular porcentaje: `(completed/total) * 100`
+- **Timeline**:
+  - Calcular tiempo en cada etapa usando timestamps de stages
+  - Calcular tiempo total desde `created_at` hasta ahora
+
+### 5. Generar Visualización de Progreso
+Crear barra de progreso visual:
+```
+Implementation: [████████░░] 80% (8/10 tareas)
+Stages: [✓ JTBD] [✓ PRD] [✓ Plan] [○ Code]
+```
+
+### 6. Identificar Blockers (si existen)
+- Buscar campo `blockers` en el estado
+- Si existe y tiene elementos, listarlos con descripción y timestamp
+
+### 7. Generar Reporte Completo
+Mostrar:
+- **Header**: Nombre, descripción, estado (active/archived/trashed)
+- **Timeline**: Fechas de creación, última actualización, tiempo en desarrollo
+- **Workflow**: Etapa actual (`workflow.current_stage`)
+- **Stages Progress**: Visual de stages completados
+- **Implementation Progress**: Barra de progreso y contador de tareas
+- **Documentos**: Lista con timestamps
+- **Blockers**: Si existen
+- **Siguiente Acción**: Leer `workflow.next_recommended_command`
 
 ## Criterios de Éxito
 
-- Feature-flow-manager completa análisis exitosamente
-- Usuario recibe reporte detallado de estado
-- Progreso mostrado con visualización clara (% y etapas)
-- Blockers identificados si existen
-- Siguiente acción recomendada proporcionada
+- ✅ Feature target identificada correctamente (argumento o current)
+- ✅ Estado cargado exitosamente desde `.feature-state.json`
+- ✅ Todos los documentos analizados con timestamps
+- ✅ Progreso calculado y visualizado con barras/porcentajes
+- ✅ Reporte completo mostrado con toda la información relevante
+- ✅ Siguiente comando recomendado proporcionado

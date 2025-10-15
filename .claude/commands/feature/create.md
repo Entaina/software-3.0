@@ -13,26 +13,126 @@ Crea una nueva feature con estructura de directorios y tracking inicial usando F
 
 ## Qué Hace Este Comando
 
-Delega al agente @feature-flow-manager para crear la estructura completa de una nueva feature en el pipeline.
+Crea una nueva feature en el pipeline con estructura de directorios, documentación inicial y tracking en el estado global.
 
 ## Implementación
 
-Lanzar agente feature-flow-manager:
+### 1. Parsear Argumentos
+Extraer de `$ARGUMENTS`:
+- **Primer token**: Nombre de la feature (slug format: lowercase-with-dashes)
+- **Resto**: Descripción de la feature
 
-**Tarea**: "Crea nueva feature en el pipeline. Input del usuario: $ARGUMENTS"
+Ejemplo: `user-authentication Sistema de autenticación con JWT`
+- Nombre: `user-authentication`
+- Descripción: `Sistema de autenticación con JWT`
 
-El agente feature-flow-manager hará autónomamente:
-- Parsear nombre y descripción de la feature
-- Validar que no existe duplicado
-- Crear estructura de directorios en `features/active/`
-- Crear feature.md con información inicial
-- Actualizar .feature-state.json con nueva feature
-- Configurar estado inicial en "Backlog"
+### 2. Validar Nombre Único
+- Leer `.contexts/.product/.feature-state.json`
+- Verificar que `features_by_name[nombre-feature]` NO existe
+- Si ya existe, mostrar error: "Feature '[nombre]' ya existe. Usa /feature:list para ver todas las features."
+
+### 3. Crear Estructura de Directorios
+Crear directorio: `.contexts/.product/features/active/[nombre-feature]/`
+
+### 4. Crear feature.md
+Crear archivo `.contexts/.product/features/active/[nombre-feature]/feature.md` con:
+
+```markdown
+# [Nombre Feature]
+
+## Descripción
+[descripción extraída de argumentos]
+
+## Estado Actual
+- **Workflow Stage**: Discovery
+- **Próximo Paso**: Ejecutar `/feature:switch [nombre]` y luego `/feature:create-jtbd`
+
+## Documentos
+- [ ] JTBD.md - Análisis Jobs-to-be-Done
+- [ ] PRD.md - Product Requirements Document
+- [ ] plan.md - Plan técnico de implementación
+- [ ] plan-organized.md - Plan organizado por capacidades
+
+## Tracking
+- **Creado**: [timestamp ISO 8601 actual]
+- **Última Actualización**: [timestamp ISO 8601 actual]
+```
+
+### 5. Actualizar .feature-state.json
+Modificar `.contexts/.product/.feature-state.json`:
+
+Agregar entrada en `features_by_name`:
+```json
+"[nombre-feature]": {
+  "name": "[nombre-feature]",
+  "description": "[descripción]",
+  "state": "active",
+  "created_at": "[timestamp ISO 8601 actual]",
+  "updated_at": "[timestamp ISO 8601 actual]",
+  "workflow": {
+    "current_stage": "discovery",
+    "next_recommended_command": "/feature:create-jtbd"
+  },
+  "stages": {
+    "jtbd": {
+      "completed": false,
+      "started_at": null,
+      "completed_at": null
+    },
+    "prd": {
+      "completed": false,
+      "started_at": null,
+      "completed_at": null
+    },
+    "plan": {
+      "completed": false,
+      "started_at": null,
+      "completed_at": null
+    },
+    "plan_organized": {
+      "completed": false,
+      "started_at": null,
+      "completed_at": null
+    }
+  },
+  "documents": {
+    "feature.md": {
+      "exists": true,
+      "created_at": "[timestamp ISO 8601 actual]"
+    }
+  },
+  "implementation": {
+    "started_at": null,
+    "last_implementation": null,
+    "total_tasks": 0,
+    "completed_tasks": 0
+  }
+}
+```
+
+Actualizar también `updated_at` del objeto raíz del JSON.
+
+### 6. Generar Confirmación
+Mostrar al usuario:
+```
+✅ Feature "[nombre-feature]" creada exitosamente
+
+📁 Ubicación: .contexts/.product/features/active/[nombre-feature]/
+📝 Documentos: feature.md creado
+
+🚀 Próximos Pasos:
+1. Ejecuta: /feature:switch [nombre-feature]
+2. Luego: /feature:create-jtbd para comenzar el análisis
+
+💡 Usa /feature:status [nombre-feature] para ver el estado en cualquier momento
+```
 
 ## Criterios de Éxito
 
-- Feature-flow-manager crea estructura exitosamente
-- Directorio creado en `features/active/[nombre-feature]/`
-- feature.md generado con descripción y tracking
-- .feature-state.json actualizado con nueva feature
-- Usuario recibe guía: usar /feature:switch para activarla
+- ✅ Nombre y descripción parseados correctamente de argumentos
+- ✅ Validación de unicidad exitosa (no existe duplicado)
+- ✅ Directorio creado en `.contexts/.product/features/active/[nombre-feature]/`
+- ✅ `feature.md` generado con estructura y metadata inicial
+- ✅ `.feature-state.json` actualizado con entrada completa de nueva feature
+- ✅ Estado inicial configurado como `"discovery"` con comando recomendado
+- ✅ Usuario recibe confirmación con próximos pasos claros

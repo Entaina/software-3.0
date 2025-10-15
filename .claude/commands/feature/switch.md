@@ -13,26 +13,41 @@ Cambia la feature actual sobre la que operarán los comandos de desarrollo.
 
 ## Qué Hace Este Comando
 
-Delega al agente @feature-flow-manager para cambiar la feature actual del contexto de trabajo.
+Cambia la feature actual del contexto de trabajo, actualizando el estado global del sistema para que los siguientes comandos operen sobre la nueva feature seleccionada.
 
 ## Implementación
 
-Lanzar agente feature-flow-manager:
+### 1. Parsear Argumentos
+Extraer el nombre de la feature de `$ARGUMENTS`.
 
-**Tarea**: "Cambia la feature actual del pipeline a: $ARGUMENTS"
+### 2. Validar Feature Existe
+- Leer `.contexts/.product/.feature-state.json`
+- Buscar feature con nombre coincidente en `features_by_name`
+- Validar que existe y su estado es `"active"` (no `"archived"` ni `"trashed"`)
+- Si no existe o no está activa, mostrar error con lista de features activas disponibles
 
-El agente feature-flow-manager hará autónomamente:
-- Validar que la feature existe y está activa
-- Actualizar current_feature en .feature-state.json
-- Actualizar archivo current-feature
-- Actualizar timestamp de la feature
-- Mostrar estado de la nueva feature actual
-- Recomendar siguiente acción según progreso
+### 3. Actualizar Estado Global
+- Actualizar campo `current_feature` en `.feature-state.json` con el nombre de la feature
+- Actualizar timestamp `updated_at` con fecha actual ISO 8601
+
+### 4. Actualizar Archivo Current Feature
+- Escribir nombre de la feature en `.contexts/.product/features/current-feature` (una sola línea)
+
+### 5. Cargar y Mostrar Estado
+- Leer directorio `.contexts/.product/features/active/[nombre-feature]/`
+- Mostrar información de la feature:
+  - Nombre y descripción (desde `feature.md`)
+  - Etapa actual del workflow (`workflow.current_stage`)
+  - Progreso de implementación si existe (`implementation.completed_tasks / implementation.total_tasks`)
+  - Documentos existentes (JTBD.md, PRD.md, plan.md, plan-organized.md)
+
+### 6. Recomendar Siguiente Acción
+Basándose en `workflow.next_recommended_command` del estado de la feature, recomendar el siguiente comando a ejecutar.
 
 ## Criterios de Éxito
 
-- Feature-flow-manager cambia feature exitosamente
-- .feature-state.json actualizado con nuevo current_feature
-- Archivo current-feature actualizado
-- Usuario recibe estado de la nueva feature actual
-- Siguiente comando recomendado según progreso
+- ✅ Validación exitosa de existencia y estado activo de la feature
+- ✅ `.feature-state.json` actualizado con `current_feature` correcto
+- ✅ Archivo `current-feature` actualizado
+- ✅ Estado de la feature mostrado al usuario (descripción, progreso, etapa)
+- ✅ Siguiente comando recomendado proporcionado

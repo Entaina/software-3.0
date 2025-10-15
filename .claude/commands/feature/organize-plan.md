@@ -11,58 +11,58 @@ Reorganiza el plan técnico desde estructura de infraestructura a capacidades de
 
 ## Qué Hace Este Comando
 
-Orquesta agentes para reorganizar el plan técnico:
-1. **Rails Architect**: Analiza dependencias técnicas y secuenciación
-2. **Después**: Sintetiza plan organizado por capacidades
-3. **Finalmente**: Feature Flow Manager valida y actualiza el estado
+Reorganiza el plan técnico desde estructura de infraestructura (backend/frontend/testing) a capacidades de usuario, analizando dependencias y priorizando por valor entregado.
 
 ## Implementación
 
-**Paso 1: Validar Prerequisitos**
+### 1. Determinar Feature Actual
+- Leer `.contexts/.product/features/current-feature`
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
-Lee el plan técnico actual en `.contexts/.product/features/active/[feature-actual]/plan.md` y valida que existe.
+### 2. Validar Plan Técnico Existe
+- Verificar que existe `.contexts/.product/features/active/[feature-actual]/plan.md`
+- Si no existe, mostrar error: "Necesitas ejecutar /feature:create-plan primero"
 
-Si no existe, informa al usuario: "Necesitas ejecutar /feature:create-plan primero"
+### 3. Leer Documentos de Contexto
+- Leer `.contexts/.product/features/active/[feature-actual]/plan.md` completo
+- Leer `.contexts/.product/features/active/[feature-actual]/PRD.md` (User Stories)
+- Leer `.contexts/.product/features/active/[feature-actual]/JTBD.md` (Jobs funcionales)
+- Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
-**Paso 2: Lanzar Rails Architect para Análisis de Dependencias**
+### 4. Identificar Capacidades de Usuario
+Desde JTBD.md y PRD.md, extraer capacidades de usuario:
+- Cada User Story del PRD representa una capacidad potencial
+- Cada Functional Job del JTBD puede agruparse en capacidades
+- Agrupar User Stories relacionadas en una sola capacidad cuando tienen sentido funcional común
 
-Lanza el agente rails-architect:
+Ejemplo:
+- **Capacidad**: "Gestionar leads de ventas"
+  - User Story 1: Crear nuevo lead
+  - User Story 2: Editar lead existente
+  - User Story 3: Ver detalles de lead
 
-**Tarea**:
+### 5. Mapear Tareas Técnicas a Capacidades
+Para cada capacidad identificada, mapear tareas del plan.md:
+- Extraer tareas del checklist en plan.md
+- Agrupar tareas por la capacidad de usuario que entregan
+- Ordenar tareas dentro de cada capacidad por dependencias técnicas:
+  1. **Fundación**: Modelos y migraciones (deben ir primero)
+  2. **Funcionalidad Core**: Service Objects, controllers, rutas
+  3. **Interfaz de Usuario**: Views, componentes UI, Turbo/Stimulus
+  4. **Testing y Validación**: Tests para validar la capacidad
+
+### 6. Analizar Dependencias Entre Tareas
+Para cada tarea, determinar:
+- **Dependencias técnicas**: Qué debe existir antes (ej: modelo antes de controller)
+- **Dependencias de negocio**: Qué capacidad debe completarse primero
+- **Oportunidades de paralelismo**: Qué tareas pueden hacerse simultáneamente
+
+Patrón Rails típico de dependencias:
 ```
-Analiza dependencias técnicas y reorganiza por capacidades de usuario.
-
-Contexto:
-- Lee plan.md en .contexts/.product/features/active/[feature-actual]/plan.md
-- Lee PRD.md en .contexts/.product/features/active/[feature-actual]/PRD.md
-- Lee JTBD.md en .contexts/.product/features/active/[feature-actual]/JTBD.md (si existe)
-- Contexto adicional del usuario: $ARGUMENTS
-
-Objetivos:
-1. Identificar capacidades de usuario desde el JTBD y PRD
-2. Mapear tareas técnicas del plan.md a capacidades de usuario
-3. Analizar dependencias entre tareas (qué debe completarse primero)
-4. Identificar oportunidades de desarrollo en paralelo
-5. Agrupar tareas por capacidad funcional (no por capa técnica)
-6. Considerar patrones Rails de dependencia (modelo->servicio->controlador->vista)
-7. Evaluar riesgos de bloqueo entre tareas
-
-Devuelve:
-- Lista de capacidades de usuario identificadas
-- Mapeo de tareas a capacidades
-- Análisis de dependencias entre tareas
-- Secuencia recomendada de implementación
-- Oportunidades de trabajo en paralelo
-- Riesgos identificados por capacidad
+Migración → Modelo → Service Object → Controller → Routes → View → Tests
 ```
 
-**Paso 3: Esperar Resultado del Rails Architect**
-
-El agente rails-architect analizará las dependencias y devolverá el análisis completo.
-
-**Paso 4: Sintetizar Plan Organizado**
-
-Con el análisis del rails-architect, crea el plan organizado.
+### 7. Crear Plan Organizado
 
 Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan-organized.md` con la siguiente estructura:
 
@@ -142,40 +142,87 @@ Crea el archivo `.contexts/.product/features/active/[feature-actual]/plan-organi
 
 ---
 
-*Plan organizado por capacidades de usuario mediante análisis de Rails Architect.*
-*Total de tareas: [X]*
+*Plan organizado por capacidades de usuario*
+*Total de tareas: [contar todos los checkboxes]*
 ```
 
-**Paso 5: Actualizar Estado con Feature Flow Manager**
+**Contenido**: Completar cada sección basándose en análisis de pasos 4-6:
+- Agrupar tareas por capacidades (no por capas técnicas)
+- Ordenar tareas por dependencias dentro de cada capacidad
+- Identificar secuencia de implementación recomendada
 
-Ahora que el plan está organizado, lanza el agente feature-flow-manager:
+### 8. Contar Tareas Totales
+- Leer `plan-organized.md` recién creado
+- Contar todos los checkboxes `[ ]` en el documento
+- Este será el `total_tasks` para tracking de progreso
 
-**Tarea**:
+### 9. Actualizar Estado de la Feature
+Modificar `.contexts/.product/.feature-state.json`:
+
+- Marcar stage plan_organized como completado:
+  ```json
+  "stages": {
+    "plan_organized": {
+      "completed": true,
+      "started_at": "[usar completed_at del stage plan]",
+      "completed_at": "[timestamp ISO 8601 actual]"
+    }
+  }
+  ```
+- Actualizar documentos:
+  ```json
+  "documents": {
+    "plan-organized.md": {
+      "exists": true,
+      "created_at": "[timestamp ISO 8601 actual]"
+    }
+  }
+  ```
+- Actualizar implementation:
+  ```json
+  "implementation": {
+    "started_at": null,
+    "last_implementation": null,
+    "total_tasks": [número contado en paso 8],
+    "completed_tasks": 0
+  }
+  ```
+- Actualizar workflow:
+  ```json
+  "workflow": {
+    "current_stage": "ready_for_development",
+    "next_recommended_command": "/feature:implement-code"
+  }
+  ```
+- Actualizar `updated_at` con timestamp actual
+
+### 10. Informar Usuario
+Mostrar:
 ```
-Actualiza el estado de la feature actual tras completar el plan organizado.
+✅ Plan organizado por capacidades para "[nombre-feature]"
 
-Acciones requeridas:
-- Lee .contexts/.product/.feature-state.json actual
-- Lee plan-organized.md y cuenta total de tareas (checkboxes [ ])
-- Marca stage 'plan_organized' como completado
-- Actualiza documento plan-organized.md como existente con timestamp
-- Establece implementation.total_tasks = [número de tareas contadas]
-- Establece implementation.completed_tasks = 0
-- Establece workflow.current_stage = "planning"
-- Establece workflow.next_recommended_command = "/feature:implement-code"
-- Actualiza updated_at con fecha actual
-- Guarda .feature-state.json actualizado
-- Muestra visualización de progreso al usuario
-- Informa siguiente paso recomendado: /feature:implement-code
+📝 Documento: .contexts/.product/features/active/[feature-actual]/plan-organized.md
+🎯 Capacidades identificadas: [número de capacidades]
+📋 Total de tareas: [total_tasks]
+
+📊 Progreso:
+[✓ JTBD] [✓ PRD] [✓ Plan] [✓ Organized] [○ Code]
+
+🚀 Próximo Paso: /feature:implement-code
+   (Implementará la primera tarea pendiente del plan organizado)
 ```
 
 ## Criterios de Éxito
 
-- Rails-architect analiza dependencias y reorganiza por capacidades
-- Plan organizado sintetizado y guardado en plan-organized.md
-- Tareas agrupadas por valor de usuario (no por capa técnica)
-- Dependencias y secuencia de implementación claras
-- Total de tareas contado correctamente
-- Feature-flow-manager actualiza .feature-state.json
-- Stage "plan_organized" marcado como completado
-- Usuario recibe progreso visualizado y siguiente comando: /feature:implement-code
+- ✅ Feature actual identificada y plan.md validado como existente
+- ✅ Capacidades de usuario identificadas desde JTBD y PRD
+- ✅ Tareas técnicas del plan.md mapeadas a capacidades de usuario
+- ✅ Dependencias entre tareas analizadas (técnicas y de negocio)
+- ✅ Tareas agrupadas por valor de usuario (no por capa técnica)
+- ✅ `plan-organized.md` creado con estructura por capacidades
+- ✅ Secuencia de implementación recomendada documentada
+- ✅ Total de tareas contado correctamente
+- ✅ Stage "plan_organized" marcado como completado en `.feature-state.json`
+- ✅ `implementation.total_tasks` inicializado con conteo correcto
+- ✅ Workflow actualizado a "ready_for_development"
+- ✅ Usuario recibe resumen con total de tareas y próximo paso

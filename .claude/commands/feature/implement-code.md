@@ -11,183 +11,193 @@ Implementa la siguiente tarea del plan organizado orquestando agentes especializ
 
 ## Qué Hace Este Comando
 
-Orquesta agentes especializados para implementar la siguiente tarea:
-1. **Identifica** siguiente tarea pendiente en plan-organized.md
-2. **En paralelo** (si necesario): Rails Architect, Tailwind Specialist, Hotwire Specialist
-3. **Después**: Implementa código basándose en análisis de agentes
-4. **Finalmente**: Feature Flow Manager actualiza progreso
+Implementa la siguiente tarea pendiente del plan organizado, creando el código necesario (modelos, servicios, controllers, views, tests) según el tipo de tarea y actualizando el progreso.
 
 ## Implementación
 
-**Paso 1: Identificar Siguiente Tarea**
+### 1. Determinar Feature Actual
+- Leer `.contexts/.product/features/current-feature`
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
 
-Lee `.contexts/.product/features/active/[feature-actual]/plan-organized.md` y:
-- Encuentra la primera tarea con checkbox `[ ]` (no completada)
-- Verifica que sus dependencias previas estén completas `[x]`
-- Identifica qué capacidad de usuario pertenece la tarea
-- Lee contexto de la capacidad (valor usuario, dependencias, riesgos)
+### 2. Validar Plan Organizado Existe
+- Verificar que existe `.contexts/.product/features/active/[feature-actual]/plan-organized.md`
+- Si no existe, mostrar error: "Necesitas ejecutar /feature:organize-plan primero"
 
-Si todas las tareas están completadas `[x]`, informa: "¡Todas las tareas están completas! Ejecuta /feature:archive para archivar la feature."
+### 3. Identificar Siguiente Tarea Pendiente
+Leer `plan-organized.md` y:
+- Buscar la primera tarea con checkbox `[ ]` (no completada)
+- Verificar que sus dependencias previas en la misma capacidad estén completas `[x]`
+- Si todas las dependencias no están completas, buscar la siguiente tarea disponible
+- Identificar a qué capacidad de usuario pertenece la tarea
+- Leer contexto de esa capacidad (valor usuario, dependencias, riesgos)
 
-**Paso 2: Analizar Complejidad de la Tarea**
+**Si todas las tareas `[ ]` están completadas `[x]`**:
+- Informar: "¡Todas las tareas están completas! Ejecuta /feature:archive [nombre-feature] para archivar la feature."
+- Terminar ejecución
 
-Basándose en la descripción de la tarea, determina qué agentes especializados se necesitan:
+### 4. Leer Contexto para Implementación
+- Leer `.contexts/.product/features/active/[feature-actual]/plan-organized.md` completo
+- Leer `.contexts/.product/features/active/[feature-actual]/PRD.md` para requisitos
+- Leer capacidad específica donde está la tarea
+- Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
-**Tarea Backend (modelos, servicios, jobs, API)**:
-- Rails Architect: Siempre necesario
+### 5. Analizar Tipo de Tarea
+Basándose en la descripción de la tarea, determinar categoría:
 
-**Tarea Frontend (views, componentes UI)**:
-- Rails Architect: Para estructura Rails
-- Tailwind Specialist: Para implementación UI
+**Tarea Backend** (contiene: "migración", "modelo", "service object", "controller", "ruta", "job"):
+- Implementar código Rails backend
+- Seguir patrones SOLID y arquitectura limpia
+- Considerar multi-tenancy
 
-**Tarea Interactividad (Turbo, Stimulus, tiempo real)**:
-- Rails Architect: Para endpoints backend
-- Hotwire Specialist: Para interactividad
-- Tailwind Specialist: Para estados visuales (si necesario)
+**Tarea Frontend** (contiene: "view", "partial", "componente UI", "form"):
+- Implementar templates ERB
+- Aplicar Tailwind CSS del sistema de diseño
+- Considerar responsive y accesibilidad
 
-**Tarea Testing**:
-- Rails Architect: Para estrategia y patrones de testing
+**Tarea Interactividad** (contiene: "Turbo", "Stimulus", "tiempo real", "modal", "actualización"):
+- Implementar Turbo Frames/Streams
+- Crear Stimulus controllers si necesario
+- Configurar broadcasts ActionCable si aplica
 
-**Paso 3: Lanzar Agentes Especializados EN PARALELO (si múltiples)**
+**Tarea Testing** (contiene: "test", "spec", "system test"):
+- Implementar specs RSpec
+- Seguir convenciones de testing del proyecto
 
-Si necesitas múltiples agentes, lánzalos EN PARALELO en un solo mensaje con múltiples invocaciones Task.
+### 6. Implementar Código de la Tarea
 
-**IMPORTANTE**: Usa un solo mensaje con múltiples bloques <invoke name="Task"> para ejecutar en paralelo.
+Según el tipo de tarea identificado en paso 5, implementar código siguiendo patrones del proyecto:
 
-**Tarea para rails-architect** (siempre para implementación):
+**Para Tarea Backend**:
+- Crear migración Rails con timestamp y nombre descriptivo
+- Crear modelo con validaciones, relaciones y scopes necesarios
+- Crear Service Object si la lógica es compleja (más de validaciones simples)
+- Crear controller con acciones REST apropiadas
+- Definir rutas en `config/routes.rb`
+- Crear job Solid Queue si hay procesamiento asíncrono
+- Aplicar multi-tenancy con `account_id` donde corresponda
+- Seguir principios SOLID (especialmente SRP)
+
+**Para Tarea Frontend**:
+- Crear view ERB en directorio apropiado del controller
+- Crear partials reutilizables si hay componentes repetidos
+- Aplicar clases Tailwind CSS del sistema de diseño existente
+- Implementar diseño responsive (mobile-first)
+- Agregar ARIA labels para accesibilidad
+- Manejar estados visuales (hover, focus, disabled, loading)
+
+**Para Tarea Interactividad**:
+- Crear Turbo Frame con ID único y descriptivo
+- Configurar Turbo Stream para actualizaciones en tiempo real si necesario
+- Crear Stimulus controller en `app/javascript/controllers/`
+- Definir targets, values y actions en el controller
+- Implementar métodos con lógica clara y simple
+- Configurar broadcast ActionCable en modelo si es tiempo real
+- Manejar errores y mostrar feedback al usuario
+
+**Para Tarea Testing**:
+- Crear spec RSpec en directorio apropiado (`spec/models/`, `spec/services/`, etc.)
+- Escribir tests unitarios para modelos y servicios
+- Escribir tests de integración para controllers
+- Crear system tests para flujos completos de usuario
+- Verificar multi-tenancy en tests
+- Seguir convenciones RSpec del proyecto (factories, helpers, etc.)
+
+### 7. Actualizar Plan Organizado
+
+Modificar `.contexts/.product/features/active/[feature-actual]/plan-organized.md`:
+- Cambiar `[ ]` a `[x]` para la tarea recién implementada
+- Opcionalmente añadir nota si hay decisiones importantes: `[x] Tarea completada (nota: decisión X tomada)`
+
+### 8. Contar Tareas Completadas
+- Leer `plan-organized.md` actualizado
+- Contar todos los checkboxes completados `[x]`
+- Comparar con `implementation.total_tasks` del estado
+
+### 9. Actualizar Estado de la Feature
+Modificar `.contexts/.product/.feature-state.json`:
+
+- Actualizar implementation:
+  ```json
+  "implementation": {
+    "started_at": "[timestamp de primera implementación si es null]",
+    "last_implementation": "[timestamp ISO 8601 actual]",
+    "total_tasks": [mantener el número existente],
+    "completed_tasks": [número contado en paso 8]
+  }
+  ```
+
+- Actualizar documento plan-organized.md:
+  ```json
+  "documents": {
+    "plan-organized.md": {
+      "exists": true,
+      "created_at": "[mantener existente]",
+      "last_modified": "[timestamp ISO 8601 actual]"
+    }
+  }
+  ```
+
+- Actualizar workflow según progreso:
+  - **Si `completed_tasks == total_tasks`** (todas completadas):
+    ```json
+    "workflow": {
+      "current_stage": "complete",
+      "next_recommended_command": "/feature:archive [nombre-feature]"
+    }
+    ```
+  - **Si `completed_tasks < total_tasks`** (aún hay pendientes):
+    ```json
+    "workflow": {
+      "current_stage": "development",
+      "next_recommended_command": "/feature:implement-code"
+    }
+    ```
+
+- Actualizar `updated_at` con timestamp actual
+
+### 10. Generar Visualización de Progreso
+Calcular porcentaje: `(completed_tasks / total_tasks) * 100`
+
+Crear barra de progreso visual:
 ```
-Implementa la siguiente tarea del plan organizado.
-
-Contexto:
-- Tarea a implementar: [descripción de la tarea desde plan-organized.md]
-- Capacidad de usuario: [nombre de la capacidad]
-- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
-- Lee PRD.md en .contexts/.product/features/active/[feature-actual]/PRD.md
-- Contexto adicional del usuario: $ARGUMENTS
-
-Implementa siguiendo:
-- Patrones Rails establecidos en el proyecto
-- Principios SOLID y código limpio
-- Consideraciones multi-tenancy
-- Convenciones de testing RSpec
-- Mejores prácticas de seguridad
-
-Devuelve:
-- Código completo a crear/modificar
-- Rutas de archivos específicas
-- Explicación de decisiones arquitectónicas
-- Tests necesarios
-- Próximos pasos tras completar esta tarea
+[████████░░] 80% (8/10 tareas)
 ```
 
-**Tarea para tailwind-specialist** (si UI necesaria):
+### 11. Informar Usuario
+Mostrar:
 ```
-Implementa UI para la siguiente tarea del plan organizado.
+✅ Tarea implementada: [descripción de la tarea]
 
-Contexto:
-- Tarea a implementar: [descripción de la tarea]
-- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
-- Lee sistema de diseño en .contexts/design-system/
-- Contexto adicional del usuario: $ARGUMENTS
+📝 Archivos modificados:
+- [listar archivos creados/modificados]
 
-Implementa:
-- Componentes UI con Tailwind CSS
-- Clases específicas del sistema de diseño
-- Estados visuales (hover, focus, disabled, loading)
-- Diseño responsive mobile-first
-- Consideraciones de accesibilidad
+📊 Progreso de "[nombre-feature]":
+[████████░░] 80% (8/10 tareas completadas)
 
-Devuelve:
-- Código HTML/ERB completo
-- Clases Tailwind específicas
-- Variantes de estados
-- Código CSS custom si absolutamente necesario
-```
+[Si hay más tareas pendientes]
+🚀 Próxima Tarea: [descripción de siguiente tarea `[ ]`]
+   Ejecuta: /feature:implement-code
 
-**Tarea para hotwire-specialist** (si interactividad necesaria):
-```
-Implementa interactividad para la siguiente tarea del plan organizado.
-
-Contexto:
-- Tarea a implementar: [descripción de la tarea]
-- Lee plan-organized.md en .contexts/.product/features/active/[feature-actual]/plan-organized.md
-- Contexto adicional del usuario: $ARGUMENTS
-
-Implementa:
-- Turbo Frames para actualizaciones parciales
-- Turbo Streams para actualizaciones tiempo real
-- Stimulus controllers con actions y targets
-- Broadcasting ActionCable si necesario
-- Manejo de errores y estados de carga
-
-Devuelve:
-- Código Stimulus JavaScript completo
-- Configuración Turbo Frames/Streams
-- Código backend para broadcasts si necesario
-- Manejo de edge cases
-```
-
-**Paso 4: Esperar Resultados de Agentes**
-
-Los agentes trabajarán en paralelo (si múltiples) y devolverán sus hallazgos. Espera a que todos completen.
-
-**Paso 5: Implementar Código Integrando Hallazgos**
-
-Con los informes de los agentes, implementa el código:
-
-1. **Crear/Modificar archivos** según recomendaciones de agentes
-2. **Integrar hallazgos**:
-   - Arquitectura backend del rails-architect
-   - UI del tailwind-specialist
-   - Interactividad del hotwire-specialist
-3. **Seguir convenciones** del proyecto
-4. **Crear tests** según estrategia del rails-architect
-5. **Validar implementación** manualmente si es posible
-
-**Paso 6: Actualizar Plan Organizado**
-
-Marca la tarea como completada en plan-organized.md:
-- Cambia `[ ]` a `[x]` para la tarea implementada
-- Añade nota si hay decisiones importantes: `[x] Tarea completada (nota: decisión X tomada)`
-
-**Paso 7: Actualizar Estado con Feature Flow Manager**
-
-Ahora que la tarea está completa, lanza el agente feature-flow-manager:
-
-**Tarea**:
-```
-Actualiza el estado de la feature actual tras completar una tarea de implementación.
-
-Acciones requeridas:
-- Lee .contexts/.product/.feature-state.json actual
-- Lee plan-organized.md y cuenta tareas completadas [x]
-- Incrementa implementation.completed_tasks en 1
-- Actualiza implementation.last_implementation con timestamp actual
-- Actualiza documento plan-organized.md.last_modified con timestamp
-- Si completed_tasks == total_tasks:
-  - Establece workflow.current_stage = "complete"
-  - Establece workflow.next_recommended_command = "/feature:archive [nombre-feature]"
-- Si completed_tasks < total_tasks:
-  - Establece workflow.current_stage = "development"
-  - Establece workflow.next_recommended_command = "/feature:implement-code"
-- Actualiza updated_at con fecha actual
-- Guarda .feature-state.json actualizado
-- Muestra visualización de progreso al usuario con:
-  - Progreso: [█████░░░] X% (completed/total tareas)
-  - Última tarea completada: [descripción]
-  - Siguiente tarea pendiente: [descripción] (si existe)
-- Informa siguiente paso recomendado
+[Si todas las tareas están completas]
+🎉 ¡Todas las tareas completadas!
+   Ejecuta: /feature:archive [nombre-feature] para archivar
 ```
 
 ## Criterios de Éxito
 
-- Siguiente tarea identificada correctamente desde plan-organized.md
-- Agentes especializados ejecutados según complejidad de tarea
-- Rails-architect proporciona implementación backend (siempre)
-- Tailwind-specialist proporciona implementación UI (si necesario)
-- Hotwire-specialist proporciona interactividad (si necesario)
-- Código implementado correctamente con tests
-- Tarea marcada como completada [x] en plan-organized.md
-- Feature-flow-manager actualiza .feature-state.json
-- Contador de tareas incrementado
-- Usuario recibe progreso visualizado y siguiente acción
+- ✅ Feature actual identificada y plan-organized.md validado
+- ✅ Siguiente tarea pendiente `[ ]` identificada correctamente
+- ✅ Dependencias de la tarea verificadas (tareas previas completas)
+- ✅ Tipo de tarea analizado (backend/frontend/interactividad/testing)
+- ✅ Código implementado siguiendo patrones del proyecto:
+  - Backend: Modelos, Service Objects, Controllers, Jobs (si aplica)
+  - Frontend: Views ERB, Tailwind CSS, responsive, accesibilidad
+  - Interactividad: Turbo Frames/Streams, Stimulus controllers
+  - Testing: Specs RSpec con cobertura apropiada
+- ✅ Tarea marcada como completada `[x]` en plan-organized.md
+- ✅ Contador de tareas actualizado en `.feature-state.json`
+- ✅ `implementation.completed_tasks` incrementado correctamente
+- ✅ `implementation.last_implementation` actualizado con timestamp
+- ✅ Workflow actualizado según progreso (development o complete)
+- ✅ Usuario recibe visualización de progreso con barra y porcentaje
+- ✅ Siguiente tarea o acción claramente indicada al usuario

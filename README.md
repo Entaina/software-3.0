@@ -1,480 +1,480 @@
-# Software 3.0 Configuration for Claude Code
+# Configuración Software 3.0 para Claude Code
 
-A **Software 3.0** configuration repository that extends Claude Code with powerful development workflows, specialized agents, and simplified commands designed for both developers and non-developers.
+Un repositorio de configuración **Software 3.0** que extiende Claude Code con flujos de trabajo de desarrollo potentes, agentes especializados y comandos simplificados diseñados tanto para desarrolladores como para no desarrolladores.
 
-## What This Is
+## Qué es esto
 
-This repository provides a comprehensive development environment for Claude Code with four major systems:
+Este repositorio proporciona un entorno de desarrollo completo para Claude Code con cuatro sistemas principales:
 
-1. **VCS Commands** - Simplified version control operations in plain language
-2. **Feature Management** - Complete product development lifecycle from idea to implementation
-3. **Specialized Agents** - Expert AI agents for Rails, Hotwire, Tailwind, Product Management, and Design Systems
-4. **Learning System** - Automatic documentation updates from conversation analysis
+1. **Comandos VCS** - Operaciones de control de versiones simplificadas en lenguaje natural
+2. **Gestión de Features** - Ciclo de vida completo del desarrollo de producto desde la idea hasta la implementación
+3. **Agentes Especializados** - Agentes de IA expertos en Rails, Hotwire, Tailwind, Gestión de Producto y Sistemas de Diseño
+4. **Sistema de Aprendizaje** - Actualización automática de documentación mediante análisis de conversaciones
 
-## Features
+## Características
 
-### VCS (Version Control System)
-✨ **Plain Language Commands** - No technical jargon required
-🤖 **Auto-Generated Commit Messages** - Intelligent analysis of your changes
-🎯 **Selective File Operations** - Save specific files using natural descriptions
-🔄 **Interactive History** - Browse and choose versions visually
-📊 **Smart Change Analysis** - Understand the impact of your modifications
-🏷️ **Easy Version Tagging** - Mark important milestones effortlessly
-🧹 **Safe Cleanup Operations** - Discard unwanted changes with confirmation
+### VCS (Sistema de Control de Versiones)
+✨ **Comandos en Lenguaje Natural** - No se requiere jerga técnica
+🤖 **Mensajes de Commit Autogenerados** - Análisis inteligente de tus cambios
+🎯 **Operaciones Selectivas de Archivos** - Guarda archivos específicos usando descripciones naturales
+🔄 **Historial Interactivo** - Navega y elige versiones visualmente
+📊 **Análisis Inteligente de Cambios** - Comprende el impacto de tus modificaciones
+🏷️ **Etiquetado Fácil de Versiones** - Marca hitos importantes sin esfuerzo
+🧹 **Operaciones de Limpieza Seguras** - Descarta cambios no deseados con confirmación
 
-### Feature Management
-🎯 **Jobs To Be Done (JTBD)** - Define customer problems before building solutions
-📋 **Product Requirements (PRD)** - Create comprehensive feature specifications
-📐 **Technical Planning** - Organize implementation with architectural decisions
-🔄 **Lifecycle Management** - Track features from creation to archive
-💾 **State Persistence** - Maintain feature context across sessions
-🗂️ **Feature Organization** - List, switch, archive, and restore features
+### Gestión de Features
+🎯 **Jobs To Be Done (JTBD)** - Define problemas del cliente antes de construir soluciones
+📋 **Product Requirements (PRD)** - Crea especificaciones completas de features
+📐 **Planificación Técnica** - Organiza la implementación con decisiones arquitectónicas
+🔄 **Gestión del Ciclo de Vida** - Rastrea features desde la creación hasta el archivo
+💾 **Persistencia de Estado** - Mantén el contexto de features entre sesiones
+🗂️ **Organización de Features** - Lista, cambia, archiva y restaura features
 
-### Specialized AI Agents
-🏗️ **Rails Architect** - SOLID principles, architecture patterns, and best practices
-⚡ **Hotwire Specialist** - Turbo Frames, Turbo Streams, and Stimulus controllers
-🎨 **Tailwind Specialist** - Utility-first CSS, responsive design, and optimization
-📊 **Product Owner** - Lean product management and prioritization
+### Agentes de IA Especializados
+🏗️ **Rails Architect** - Principios SOLID, patrones de arquitectura y mejores prácticas
+⚡ **Hotwire Specialist** - Turbo Frames, Turbo Streams y controladores Stimulus
+🎨 **Tailwind Specialist** - CSS utility-first, diseño responsive y optimización
+📊 **Product Owner** - Gestión de producto lean y priorización
 
-### Learning System
-🧠 **Conversation Analysis** - Extract insights from development sessions
-📚 **Auto-Documentation** - Update CLAUDE.md with learned patterns
-🔄 **Continuous Learning** - Keep documentation synchronized with project evolution
-🎯 **Selective Updates** - Target specific sections for focused documentation
-📊 **Pattern Recognition** - Identify architectural decisions and best practices
+### Sistema de Aprendizaje
+🧠 **Análisis de Conversaciones** - Extrae insights de sesiones de desarrollo
+📚 **Auto-Documentación** - Actualiza CLAUDE.md con patrones aprendidos
+🔄 **Aprendizaje Continuo** - Mantén la documentación sincronizada con la evolución del proyecto
+🎯 **Actualizaciones Selectivas** - Apunta a secciones específicas para documentación focalizada
+📊 **Reconocimiento de Patrones** - Identifica decisiones arquitectónicas y mejores prácticas
 
-## Quick Start
+## Inicio Rápido
 
-### Version Control System (VCS)
+### Sistema de Control de Versiones (VCS)
 
-#### 1. Initialize Version Control
+#### 1. Inicializar Control de Versiones
 ```bash
 /vcs:iniciar
 ```
-Start tracking changes in your project.
+Comienza a rastrear cambios en tu proyecto.
 
-#### 2. Save Your Work
+#### 2. Guardar tu Trabajo
 ```bash
-# Save all changes with auto-generated message
+# Guardar todos los cambios con mensaje autogenerado
 /vcs:guardar
 
-# Save with custom message
-/vcs:guardar -m "Added user authentication"
+# Guardar con mensaje personalizado
+/vcs:guardar -m "Añadido sistema de autenticación"
 
-# Save specific files using natural language
-/vcs:guardar "all JavaScript files" -m "Fixed login bugs"
-/vcs:guardar "files in src folder"
-/vcs:guardar "configuration files"
+# Guardar archivos específicos usando lenguaje natural
+/vcs:guardar "todos los archivos JavaScript" -m "Corregidos bugs de login"
+/vcs:guardar "archivos en carpeta src"
+/vcs:guardar "archivos de configuración"
 ```
 
-#### 3. Check Your Progress
+#### 3. Comprobar tu Progreso
 ```bash
-# See what you've changed
+# Ver qué has cambiado
 /vcs:diferencias
 
-# View your save history
+# Ver tu historial de guardados
 /vcs:historial
 
-# View last 5 saves
+# Ver los últimos 5 guardados
 /vcs:historial 5
 ```
 
-#### 4. Go Back to Previous Versions
+#### 4. Volver a Versiones Anteriores
 ```bash
-# Show history and choose interactively
+# Mostrar historial y elegir interactivamente
 /vcs:cargar
 
-# Load specific version by hash
+# Cargar versión específica por hash
 /vcs:cargar abc123f
 
-# Load tagged version
+# Cargar versión etiquetada
 /vcs:cargar version-1-0
 
-# Go back one save
+# Volver un guardado atrás
 /vcs:cargar HEAD~1
 ```
 
-#### 5. Mark Important Milestones
+#### 5. Marcar Hitos Importantes
 ```bash
-# Create timestamped tag
+# Crear etiqueta con timestamp
 /vcs:etiquetar
 
-# Create named tag
-/vcs:etiquetar "version 1.0"
-/vcs:etiquetar "stable release"
+# Crear etiqueta con nombre
+/vcs:etiquetar "versión 1.0"
+/vcs:etiquetar "release estable"
 ```
 
-#### 6. Clean Up Unwanted Changes
+#### 6. Limpiar Cambios No Deseados
 ```bash
-# Discard all uncommitted changes
+# Descartar todos los cambios sin confirmar
 /vcs:limpiar
 
-# Clean specific files only
+# Limpiar solo archivos específicos
 /vcs:limpiar src/auth.js README.md
 /vcs:limpiar "*.js"
 ```
 
-### Feature Management Workflow
+### Flujo de Trabajo de Gestión de Features
 
-#### 1. Create a New Feature
+#### 1. Crear una Nueva Feature
 ```bash
-# Start a new feature with guided workflow
+# Iniciar una nueva feature con flujo guiado
 /feature:crear
 
-# The system will guide you through:
-# - Feature name and description
-# - Creating JTBD (Jobs To Be Done) document
-# - Creating PRD (Product Requirements Document)
-# - Creating technical implementation plan
+# El sistema te guiará a través de:
+# - Nombre y descripción de la feature
+# - Creación del documento JTBD (Jobs To Be Done)
+# - Creación del documento PRD (Product Requirements Document)
+# - Creación del plan técnico de implementación
 ```
 
-#### 2. Work on Features
+#### 2. Trabajar en Features
 ```bash
-# Switch between features
-/feature:cambiar feature-name
+# Cambiar entre features
+/feature:cambiar nombre-feature
 
-# Check current feature status
+# Comprobar estado de la feature actual
 /feature:estado
 
-# List all features
+# Listar todas las features
 /feature:listar
 
-# Implement code from plan
+# Implementar código desde el plan
 /feature:implementar-codigo
 ```
 
-#### 3. Organize and Plan
+#### 3. Organizar y Planificar
 ```bash
-# Create standalone planning documents
-/feature:crear-jtbd    # Jobs To Be Done analysis
+# Crear documentos de planificación independientes
+/feature:crear-jtbd    # Análisis Jobs To Be Done
 /feature:crear-prd     # Product Requirements Document
-/feature:crear-plan    # Technical implementation plan
-/feature:organizar-plan  # Organize existing plan
+/feature:crear-plan    # Plan técnico de implementación
+/feature:organizar-plan  # Organizar plan existente
 ```
 
-#### 4. Feature Lifecycle
+#### 4. Ciclo de Vida de Features
 ```bash
-# Archive completed features
-/feature:archivar feature-name
+# Archivar features completadas
+/feature:archivar nombre-feature
 
-# Move to trash (soft delete)
-/feature:papelera feature-name
+# Mover a papelera (eliminación suave)
+/feature:papelera nombre-feature
 
-# Restore from trash
-/feature:restaurar feature-name
+# Restaurar desde papelera
+/feature:restaurar nombre-feature
 ```
 
-### Learning and Documentation
+### Aprendizaje y Documentación
 
 ```bash
-# Analyze conversation and update CLAUDE.md
+# Analizar conversación y actualizar CLAUDE.md
 /aprender
 
-# Update specific section only
-/aprender architecture
-/aprender principles
+# Actualizar solo una sección específica
+/aprender arquitectura
+/aprender principios
 ```
 
-The `/aprender` command analyzes your current conversation to extract:
-- Technical decisions made
-- New patterns discovered
-- Architecture changes
-- Best practices learned
-- Feature additions
+El comando `/aprender` analiza tu conversación actual para extraer:
+- Decisiones técnicas tomadas
+- Nuevos patrones descubiertos
+- Cambios de arquitectura
+- Mejores prácticas aprendidas
+- Adiciones de features
 
-It then automatically updates the CLAUDE.md file to keep documentation in sync with the project's evolution.
+Luego actualiza automáticamente el archivo CLAUDE.md para mantener la documentación sincronizada con la evolución del proyecto.
 
-### Using Specialized Agents
+### Usar Agentes Especializados
 
-The specialized agents are automatically available and can be invoked directly in your conversations:
+Los agentes especializados están disponibles automáticamente y pueden invocarse directamente en tus conversaciones:
 
 ```
-"I need to implement user authentication in Rails"
-→ Rails Architect agent provides SOLID architecture guidance
+"Necesito implementar autenticación de usuario en Rails"
+→ El agente Rails Architect proporciona guía de arquitectura SOLID
 
-"How do I add inline editing with Hotwire?"
-→ Hotwire Specialist provides Turbo Frame implementation
+"¿Cómo añado edición inline con Hotwire?"
+→ El Hotwire Specialist proporciona implementación con Turbo Frame
 
-"Style this form with Tailwind"
-→ Tailwind Specialist provides utility-first CSS implementation
+"Estiliza este formulario con Tailwind"
+→ El Tailwind Specialist proporciona implementación CSS utility-first
 
-"Should we build this feature?"
-→ Product Owner helps with JTBD analysis and prioritization
+"¿Deberíamos construir esta feature?"
+→ El Product Owner ayuda con análisis JTBD y priorización
 ```
 
-## Available Commands
+## Comandos Disponibles
 
-### VCS Commands
+### Comandos VCS
 
-| Command | Description |
+| Comando | Descripción |
 |---------|-------------|
-| `/vcs:iniciar` | Initialize version control in current directory |
-| `/vcs:guardar [files] [-m "message"]` | Save changes with smart commit messages |
-| `/vcs:cargar [commit]` | Restore to previous version |
-| `/vcs:historial [count]` | View save history |
-| `/vcs:diferencias` | Show pending changes with analysis |
-| `/vcs:etiquetar [message]` | Create version tags |
-| `/vcs:limpiar [files]` | Discard changes safely |
-| `/vcs:ayuda` | Show detailed help |
+| `/vcs:iniciar` | Inicializar control de versiones en el directorio actual |
+| `/vcs:guardar [archivos] [-m "mensaje"]` | Guardar cambios con mensajes de commit inteligentes |
+| `/vcs:cargar [commit]` | Restaurar a versión anterior |
+| `/vcs:historial [cantidad]` | Ver historial de guardados |
+| `/vcs:diferencias` | Mostrar cambios pendientes con análisis |
+| `/vcs:etiquetar [mensaje]` | Crear etiquetas de versión |
+| `/vcs:limpiar [archivos]` | Descartar cambios de forma segura |
+| `/vcs:ayuda` | Mostrar ayuda detallada |
 
-### Feature Management Commands
+### Comandos de Gestión de Features
 
-| Command | Description |
+| Comando | Descripción |
 |---------|-------------|
-| `/feature:crear` | Create new feature with guided workflow |
-| `/feature:cambiar [name]` | Switch to a different feature |
-| `/feature:estado` | Show current feature status |
-| `/feature:listar` | List all features (active/archived/trash) |
-| `/feature:archivar [name]` | Archive completed feature |
-| `/feature:papelera [name]` | Move feature to trash |
-| `/feature:restaurar [name]` | Restore feature from trash |
-| `/feature:crear-jtbd` | Create Jobs To Be Done document |
-| `/feature:crear-prd` | Create Product Requirements Document |
-| `/feature:crear-plan` | Create technical implementation plan |
-| `/feature:organizar-plan` | Organize existing plan |
-| `/feature:implementar-codigo` | Implement code from plan |
+| `/feature:crear` | Crear nueva feature con flujo guiado |
+| `/feature:cambiar [nombre]` | Cambiar a una feature diferente |
+| `/feature:estado` | Mostrar estado de la feature actual |
+| `/feature:listar` | Listar todas las features (activas/archivadas/papelera) |
+| `/feature:archivar [nombre]` | Archivar feature completada |
+| `/feature:papelera [nombre]` | Mover feature a papelera |
+| `/feature:restaurar [nombre]` | Restaurar feature desde papelera |
+| `/feature:crear-jtbd` | Crear documento Jobs To Be Done |
+| `/feature:crear-prd` | Crear Product Requirements Document |
+| `/feature:crear-plan` | Crear plan técnico de implementación |
+| `/feature:organizar-plan` | Organizar plan existente |
+| `/feature:implementar-codigo` | Implementar código desde plan |
 
-### Utility Commands
+### Comandos de Utilidad
 
-| Command | Description |
+| Comando | Descripción |
 |---------|-------------|
-| `/gestor-comandos` | Manage slash commands (create, edit, delete) |
-| `/aprender [section]` | Analyze conversation and update CLAUDE.md with insights |
+| `/gestor-comandos` | Gestionar comandos slash (crear, editar, eliminar) |
+| `/aprender [sección]` | Analizar conversación y actualizar CLAUDE.md con insights |
 
-## Natural Language File Selection
+## Selección de Archivos en Lenguaje Natural
 
-The `vcs:guardar` and `vcs:limpiar` commands understand natural descriptions:
+Los comandos `vcs:guardar` y `vcs:limpiar` entienden descripciones naturales:
 
-- **File types**: `"JavaScript files"`, `"Python scripts"`, `"configuration files"`
-- **Folders**: `"files in src folder"`, `"everything in docs directory"`
-- **Patterns**: `"test files"`, `"documentation"`, `"build scripts"`
-- **Specific files**: `"package.json yarn.lock"`, `"README.md src/main.js"`
+- **Tipos de archivo**: `"archivos JavaScript"`, `"scripts Python"`, `"archivos de configuración"`
+- **Carpetas**: `"archivos en carpeta src"`, `"todo en directorio docs"`
+- **Patrones**: `"archivos de test"`, `"documentación"`, `"scripts de build"`
+- **Archivos específicos**: `"package.json yarn.lock"`, `"README.md src/main.js"`
 
-## Smart Features
+## Características Inteligentes
 
-### Auto-Generated Commit Messages
-When you use `/vcs:guardar` without a message, the system analyzes your changes and creates professional commit messages like:
-- `feat: add user authentication system`
-- `fix: resolve database connection issue`
-- `docs: update installation guide`
-- `config: setup development environment`
+### Mensajes de Commit Autogenerados
+Cuando usas `/vcs:guardar` sin mensaje, el sistema analiza tus cambios y crea mensajes de commit profesionales como:
+- `feat: añadir sistema de autenticación de usuario`
+- `fix: resolver problema de conexión a base de datos`
+- `docs: actualizar guía de instalación`
+- `config: configurar entorno de desarrollo`
 
-### Intelligent Change Analysis
-The `/vcs:diferencias` command provides:
-- **Project Impact Summary** - What your changes mean
-- **Work Summary** - Type of work being done
-- **File Analysis** - Detailed explanation of each change
-- **Readiness Assessment** - Whether changes are ready to save
+### Análisis Inteligente de Cambios
+El comando `/vcs:diferencias` proporciona:
+- **Resumen de Impacto del Proyecto** - Qué significan tus cambios
+- **Resumen de Trabajo** - Tipo de trabajo realizado
+- **Análisis de Archivos** - Explicación detallada de cada cambio
+- **Evaluación de Preparación** - Si los cambios están listos para guardar
 
-### Interactive History
-Using `/vcs:cargar` without parameters shows your commit history and lets you choose which version to restore interactively.
+### Historial Interactivo
+Usar `/vcs:cargar` sin parámetros muestra tu historial de commits y te permite elegir qué versión restaurar interactivamente.
 
-## Safety Features
+## Características de Seguridad
 
-- **Explicit Confirmations** - Destructive operations require typing "yes"
-- **Detailed Previews** - See exactly what will change before proceeding
-- **Impact Analysis** - Understand what you'll lose before cleaning/loading
-- **Selective Operations** - Target specific files without affecting others
+- **Confirmaciones Explícitas** - Las operaciones destructivas requieren escribir "sí"
+- **Vistas Previas Detalladas** - Ve exactamente qué cambiará antes de proceder
+- **Análisis de Impacto** - Comprende qué perderás antes de limpiar/cargar
+- **Operaciones Selectivas** - Apunta a archivos específicos sin afectar otros
 
-## Installation
+## Instalación
 
-1. **Load this configuration in Claude Code**:
-   - Open your project in Claude Code
-   - Ensure this configuration repository is accessible
-   - The VCS commands will be available as slash commands
+1. **Carga esta configuración en Claude Code**:
+   - Abre tu proyecto en Claude Code
+   - Asegúrate de que este repositorio de configuración sea accesible
+   - Los comandos VCS estarán disponibles como comandos slash
 
-2. **Start using VCS commands**:
+2. **Comienza a usar los comandos VCS**:
    ```bash
-   /vcs:iniciar    # Initialize your project
-   /vcs:ayuda      # See all available commands
+   /vcs:iniciar    # Inicializa tu proyecto
+   /vcs:ayuda      # Ver todos los comandos disponibles
    ```
 
-## Example Workflow
+## Flujo de Trabajo de Ejemplo
 
 ```bash
-# Start a new project
+# Iniciar un nuevo proyecto
 /vcs:iniciar
 
-# Work on your files...
-# Add features, fix bugs, update docs
+# Trabaja en tus archivos...
+# Añade features, corrige bugs, actualiza docs
 
-# Check what you've done
+# Comprueba qué has hecho
 /vcs:diferencias
 
-# Save your work
-/vcs:guardar "Added authentication and improved docs"
+# Guarda tu trabajo
+/vcs:guardar "Añadida autenticación y mejorados docs"
 
-# Continue working...
+# Continúa trabajando...
 
-# Save only specific changes
-/vcs:guardar "test files" -m "Added unit tests"
+# Guarda solo cambios específicos
+/vcs:guardar "archivos de test" -m "Añadidos tests unitarios"
 
-# Mark a milestone
+# Marca un hito
 /vcs:etiquetar "beta release"
 
-# View your progress
+# Ve tu progreso
 /vcs:historial
 
-# Need to go back?
+# ¿Necesitas volver atrás?
 /vcs:cargar
 
-# Clean up experimental changes
+# Limpia cambios experimentales
 /vcs:limpiar "experimental-feature.js"
 ```
 
-## Specialized AI Agents
+## Agentes de IA Especializados
 
-This configuration includes four expert AI agents with deep domain knowledge:
+Esta configuración incluye cuatro agentes de IA expertos con conocimiento profundo del dominio:
 
 ### 🏗️ Rails Architect
-**Expertise**: Rails architecture, SOLID principles, design patterns
-- Architectural decision making (Service Objects, STI vs polymorphism)
-- Code review against SOLID/KISS/YAGNI principles
-- Refactoring strategies and migration patterns
-- REST-compliant design
-- **Lines of code**: 55,278 lines of structured expertise
+**Experiencia**: Arquitectura Rails, principios SOLID, patrones de diseño
+- Toma de decisiones arquitectónicas (Service Objects, STI vs polimorfismo)
+- Revisión de código contra principios SOLID/KISS/YAGNI
+- Estrategias de refactorización y patrones de migración
+- Diseño conforme a REST
+- **Líneas de código**: 55.278 líneas de experiencia estructurada
 
 ### ⚡ Hotwire Specialist
-**Expertise**: Turbo Drive, Turbo Frames, Turbo Streams, Stimulus
-- Deciding which Hotwire technique for specific features
-- Implementing inline editing, modals, real-time updates
-- Debugging Turbo Frame mismatches
-- ActionCable broadcast setup
-- **Lines of code**: 35,940 lines of Hotwire patterns
+**Experiencia**: Turbo Drive, Turbo Frames, Turbo Streams, Stimulus
+- Decidir qué técnica Hotwire para features específicas
+- Implementar edición inline, modales, actualizaciones en tiempo real
+- Depurar desajustes de Turbo Frame
+- Configuración de broadcast ActionCable
+- **Líneas de código**: 35.940 líneas de patrones Hotwire
 
 ### 🎨 Tailwind Specialist
-**Expertise**: Utility-first CSS, responsive design, performance
-- Implementing UI components with Tailwind utilities
-- Configuration and theme customization
-- Bundle size optimization and PurgeCSS
-- Dark mode implementation
-- Accessibility with Tailwind
-- **Lines of code**: 38,519 lines of CSS expertise
+**Experiencia**: CSS utility-first, diseño responsive, rendimiento
+- Implementar componentes UI con utilidades Tailwind
+- Configuración y personalización de tema
+- Optimización de tamaño de bundle y PurgeCSS
+- Implementación de modo oscuro
+- Accesibilidad con Tailwind
+- **Líneas de código**: 38.519 líneas de experiencia CSS
 
 ### 📊 Product Owner (Lean)
-**Expertise**: Jobs To Be Done, product prioritization, lean methodology
-- JTBD discovery before building features
-- Creating Product Requirements Documents
-- Prioritization frameworks (RICE, Kano)
-- Scope management and saying "no"
-- Post-launch metrics analysis
-- **Lines of code**: 46,326 lines of product knowledge
+**Experiencia**: Jobs To Be Done, priorización de producto, metodología lean
+- Descubrimiento JTBD antes de construir features
+- Crear Product Requirements Documents
+- Frameworks de priorización (RICE, Kano)
+- Gestión de alcance y decir "no"
+- Análisis de métricas post-lanzamiento
+- **Líneas de código**: 46.326 líneas de conocimiento de producto
 
-**Total Agent Knowledge**: Over 176,000 lines of structured, expert knowledge
+**Conocimiento Total de Agentes**: Más de 176.000 líneas de conocimiento experto estructurado
 
-## Perfect For
+## Perfecto Para
 
-### Non-Technical Users
-- **Content creators** tracking document versions
-- **Designers** versioning creative assets
-- **Project managers** organizing feature development
-- **Anyone** who wants simple version control
+### Usuarios No Técnicos
+- **Creadores de contenido** rastreando versiones de documentos
+- **Diseñadores** versionando assets creativos
+- **Gestores de proyecto** organizando desarrollo de features
+- **Cualquiera** que quiera control de versiones simple
 
-### Developers
-- **Rails developers** building maintainable applications
-- **Full-stack developers** using Hotwire and Tailwind
-- **Solo developers** needing architecture guidance
-- **Teams** wanting consistent design patterns
+### Desarrolladores
+- **Desarrolladores Rails** construyendo aplicaciones mantenibles
+- **Desarrolladores full-stack** usando Hotwire y Tailwind
+- **Desarrolladores solitarios** necesitando guía arquitectónica
+- **Equipos** queriendo patrones de diseño consistentes
 
-### Product Teams
-- **Product managers** defining features with JTBD
-- **Designers** maintaining design systems
-- **Stakeholders** understanding development lifecycle
+### Equipos de Producto
+- **Gestores de producto** definiendo features con JTBD
+- **Diseñadores** manteniendo sistemas de diseño
+- **Stakeholders** entendiendo el ciclo de vida del desarrollo
 
-## Technical Details
+## Detalles Técnicos
 
-### Architecture
+### Arquitectura
 
-This configuration extends Claude Code through three main components:
+Esta configuración extiende Claude Code a través de tres componentes principales:
 
-#### 1. Slash Commands
-Custom commands defined as markdown files in `.claude/commands/`:
-- **VCS commands** (`vcs/`) - 8 commands for version control
-- **Feature commands** (`feature/`) - 12 commands for feature lifecycle management
-- **Utility commands** - Command manager and learning system for self-improvement
+#### 1. Comandos Slash
+Comandos personalizados definidos como archivos markdown en `.claude/commands/`:
+- **Comandos VCS** (`vcs/`) - 8 comandos para control de versiones
+- **Comandos Feature** (`feature/`) - 12 comandos para gestión del ciclo de vida de features
+- **Comandos de Utilidad** - Gestor de comandos y sistema de aprendizaje para auto-mejora
 
-#### 2. Specialized Agents
-AI agents with domain expertise in `.claude/agents/`:
-- Each agent contains 30,000+ lines of structured knowledge
-- Uses 6-context framework (c₁-c₆) for consistent responses
-- Automatically invoked based on conversation context
-- Provides expert guidance in specific domains
+#### 2. Agentes Especializados
+Agentes de IA con experiencia de dominio en `.claude/agents/`:
+- Cada agente contiene más de 30.000 líneas de conocimiento estructurado
+- Usa framework de 6 contextos (c₁-c₆) para respuestas consistentes
+- Invocados automáticamente según el contexto de la conversación
+- Proporciona guía experta en dominios específicos
 
-#### 3. State Management
-Persistent state tracking for features:
-- `.features/active/` - Active feature development
-- `.features/archive/` - Completed features
-- `.features/trash/` - Soft-deleted features
-- `.features/state.json` - Current feature and metadata
+#### 3. Gestión de Estado
+Rastreo de estado persistente para features:
+- `_features/active/` - Desarrollo de features activas
+- `_features/archived/` - Features completadas
+- `_features/trashed/` - Features eliminadas suavemente
+- `_features/state.json` - Feature actual y metadatos
 
-### File Structure
+### Estructura de Archivos
 ```
 .claude/
 ├── commands/
-│   ├── vcs/           # 8 VCS commands
-│   ├── feature/       # 12 feature management commands
+│   ├── vcs/           # 8 comandos VCS
+│   ├── feature/       # 12 comandos de gestión de features
 │   ├── gestor-comandos.md
-│   └── aprender.md       # Learning system command
+│   └── aprender.md    # Comando del sistema de aprendizaje
 ├── agents/
-│   ├── rails-architect.md        # 55,278 lines
-│   ├── hotwire-specialist.md     # 35,940 lines
-│   ├── tailwind-specialist.md    # 38,519 lines
-│   └── product-owner.md          # 46,326 lines
+│   ├── rails-architect.md        # 55.278 líneas
+│   ├── hotwire-specialist.md     # 35.940 líneas
+│   ├── tailwind-specialist.md    # 38.519 líneas
+│   └── product-owner.md          # 46.326 líneas
 └── settings.local.json
 
-.features/
-├── active/           # Active features
-├── archive/          # Archived features
-├── trash/            # Soft-deleted features
-└── state.json        # Current feature state
+_features/
+├── active/           # Features activas
+├── archived/         # Features archivadas
+├── trashed/          # Features eliminadas suavemente
+└── state.json        # Estado de feature actual
 ```
 
-**No traditional build/test commands** - This is a configuration repository that extends Claude Code's capabilities.
+**Sin comandos tradicionales de build/test** - Este es un repositorio de configuración que extiende las capacidades de Claude Code.
 
-## Key Innovations
+## Innovaciones Clave
 
-### 1. Product-Driven Development
-Instead of just writing code, start with customer problems:
-- **JTBD First**: Understand the job customers are trying to do
-- **PRD Documentation**: Define requirements before implementation
-- **Technical Planning**: Organize architecture before coding
-- **Lifecycle Tracking**: Manage features from idea to archive
+### 1. Desarrollo Dirigido por Producto
+En lugar de solo escribir código, empieza con problemas del cliente:
+- **JTBD Primero**: Entiende el trabajo que los clientes están tratando de hacer
+- **Documentación PRD**: Define requisitos antes de la implementación
+- **Planificación Técnica**: Organiza la arquitectura antes de codificar
+- **Rastreo del Ciclo de Vida**: Gestiona features desde la idea hasta el archivo
 
-### 2. Expert AI Collaboration
-Four specialized agents provide deep domain expertise:
-- **176,000+ lines** of structured knowledge
-- **6-context framework** ensures consistent, high-quality responses
-- **Automatic invocation** based on conversation context
-- **Complementary expertise** across product and engineering
+### 2. Colaboración con IA Experta
+Cuatro agentes especializados proporcionan experiencia profunda del dominio:
+- **176.000+ líneas** de conocimiento estructurado
+- **Framework de 6 contextos** asegura respuestas consistentes de alta calidad
+- **Invocación automática** según el contexto de la conversación
+- **Experiencia complementaria** a través de producto e ingeniería
 
-### 3. Simplified Workflows
-Complex operations made simple:
-- **Natural language** instead of technical commands
-- **Guided workflows** for feature creation
-- **Auto-generated artifacts** (commit messages, PRDs, plans)
-- **Safety confirmations** for destructive operations
+### 3. Flujos de Trabajo Simplificados
+Operaciones complejas hechas simples:
+- **Lenguaje natural** en lugar de comandos técnicos
+- **Flujos guiados** para creación de features
+- **Artefactos autogenerados** (mensajes de commit, PRDs, planes)
+- **Confirmaciones de seguridad** para operaciones destructivas
 
-### 4. Self-Documenting System
-A learning configuration that improves itself:
-- **Conversation analysis** extracts patterns and decisions automatically
-- **CLAUDE.md updates** keep documentation synchronized with reality
-- **Continuous learning** from every development session
-- **Pattern recognition** identifies architectural best practices
-- **Knowledge accumulation** builds better context for future work
+### 4. Sistema Auto-Documentado
+Una configuración de aprendizaje que se mejora a sí misma:
+- **Análisis de conversaciones** extrae patrones y decisiones automáticamente
+- **Actualizaciones de CLAUDE.md** mantienen la documentación sincronizada con la realidad
+- **Aprendizaje continuo** de cada sesión de desarrollo
+- **Reconocimiento de patrones** identifica mejores prácticas arquitectónicas
+- **Acumulación de conocimiento** construye mejor contexto para trabajo futuro
 
-## Support
+## Soporte
 
-### Getting Help
-- Use `/vcs:ayuda` for VCS command documentation
-- Use `/feature:listar` to see all feature management commands
-- Check `.claude/commands/` for detailed command specifications
-- Agents automatically provide guidance in their domains
+### Obtener Ayuda
+- Usa `/vcs:ayuda` para documentación de comandos VCS
+- Usa `/feature:listar` para ver todos los comandos de gestión de features
+- Consulta `.claude/commands/` para especificaciones detalladas de comandos
+- Los agentes proporcionan guía automáticamente en sus dominios
 
-### Command Discovery
-- Type `/` in Claude Code to see all available commands
-- Use `/gestor-comandos` to create custom commands
-- Explore `.claude/commands/` directory for examples
+### Descubrimiento de Comandos
+- Escribe `/` en Claude Code para ver todos los comandos disponibles
+- Usa `/gestor-comandos` para crear comandos personalizados
+- Explora el directorio `.claude/commands/` para ejemplos
 
 ---
 
-**Software 3.0** - Where AI understands your intent, provides expert guidance, and handles the technical complexity while you focus on building great products.
+**Software 3.0** - Donde la IA entiende tu intención, proporciona guía experta y maneja la complejidad técnica mientras tú te enfocas en construir grandes productos.

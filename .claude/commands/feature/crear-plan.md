@@ -16,16 +16,16 @@ Genera un plan técnico de implementación completo para la feature actual, anal
 ## Implementación
 
 ### 1. Determinar Feature Actual
-- Leer `.features/current-feature`
+- Leer `_features/current-feature`
 - Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Validar PRD Existe
-- Verificar que existe `.features/active/[feature-actual]/PRD.md`
+- Verificar que existe `_features/active/[feature-actual]/PRD.md`
 - Si no existe, recomendar: "Ejecuta /feature:crear-prd primero para crear el PRD."
 
 ### 3. Analizar PRD y Determinar Alcance Técnico
-- Leer `.features/active/[feature-actual]/PRD.md` completo
-- Leer `.features/active/[feature-actual]/JTBD.md` para contexto
+- Leer `_features/active/[feature-actual]/PRD.md` completo
+- Leer `_features/active/[feature-actual]/JTBD.md` para contexto
 - Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
 Determinar alcance de implementación:
@@ -94,7 +94,7 @@ Si el PRD incluye interactividad, definir:
 
 ### 7. Crear Plan Técnico Completo
 
-Crear archivo `.features/active/[feature-actual]/plan.md` con análisis técnico completo:
+Crear archivo `_features/active/[feature-actual]/plan.md` con análisis técnico completo:
 
 ```markdown
 # [Nombre Feature] - Plan Técnico de Implementación
@@ -182,7 +182,7 @@ Crear archivo `.features/active/[feature-actual]/plan.md` con análisis técnico
 **Contenido**: Completar cada sección con análisis detallado basándose en los pasos 4-6.
 
 ### 8. Actualizar Estado de la Feature
-Modificar `.features/state.json`:
+Modificar `_features/state.json`:
 
 - Marcar stage plan como completado:
   ```json
@@ -217,7 +217,7 @@ Mostrar:
 ```
 ✅ Plan técnico completado para "[nombre-feature]"
 
-📝 Documento: .features/active/[feature-actual]/plan.md
+📝 Documento: _features/active/[feature-actual]/plan.md
 🏗️  Arquitectura: [extracto de decisiones clave]
 
 📊 Progreso:

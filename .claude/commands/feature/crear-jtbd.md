@@ -16,16 +16,16 @@ Crea un análisis Jobs-to-be-Done (JTBD) completo para la feature actual, aplica
 ## Implementación
 
 ### 1. Determinar Feature Actual
-- Leer `.features/current-feature`
+- Leer `_features/current-feature`
 - Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Leer Contexto de la Feature
-- Leer `.features/active/[feature-actual]/feature.md`
+- Leer `_features/active/[feature-actual]/feature.md`
 - Leer descripción de la feature desde `feature.md`
 - Incorporar contexto adicional de `$ARGUMENTS` si está presente
 
 ### 3. Crear Documento JTBD
-Crear archivo `.features/active/[feature-actual]/JTBD.md` con estructura completa de análisis Jobs-to-be-Done:
+Crear archivo `_features/active/[feature-actual]/JTBD.md` con estructura completa de análisis Jobs-to-be-Done:
 
 ```markdown
 # [Nombre Feature] - Jobs To Be Done Analysis
@@ -94,7 +94,7 @@ Crear archivo `.features/active/[feature-actual]/JTBD.md` con estructura complet
 - Aplicación rigurosa del framework JTBD (descubrir el "por qué" antes del "qué")
 
 ### 4. Actualizar Estado de la Feature
-Modificar `.features/state.json`:
+Modificar `_features/state.json`:
 
 - Marcar stage JTBD como completado:
   ```json
@@ -129,7 +129,7 @@ Mostrar:
 ```
 ✅ Análisis JTBD completado para "[nombre-feature]"
 
-📝 Documento: .features/active/[feature-actual]/JTBD.md
+📝 Documento: _features/active/[feature-actual]/JTBD.md
 🎯 Job Principal: [extracto del job statement]
 
 📊 Progreso:

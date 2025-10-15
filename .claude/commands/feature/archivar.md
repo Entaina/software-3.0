@@ -21,7 +21,7 @@ Archiva una feature completada, moviéndola del estado activo al archivo histór
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Validar Feature Existe y Es Archivable
-- Leer `.features/state.json`
+- Leer `_features/state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Validar que existe y su estado es `"active"`
 - **Verificar criterios de completitud**:
@@ -29,7 +29,7 @@ Extraer el nombre de la feature de `$ARGUMENTS`.
   - O confirmar con usuario si realmente desea archivar feature incompleta
 
 ### 3. Crear ARCHIVE_SUMMARY.md
-Crear archivo `.features/active/[nombre-feature]/ARCHIVE_SUMMARY.md` con:
+Crear archivo `_features/active/[nombre-feature]/ARCHIVE_SUMMARY.md` con:
 
 ```markdown
 # [Nombre Feature] - Resumen de Archivo
@@ -61,12 +61,12 @@ Crear archivo `.features/active/[nombre-feature]/ARCHIVE_SUMMARY.md` con:
 
 ### 4. Mover Directorio a Archived
 - Usar comando de sistema para mover directorio:
-  - Origen: `.features/active/[nombre-feature]/`
-  - Destino: `.features/archived/[nombre-feature]/`
+  - Origen: `_features/active/[nombre-feature]/`
+  - Destino: `_features/archived/[nombre-feature]/`
 - Validar que el movimiento fue exitoso
 
 ### 5. Actualizar Estado en JSON
-Modificar `.features/state.json`:
+Modificar `_features/state.json`:
 - Cambiar `features_by_name[nombre-feature].state` de `"active"` a `"archived"`
 - Agregar campo `archived_at` con timestamp actual ISO 8601
 - Actualizar `updated_at` con timestamp actual
@@ -83,7 +83,7 @@ Modificar `.features/state.json`:
   - Buscar otra feature activa en `features_by_name`
   - Si existe otra activa, actualizar `current_feature` a esa feature
   - Si no hay otras activas, establecer `current_feature` a `null`
-  - Actualizar archivo `.features/current-feature` en consecuencia
+  - Actualizar archivo `_features/current-feature` en consecuencia
 
 ### 7. Generar Reporte de Archivo
 Mostrar al usuario:
@@ -95,7 +95,7 @@ Mostrar al usuario:
 - Tareas completadas: X/X (100%)
 - Documentos generados: JTBD, PRD, Plan, Plan Organizado
 
-📁 Ubicación: .features/archived/[nombre-feature]/
+📁 Ubicación: _features/archived/[nombre-feature]/
 📝 Summary: ARCHIVE_SUMMARY.md creado
 
 [Si current_feature cambió]

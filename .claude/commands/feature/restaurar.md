@@ -21,23 +21,23 @@ Restaura una feature archivada o eliminada, devolviéndola al estado activo del 
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Buscar Feature en Archived o Trashed
-- Leer `.features/state.json`
+- Leer `_features/state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Validar que existe y su estado es `"archived"` o `"trashed"`
 - Si no existe o ya está `"active"`, mostrar error apropiado
 
 ### 3. Determinar Ubicación Actual
 Basándose en el campo `state`:
-- Si `state === "archived"`: `.features/archived/[nombre-feature]/`
-- Si `state === "trashed"`: `.features/trashed/[nombre-feature]/`
+- Si `state === "archived"`: `_features/archived/[nombre-feature]/`
+- Si `state === "trashed"`: `_features/trashed/[nombre-feature]/`
 
 ### 4. Mover Directorio a Active
 - Usar comando de sistema para mover directorio:
-  - Destino: `.features/active/[nombre-feature]/`
+  - Destino: `_features/active/[nombre-feature]/`
 - Validar que el movimiento fue exitoso
 
 ### 5. Actualizar Estado en JSON
-Modificar `.features/state.json`:
+Modificar `_features/state.json`:
 - Cambiar `features_by_name[nombre-feature].state` a `"active"`
 - Agregar campo `restored_at` con timestamp actual ISO 8601
 - Actualizar `updated_at` con timestamp actual

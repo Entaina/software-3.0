@@ -7,9 +7,9 @@ description: Mover feature a papelera
 
 Mueve una feature a la papelera (eliminación soft, recuperable).
 
-**Uso**: `/feature:trash <nombre-feature>`
+**Uso**: `/feature:papelera <nombre-feature>`
 
-**Ejemplo**: `/feature:trash user-authentication`
+**Ejemplo**: `/feature:papelera user-authentication`
 
 ## Qué Hace Este Comando
 
@@ -32,7 +32,7 @@ Verificar si la feature tiene trabajo significativo:
 - Revisar si hay tareas completadas: `implementation.completed_tasks > 0`
 
 Si hay trabajo significativo:
-- Advertir al usuario: "⚠️  Esta feature tiene [X documentos] y [Y tareas completadas]. ¿Seguro que deseas moverla a papelera? (Puede restaurarse con /feature:restore)"
+- Advertir al usuario: "⚠️  Esta feature tiene [X documentos] y [Y tareas completadas]. ¿Seguro que deseas moverla a papelera? (Puede restaurarse con /feature:restaurar)"
 - Esperar confirmación del usuario antes de continuar
 
 ### 4. Mover Directorio a Trashed
@@ -63,7 +63,7 @@ Mostrar al usuario:
 🗑️  Feature "[nombre-feature]" movida a papelera
 
 📁 Ubicación: .features/trashed/[nombre-feature]/
-♻️  Para restaurar: /feature:restore [nombre-feature]
+♻️  Para restaurar: /feature:restaurar [nombre-feature]
 
 [Si current_feature cambió]
 ⚡ Nueva feature actual: [nueva-feature]

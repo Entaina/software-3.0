@@ -7,9 +7,9 @@ description: Archivar feature completada del pipeline
 
 Archiva una feature completada, moviéndola fuera del desarrollo activo.
 
-**Uso**: `/feature:archive <nombre-feature>`
+**Uso**: `/feature:archivar <nombre-feature>`
 
-**Ejemplo**: `/feature:archive user-authentication`
+**Ejemplo**: `/feature:archivar user-authentication`
 
 ## Qué Hace Este Comando
 
@@ -99,7 +99,7 @@ Mostrar al usuario:
 📝 Summary: ARCHIVE_SUMMARY.md creado
 
 [Si current_feature cambió]
-⚡ Nueva feature actual: [nueva-feature] (usa /feature:status para ver detalles)
+⚡ Nueva feature actual: [nueva-feature] (usa /feature:estado para ver detalles)
 ```
 
 ## Criterios de Éxito

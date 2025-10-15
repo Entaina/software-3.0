@@ -7,12 +7,12 @@ description: Listar todas las features con su estado
 
 Muestra lista de todas las features del pipeline con sus estados.
 
-**Uso**: `/feature:list [filtro]`
+**Uso**: `/feature:listar [filtro]`
 
 **Ejemplos**:
-- `/feature:list` - Todas las features
-- `/feature:list active` - Solo activas
-- `/feature:list archived` - Solo archivadas
+- `/feature:listar` - Todas las features
+- `/feature:listar active` - Solo activas
+- `/feature:listar archived` - Solo archivadas
 
 ## Qué Hace Este Comando
 

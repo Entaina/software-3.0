@@ -7,7 +7,7 @@ description: Crear Product Requirements Document para la feature actual
 
 Genera Product Requirements Document para la feature actual usando Product Owner y Feature Flow Manager.
 
-**Uso**: `/feature:create-prd [contexto-feature]`
+**Uso**: `/feature:crear-prd [contexto-feature]`
 
 ## Qué Hace Este Comando
 
@@ -17,11 +17,11 @@ Crea un Product Requirements Document (PRD) lean para la feature actual, basánd
 
 ### 1. Determinar Feature Actual
 - Leer `.features/current-feature`
-- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Validar JTBD Existe
 - Verificar que existe `.features/active/[feature-actual]/JTBD.md`
-- Si no existe, recomendar: "Ejecuta /feature:create-jtbd primero para crear el análisis JTBD."
+- Si no existe, recomendar: "Ejecuta /feature:crear-jtbd primero para crear el análisis JTBD."
 
 ### 3. Leer Contexto
 - Leer `.features/active/[feature-actual]/JTBD.md` completo
@@ -144,7 +144,7 @@ Modificar `.features/state.json`:
   ```json
   "workflow": {
     "current_stage": "planning",
-    "next_recommended_command": "/feature:create-plan"
+    "next_recommended_command": "/feature:crear-plan"
   }
   ```
 - Actualizar `updated_at` con timestamp actual
@@ -160,7 +160,7 @@ Mostrar:
 📊 Progreso:
 [✓ JTBD] [✓ PRD] [○ Plan] [○ Code]
 
-🚀 Próximo Paso: /feature:create-plan
+🚀 Próximo Paso: /feature:crear-plan
 ```
 
 ## Criterios de Éxito
@@ -171,5 +171,5 @@ Mostrar:
 - ✅ PRD basado en análisis JTBD (Jobs → User Stories → Success Metrics)
 - ✅ Scope MVP definido claramente (qué SÍ, qué NO, qué NUNCA)
 - ✅ Stage "prd" marcado como completado en `.feature-state.json`
-- ✅ Workflow actualizado a "planning" con próximo comando `/feature:create-plan`
+- ✅ Workflow actualizado a "planning" con próximo comando `/feature:crear-plan`
 - ✅ Usuario recibe resumen y siguiente paso recomendado

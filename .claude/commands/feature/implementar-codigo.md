@@ -7,7 +7,7 @@ description: Implementar siguiente tarea del plan organizado
 
 Implementa la siguiente tarea del plan organizado orquestando agentes especializados según necesidades.
 
-**Uso**: `/feature:implement-code [contexto-adicional]`
+**Uso**: `/feature:implementar-codigo [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -17,11 +17,11 @@ Implementa la siguiente tarea pendiente del plan organizado, creando el código 
 
 ### 1. Determinar Feature Actual
 - Leer `.features/current-feature`
-- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Validar Plan Organizado Existe
 - Verificar que existe `.features/active/[feature-actual]/plan-organized.md`
-- Si no existe, mostrar error: "Necesitas ejecutar /feature:organize-plan primero"
+- Si no existe, mostrar error: "Necesitas ejecutar /feature:organizar-plan primero"
 
 ### 3. Identificar Siguiente Tarea Pendiente
 Leer `plan-organized.md` y:
@@ -32,7 +32,7 @@ Leer `plan-organized.md` y:
 - Leer contexto de esa capacidad (valor usuario, dependencias, riesgos)
 
 **Si todas las tareas `[ ]` están completadas `[x]`**:
-- Informar: "¡Todas las tareas están completas! Ejecuta /feature:archive [nombre-feature] para archivar la feature."
+- Informar: "¡Todas las tareas están completas! Ejecuta /feature:archivar [nombre-feature] para archivar la feature."
 - Terminar ejecución
 
 ### 4. Leer Contexto para Implementación
@@ -142,14 +142,14 @@ Modificar `.features/state.json`:
     ```json
     "workflow": {
       "current_stage": "complete",
-      "next_recommended_command": "/feature:archive [nombre-feature]"
+      "next_recommended_command": "/feature:archivar [nombre-feature]"
     }
     ```
   - **Si `completed_tasks < total_tasks`** (aún hay pendientes):
     ```json
     "workflow": {
       "current_stage": "development",
-      "next_recommended_command": "/feature:implement-code"
+      "next_recommended_command": "/feature:implementar-codigo"
     }
     ```
 
@@ -176,11 +176,11 @@ Mostrar:
 
 [Si hay más tareas pendientes]
 🚀 Próxima Tarea: [descripción de siguiente tarea `[ ]`]
-   Ejecuta: /feature:implement-code
+   Ejecuta: /feature:implementar-codigo
 
 [Si todas las tareas están completas]
 🎉 ¡Todas las tareas completadas!
-   Ejecuta: /feature:archive [nombre-feature] para archivar
+   Ejecuta: /feature:archivar [nombre-feature] para archivar
 ```
 
 ## Criterios de Éxito

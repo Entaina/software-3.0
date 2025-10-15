@@ -7,7 +7,7 @@ description: Crear plan técnico de implementación para la feature actual
 
 Genera plan técnico de implementación orquestando agentes especializados y usando Feature Flow Manager.
 
-**Uso**: `/feature:create-plan [contexto-adicional]`
+**Uso**: `/feature:crear-plan [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -17,11 +17,11 @@ Genera un plan técnico de implementación completo para la feature actual, anal
 
 ### 1. Determinar Feature Actual
 - Leer `.features/current-feature`
-- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Validar PRD Existe
 - Verificar que existe `.features/active/[feature-actual]/PRD.md`
-- Si no existe, recomendar: "Ejecuta /feature:create-prd primero para crear el PRD."
+- Si no existe, recomendar: "Ejecuta /feature:crear-prd primero para crear el PRD."
 
 ### 3. Analizar PRD y Determinar Alcance Técnico
 - Leer `.features/active/[feature-actual]/PRD.md` completo
@@ -207,7 +207,7 @@ Modificar `.features/state.json`:
   ```json
   "workflow": {
     "current_stage": "planning",
-    "next_recommended_command": "/feature:organize-plan"
+    "next_recommended_command": "/feature:organizar-plan"
   }
   ```
 - Actualizar `updated_at` con timestamp actual
@@ -223,7 +223,7 @@ Mostrar:
 📊 Progreso:
 [✓ JTBD] [✓ PRD] [✓ Plan] [○ Code]
 
-🚀 Próximo Paso: /feature:organize-plan
+🚀 Próximo Paso: /feature:organizar-plan
 ```
 
 ## Criterios de Éxito
@@ -236,5 +236,5 @@ Mostrar:
 - ✅ Interactividad planificada con Hotwire (si necesario)
 - ✅ `plan.md` creado con checklist completo de implementación
 - ✅ Stage "plan" marcado como completado en `.feature-state.json`
-- ✅ Workflow actualizado a "planning" con próximo comando `/feature:organize-plan`
+- ✅ Workflow actualizado a "planning" con próximo comando `/feature:organizar-plan`
 - ✅ Usuario recibe resumen y siguiente paso recomendado

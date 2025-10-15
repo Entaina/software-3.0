@@ -7,9 +7,9 @@ description: Restaurar feature archivada o eliminada
 
 Restaura una feature archivada o eliminada volviéndola al estado activo.
 
-**Uso**: `/feature:restore <nombre-feature>`
+**Uso**: `/feature:restaurar <nombre-feature>`
 
-**Ejemplo**: `/feature:restore user-authentication`
+**Ejemplo**: `/feature:restaurar user-authentication`
 
 ## Qué Hace Este Comando
 
@@ -55,16 +55,16 @@ Leer y mostrar:
 Basándose en el estado previo:
 - Si `workflow.next_recommended_command` existe, recomendarlo
 - Si no, analizar el progreso y recomendar:
-  - Si no hay JTBD.md → `/feature:create-jtbd`
-  - Si hay JTBD pero no PRD → `/feature:create-prd`
-  - Si hay PRD pero no plan → `/feature:create-plan`
-  - Si hay plan pero no plan-organized → `/feature:organize-plan`
-  - Si hay plan-organized y tareas pendientes → `/feature:implement-code`
+  - Si no hay JTBD.md → `/feature:crear-jtbd`
+  - Si hay JTBD pero no PRD → `/feature:crear-prd`
+  - Si hay PRD pero no plan → `/feature:crear-plan`
+  - Si hay plan pero no plan-organized → `/feature:organizar-plan`
+  - Si hay plan-organized y tareas pendientes → `/feature:implementar-codigo`
 
 ### 8. Ofrecer Cambiar Current Feature
 Preguntar al usuario si desea hacer esta feature la actual:
 ```
-¿Deseas cambiar a esta feature como la actual? (Ejecuta /feature:switch [nombre-feature] para hacerlo)
+¿Deseas cambiar a esta feature como la actual? (Ejecuta /feature:cambiar [nombre-feature] para hacerlo)
 ```
 
 ## Criterios de Éxito

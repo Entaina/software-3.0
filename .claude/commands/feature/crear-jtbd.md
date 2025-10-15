@@ -7,7 +7,7 @@ description: Crear análisis Job-to-be-Done para la feature actual
 
 Genera análisis Jobs To Be Done para la feature actual usando Product Owner y Feature Flow Manager.
 
-**Uso**: `/feature:create-jtbd [contexto-feature]`
+**Uso**: `/feature:crear-jtbd [contexto-feature]`
 
 ## Qué Hace Este Comando
 
@@ -17,7 +17,7 @@ Crea un análisis Jobs-to-be-Done (JTBD) completo para la feature actual, aplica
 
 ### 1. Determinar Feature Actual
 - Leer `.features/current-feature`
-- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Leer Contexto de la Feature
 - Leer `.features/active/[feature-actual]/feature.md`
@@ -119,7 +119,7 @@ Modificar `.features/state.json`:
   ```json
   "workflow": {
     "current_stage": "definition",
-    "next_recommended_command": "/feature:create-prd"
+    "next_recommended_command": "/feature:crear-prd"
   }
   ```
 - Actualizar `updated_at` con timestamp actual
@@ -135,7 +135,7 @@ Mostrar:
 📊 Progreso:
 [✓ JTBD] [○ PRD] [○ Plan] [○ Code]
 
-🚀 Próximo Paso: /feature:create-prd
+🚀 Próximo Paso: /feature:crear-prd
 ```
 
 ## Criterios de Éxito
@@ -144,5 +144,5 @@ Mostrar:
 - ✅ `JTBD.md` creado con todas las secciones completas
 - ✅ Análisis riguroso aplicando framework JTBD (Jobs, Contexts, Success Criteria)
 - ✅ Stage "jtbd" marcado como completado en `.feature-state.json`
-- ✅ Workflow actualizado a "definition" con próximo comando `/feature:create-prd`
+- ✅ Workflow actualizado a "definition" con próximo comando `/feature:crear-prd`
 - ✅ Usuario recibe resumen y siguiente paso recomendado

@@ -7,7 +7,7 @@ description: Organizar plan técnico por capacidades de usuario
 
 Reorganiza el plan técnico desde estructura de infraestructura a capacidades de usuario usando Feature Flow Manager.
 
-**Uso**: `/feature:organize-plan [contexto-adicional]`
+**Uso**: `/feature:organizar-plan [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
@@ -17,11 +17,11 @@ Reorganiza el plan técnico desde estructura de infraestructura (backend/fronten
 
 ### 1. Determinar Feature Actual
 - Leer `.features/current-feature`
-- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:switch <nombre> primero."
+- Si no existe current-feature, mostrar error: "No hay feature actual. Usa /feature:cambiar <nombre> primero."
 
 ### 2. Validar Plan Técnico Existe
 - Verificar que existe `.features/active/[feature-actual]/plan.md`
-- Si no existe, mostrar error: "Necesitas ejecutar /feature:create-plan primero"
+- Si no existe, mostrar error: "Necesitas ejecutar /feature:crear-plan primero"
 
 ### 3. Leer Documentos de Contexto
 - Leer `.features/active/[feature-actual]/plan.md` completo
@@ -191,7 +191,7 @@ Modificar `.features/state.json`:
   ```json
   "workflow": {
     "current_stage": "ready_for_development",
-    "next_recommended_command": "/feature:implement-code"
+    "next_recommended_command": "/feature:implementar-codigo"
   }
   ```
 - Actualizar `updated_at` con timestamp actual
@@ -208,7 +208,7 @@ Mostrar:
 📊 Progreso:
 [✓ JTBD] [✓ PRD] [✓ Plan] [✓ Organized] [○ Code]
 
-🚀 Próximo Paso: /feature:implement-code
+🚀 Próximo Paso: /feature:implementar-codigo
    (Implementará la primera tarea pendiente del plan organizado)
 ```
 

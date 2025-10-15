@@ -7,9 +7,9 @@ description: Crear nueva feature con estructura y tracking
 
 Crea una nueva feature con estructura de directorios y tracking inicial usando Feature Flow Manager.
 
-**Uso**: `/feature:create <nombre-y-descripción>`
+**Uso**: `/feature:crear <nombre-y-descripción>`
 
-**Ejemplo**: `/feature:create user-authentication Sistema de autenticación con JWT`
+**Ejemplo**: `/feature:crear user-authentication Sistema de autenticación con JWT`
 
 ## Qué Hace Este Comando
 
@@ -29,7 +29,7 @@ Ejemplo: `user-authentication Sistema de autenticación con JWT`
 ### 2. Validar Nombre Único
 - Leer `.features/state.json`
 - Verificar que `features_by_name[nombre-feature]` NO existe
-- Si ya existe, mostrar error: "Feature '[nombre]' ya existe. Usa /feature:list para ver todas las features."
+- Si ya existe, mostrar error: "Feature '[nombre]' ya existe. Usa /feature:listar para ver todas las features."
 
 ### 3. Crear Estructura de Directorios
 Crear directorio: `.features/active/[nombre-feature]/`
@@ -45,7 +45,7 @@ Crear archivo `.features/active/[nombre-feature]/feature.md` con:
 
 ## Estado Actual
 - **Workflow Stage**: Discovery
-- **Próximo Paso**: Ejecutar `/feature:switch [nombre]` y luego `/feature:create-jtbd`
+- **Próximo Paso**: Ejecutar `/feature:cambiar [nombre]` y luego `/feature:crear-jtbd`
 
 ## Documentos
 - [ ] JTBD.md - Análisis Jobs-to-be-Done
@@ -71,7 +71,7 @@ Agregar entrada en `features_by_name`:
   "updated_at": "[timestamp ISO 8601 actual]",
   "workflow": {
     "current_stage": "discovery",
-    "next_recommended_command": "/feature:create-jtbd"
+    "next_recommended_command": "/feature:crear-jtbd"
   },
   "stages": {
     "jtbd": {
@@ -121,10 +121,10 @@ Mostrar al usuario:
 📝 Documentos: feature.md creado
 
 🚀 Próximos Pasos:
-1. Ejecuta: /feature:switch [nombre-feature]
-2. Luego: /feature:create-jtbd para comenzar el análisis
+1. Ejecuta: /feature:cambiar [nombre-feature]
+2. Luego: /feature:crear-jtbd para comenzar el análisis
 
-💡 Usa /feature:status [nombre-feature] para ver el estado en cualquier momento
+💡 Usa /feature:estado [nombre-feature] para ver el estado en cualquier momento
 ```
 
 ## Criterios de Éxito

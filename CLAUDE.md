@@ -16,14 +16,14 @@ This is a "Software 3.0" configuration repository that defines custom VCS (Versi
 ### Available VCS Commands
 The repository defines eight custom VCS commands:
 
-1. **`vcs:init`** - Initialize git repository with basic .gitignore
-2. **`vcs:save [file-description] [-m "message"]`** - Stage all changes or specific files and commit with message (auto-generates message if not provided, supports natural language file selection)
-3. **`vcs:load [commit]`** - Reset repository to specific commit (with warnings and interactive history display when no commit specified)
-4. **`vcs:history [count]`** - Display commit history in readable format with enhanced formatting
-5. **`vcs:diff`** - Show pending changes with intelligent summaries and project impact analysis
-6. **`vcs:tag [message]`** - Create tags for important commits (auto-timestamps if no message)
-7. **`vcs:clean [files...]`** - Discard modifications and untracked files to return to clean state (can target specific files or clean everything)
-8. **`vcs:help`** - Display comprehensive VCS help for non-developers
+1. **`vcs:iniciar`** - Initialize git repository with basic .gitignore
+2. **`vcs:guardar [file-description] [-m "message"]`** - Stage all changes or specific files and commit with message (auto-generates message if not provided, supports natural language file selection)
+3. **`vcs:cargar [commit]`** - Reset repository to specific commit (with warnings and interactive history display when no commit specified)
+4. **`vcs:historial [count]`** - Display commit history in readable format with enhanced formatting
+5. **`vcs:diferencias`** - Show pending changes with intelligent summaries and project impact analysis
+6. **`vcs:etiquetar [message]`** - Create tags for important commits (auto-timestamps if no message)
+7. **`vcs:limpiar [files...]`** - Discard modifications and untracked files to return to clean state (can target specific files or clean everything)
+8. **`vcs:ayuda`** - Display comprehensive VCS help for non-developers
 
 ### Configuration Files
 - `.claude/settings.local.json` - Claude Code permissions and output style settings
@@ -47,9 +47,9 @@ Each VCS command follows a consistent structure:
 5. User-friendly success/error reporting
 
 ### Safety Features
-- `vcs:load` includes warnings about losing uncommitted changes
+- `vcs:cargar` includes warnings about losing uncommitted changes
 - Commands check for git repository existence before execution
-- Descriptive commit messages are required for `vcs:save`
+- Descriptive commit messages are required for `vcs:guardar`
 - All outputs avoid technical jargon
 
 ## Development Notes
@@ -67,14 +67,14 @@ Testing these commands requires:
 ```
 .claude/
 ├── commands/vcs/    # VCS command definitions
-│   ├── init.md     # vcs:init command
-│   ├── save.md     # vcs:save command
-│   ├── load.md     # vcs:load command
-│   ├── history.md  # vcs:history command
-│   ├── diff.md     # vcs:diff command
-│   ├── tag.md      # vcs:tag command
-│   ├── clean.md    # vcs:clean command
-│   └── help.md     # vcs:help command
+│   ├── iniciar.md     # vcs:iniciar command
+│   ├── guardar.md     # vcs:guardar command
+│   ├── cargar.md      # vcs:cargar command
+│   ├── historial.md   # vcs:historial command
+│   ├── diferencias.md # vcs:diferencias command
+│   ├── etiquetar.md   # vcs:etiquetar command
+│   ├── limpiar.md     # vcs:limpiar command
+│   └── ayuda.md       # vcs:ayuda command
 ├── settings.local.json  # Claude Code configuration
 .gitignore          # Standard git exclusions
 ```

@@ -49,69 +49,69 @@ This repository provides a comprehensive development environment for Claude Code
 
 #### 1. Initialize Version Control
 ```bash
-/vcs:init
+/vcs:iniciar
 ```
 Start tracking changes in your project.
 
 #### 2. Save Your Work
 ```bash
 # Save all changes with auto-generated message
-/vcs:save
+/vcs:guardar
 
 # Save with custom message
-/vcs:save -m "Added user authentication"
+/vcs:guardar -m "Added user authentication"
 
 # Save specific files using natural language
-/vcs:save "all JavaScript files" -m "Fixed login bugs"
-/vcs:save "files in src folder"
-/vcs:save "configuration files"
+/vcs:guardar "all JavaScript files" -m "Fixed login bugs"
+/vcs:guardar "files in src folder"
+/vcs:guardar "configuration files"
 ```
 
 #### 3. Check Your Progress
 ```bash
 # See what you've changed
-/vcs:diff
+/vcs:diferencias
 
 # View your save history
-/vcs:history
+/vcs:historial
 
 # View last 5 saves
-/vcs:history 5
+/vcs:historial 5
 ```
 
 #### 4. Go Back to Previous Versions
 ```bash
 # Show history and choose interactively
-/vcs:load
+/vcs:cargar
 
 # Load specific version by hash
-/vcs:load abc123f
+/vcs:cargar abc123f
 
 # Load tagged version
-/vcs:load version-1-0
+/vcs:cargar version-1-0
 
 # Go back one save
-/vcs:load HEAD~1
+/vcs:cargar HEAD~1
 ```
 
 #### 5. Mark Important Milestones
 ```bash
 # Create timestamped tag
-/vcs:tag
+/vcs:etiquetar
 
 # Create named tag
-/vcs:tag "version 1.0"
-/vcs:tag "stable release"
+/vcs:etiquetar "version 1.0"
+/vcs:etiquetar "stable release"
 ```
 
 #### 6. Clean Up Unwanted Changes
 ```bash
 # Discard all uncommitted changes
-/vcs:clean
+/vcs:limpiar
 
 # Clean specific files only
-/vcs:clean src/auth.js README.md
-/vcs:clean "*.js"
+/vcs:limpiar src/auth.js README.md
+/vcs:limpiar "*.js"
 ```
 
 ### Feature Management Workflow
@@ -119,7 +119,7 @@ Start tracking changes in your project.
 #### 1. Create a New Feature
 ```bash
 # Start a new feature with guided workflow
-/feature-create
+/feature:crear
 
 # The system will guide you through:
 # - Feature name and description
@@ -131,51 +131,51 @@ Start tracking changes in your project.
 #### 2. Work on Features
 ```bash
 # Switch between features
-/feature-switch feature-name
+/feature:cambiar feature-name
 
 # Check current feature status
-/feature-status
+/feature:estado
 
 # List all features
-/feature-list
+/feature:listar
 
 # Implement code from plan
-/implement-code
+/feature:implementar-codigo
 ```
 
 #### 3. Organize and Plan
 ```bash
 # Create standalone planning documents
-/create-jtbd    # Jobs To Be Done analysis
-/create-prd     # Product Requirements Document
-/create-plan    # Technical implementation plan
-/organize-plan  # Organize existing plan
+/feature:crear-jtbd    # Jobs To Be Done analysis
+/feature:crear-prd     # Product Requirements Document
+/feature:crear-plan    # Technical implementation plan
+/feature:organizar-plan  # Organize existing plan
 ```
 
 #### 4. Feature Lifecycle
 ```bash
 # Archive completed features
-/feature-archive feature-name
+/feature:archivar feature-name
 
 # Move to trash (soft delete)
-/feature-trash feature-name
+/feature:papelera feature-name
 
 # Restore from trash
-/feature-restore feature-name
+/feature:restaurar feature-name
 ```
 
 ### Learning and Documentation
 
 ```bash
 # Analyze conversation and update CLAUDE.md
-/learn
+/aprender
 
 # Update specific section only
-/learn architecture
-/learn principles
+/aprender architecture
+/aprender principles
 ```
 
-The `/learn` command analyzes your current conversation to extract:
+The `/aprender` command analyzes your current conversation to extract:
 - Technical decisions made
 - New patterns discovered
 - Architecture changes
@@ -208,42 +208,42 @@ The specialized agents are automatically available and can be invoked directly i
 
 | Command | Description |
 |---------|-------------|
-| `/vcs:init` | Initialize version control in current directory |
-| `/vcs:save [files] [-m "message"]` | Save changes with smart commit messages |
-| `/vcs:load [commit]` | Restore to previous version |
-| `/vcs:history [count]` | View save history |
-| `/vcs:diff` | Show pending changes with analysis |
-| `/vcs:tag [message]` | Create version tags |
-| `/vcs:clean [files]` | Discard changes safely |
-| `/vcs:help` | Show detailed help |
+| `/vcs:iniciar` | Initialize version control in current directory |
+| `/vcs:guardar [files] [-m "message"]` | Save changes with smart commit messages |
+| `/vcs:cargar [commit]` | Restore to previous version |
+| `/vcs:historial [count]` | View save history |
+| `/vcs:diferencias` | Show pending changes with analysis |
+| `/vcs:etiquetar [message]` | Create version tags |
+| `/vcs:limpiar [files]` | Discard changes safely |
+| `/vcs:ayuda` | Show detailed help |
 
 ### Feature Management Commands
 
 | Command | Description |
 |---------|-------------|
-| `/feature-create` | Create new feature with guided workflow |
-| `/feature-switch [name]` | Switch to a different feature |
-| `/feature-status` | Show current feature status |
-| `/feature-list` | List all features (active/archived/trash) |
-| `/feature-archive [name]` | Archive completed feature |
-| `/feature-trash [name]` | Move feature to trash |
-| `/feature-restore [name]` | Restore feature from trash |
-| `/create-jtbd` | Create Jobs To Be Done document |
-| `/create-prd` | Create Product Requirements Document |
-| `/create-plan` | Create technical implementation plan |
-| `/organize-plan` | Organize existing plan |
-| `/implement-code` | Implement code from plan |
+| `/feature:crear` | Create new feature with guided workflow |
+| `/feature:cambiar [name]` | Switch to a different feature |
+| `/feature:estado` | Show current feature status |
+| `/feature:listar` | List all features (active/archived/trash) |
+| `/feature:archivar [name]` | Archive completed feature |
+| `/feature:papelera [name]` | Move feature to trash |
+| `/feature:restaurar [name]` | Restore feature from trash |
+| `/feature:crear-jtbd` | Create Jobs To Be Done document |
+| `/feature:crear-prd` | Create Product Requirements Document |
+| `/feature:crear-plan` | Create technical implementation plan |
+| `/feature:organizar-plan` | Organize existing plan |
+| `/feature:implementar-codigo` | Implement code from plan |
 
 ### Utility Commands
 
 | Command | Description |
 |---------|-------------|
-| `/commands-manager` | Manage slash commands (create, edit, delete) |
-| `/learn [section]` | Analyze conversation and update CLAUDE.md with insights |
+| `/gestor-comandos` | Manage slash commands (create, edit, delete) |
+| `/aprender [section]` | Analyze conversation and update CLAUDE.md with insights |
 
 ## Natural Language File Selection
 
-The `vcs:save` and `vcs:clean` commands understand natural descriptions:
+The `vcs:guardar` and `vcs:limpiar` commands understand natural descriptions:
 
 - **File types**: `"JavaScript files"`, `"Python scripts"`, `"configuration files"`
 - **Folders**: `"files in src folder"`, `"everything in docs directory"`
@@ -253,21 +253,21 @@ The `vcs:save` and `vcs:clean` commands understand natural descriptions:
 ## Smart Features
 
 ### Auto-Generated Commit Messages
-When you use `/vcs:save` without a message, the system analyzes your changes and creates professional commit messages like:
+When you use `/vcs:guardar` without a message, the system analyzes your changes and creates professional commit messages like:
 - `feat: add user authentication system`
 - `fix: resolve database connection issue`
 - `docs: update installation guide`
 - `config: setup development environment`
 
 ### Intelligent Change Analysis
-The `/vcs:diff` command provides:
+The `/vcs:diferencias` command provides:
 - **Project Impact Summary** - What your changes mean
 - **Work Summary** - Type of work being done
 - **File Analysis** - Detailed explanation of each change
 - **Readiness Assessment** - Whether changes are ready to save
 
 ### Interactive History
-Using `/vcs:load` without parameters shows your commit history and lets you choose which version to restore interactively.
+Using `/vcs:cargar` without parameters shows your commit history and lets you choose which version to restore interactively.
 
 ## Safety Features
 
@@ -285,41 +285,41 @@ Using `/vcs:load` without parameters shows your commit history and lets you choo
 
 2. **Start using VCS commands**:
    ```bash
-   /vcs:init    # Initialize your project
-   /vcs:help    # See all available commands
+   /vcs:iniciar    # Initialize your project
+   /vcs:ayuda      # See all available commands
    ```
 
 ## Example Workflow
 
 ```bash
 # Start a new project
-/vcs:init
+/vcs:iniciar
 
 # Work on your files...
 # Add features, fix bugs, update docs
 
 # Check what you've done
-/vcs:diff
+/vcs:diferencias
 
 # Save your work
-/vcs:save "Added authentication and improved docs"
+/vcs:guardar "Added authentication and improved docs"
 
 # Continue working...
 
 # Save only specific changes
-/vcs:save "test files" -m "Added unit tests"
+/vcs:guardar "test files" -m "Added unit tests"
 
 # Mark a milestone
-/vcs:tag "beta release"
+/vcs:etiquetar "beta release"
 
 # View your progress
-/vcs:history
+/vcs:historial
 
 # Need to go back?
-/vcs:load
+/vcs:cargar
 
 # Clean up experimental changes
-/vcs:clean "experimental-feature.js"
+/vcs:limpiar "experimental-feature.js"
 ```
 
 ## Specialized AI Agents
@@ -413,8 +413,8 @@ Persistent state tracking for features:
 ├── commands/
 │   ├── vcs/           # 8 VCS commands
 │   ├── feature/       # 12 feature management commands
-│   ├── commands-manager.md
-│   └── learn.md       # Learning system command
+│   ├── gestor-comandos.md
+│   └── aprender.md       # Learning system command
 ├── agents/
 │   ├── rails-architect.md        # 55,278 lines
 │   ├── hotwire-specialist.md     # 35,940 lines
@@ -465,14 +465,14 @@ A learning configuration that improves itself:
 ## Support
 
 ### Getting Help
-- Use `/vcs:help` for VCS command documentation
-- Use `/feature-list` to see all feature management commands
+- Use `/vcs:ayuda` for VCS command documentation
+- Use `/feature:listar` to see all feature management commands
 - Check `.claude/commands/` for detailed command specifications
 - Agents automatically provide guidance in their domains
 
 ### Command Discovery
 - Type `/` in Claude Code to see all available commands
-- Use `/commands-manager` to create custom commands
+- Use `/gestor-comandos` to create custom commands
 - Explore `.claude/commands/` directory for examples
 
 ---

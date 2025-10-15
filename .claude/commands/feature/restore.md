@@ -21,7 +21,7 @@ Restaura una feature archivada o eliminada, devolviéndola al estado activo del 
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Buscar Feature en Archived o Trashed
-- Leer `.features/.feature-state.json`
+- Leer `.features/state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Validar que existe y su estado es `"archived"` o `"trashed"`
 - Si no existe o ya está `"active"`, mostrar error apropiado
@@ -37,7 +37,7 @@ Basándose en el campo `state`:
 - Validar que el movimiento fue exitoso
 
 ### 5. Actualizar Estado en JSON
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 - Cambiar `features_by_name[nombre-feature].state` a `"active"`
 - Agregar campo `restored_at` con timestamp actual ISO 8601
 - Actualizar `updated_at` con timestamp actual

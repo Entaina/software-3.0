@@ -157,7 +157,7 @@ Crea el archivo `.features/active/[feature-actual]/plan-organized.md` con la sig
 - Este será el `total_tasks` para tracking de progreso
 
 ### 9. Actualizar Estado de la Feature
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 
 - Marcar stage plan_organized como completado:
   ```json

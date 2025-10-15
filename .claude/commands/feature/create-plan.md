@@ -182,7 +182,7 @@ Crear archivo `.features/active/[feature-actual]/plan.md` con análisis técnico
 **Contenido**: Completar cada sección con análisis detallado basándose en los pasos 4-6.
 
 ### 8. Actualizar Estado de la Feature
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 
 - Marcar stage plan como completado:
   ```json

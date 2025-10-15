@@ -94,7 +94,7 @@ Crear archivo `.features/active/[feature-actual]/JTBD.md` con estructura complet
 - Aplicación rigurosa del framework JTBD (descubrir el "por qué" antes del "qué")
 
 ### 4. Actualizar Estado de la Feature
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 
 - Marcar stage JTBD como completado:
   ```json

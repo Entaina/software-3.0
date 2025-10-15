@@ -25,7 +25,7 @@ Genera un reporte detallado del estado, progreso, documentos y métricas de una 
 - Si no hay current-feature definida, mostrar error
 
 ### 2. Cargar Estado de la Feature
-- Leer `.features/.feature-state.json`
+- Leer `.features/state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Si no existe, mostrar error con lista de features disponibles
 

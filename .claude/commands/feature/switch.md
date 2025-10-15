@@ -21,7 +21,7 @@ Cambia la feature actual del contexto de trabajo, actualizando el estado global 
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Validar Feature Existe
-- Leer `.features/.feature-state.json`
+- Leer `.features/state.json`
 - Buscar feature con nombre coincidente en `features_by_name`
 - Validar que existe y su estado es `"active"` (no `"archived"` ni `"trashed"`)
 - Si no existe o no está activa, mostrar error con lista de features activas disponibles

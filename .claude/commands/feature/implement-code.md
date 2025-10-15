@@ -114,7 +114,7 @@ Modificar `.features/active/[feature-actual]/plan-organized.md`:
 - Comparar con `implementation.total_tasks` del estado
 
 ### 9. Actualizar Estado de la Feature
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 
 - Actualizar implementation:
   ```json

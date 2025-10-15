@@ -119,7 +119,7 @@ Crear archivo `.features/active/[feature-actual]/PRD.md` con estructura lean bas
 - Aplicar principios lean: enfocarse en QUÉ construir, no CÓMO
 
 ### 5. Actualizar Estado de la Feature
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 
 - Marcar stage PRD como completado:
   ```json

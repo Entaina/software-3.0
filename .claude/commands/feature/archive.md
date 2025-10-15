@@ -21,7 +21,7 @@ Archiva una feature completada, moviéndola del estado activo al archivo histór
 Extraer el nombre de la feature de `$ARGUMENTS`.
 
 ### 2. Validar Feature Existe y Es Archivable
-- Leer `.features/.feature-state.json`
+- Leer `.features/state.json`
 - Buscar feature en `features_by_name[nombre-feature]`
 - Validar que existe y su estado es `"active"`
 - **Verificar criterios de completitud**:
@@ -66,7 +66,7 @@ Crear archivo `.features/active/[nombre-feature]/ARCHIVE_SUMMARY.md` con:
 - Validar que el movimiento fue exitoso
 
 ### 5. Actualizar Estado en JSON
-Modificar `.features/.feature-state.json`:
+Modificar `.features/state.json`:
 - Cambiar `features_by_name[nombre-feature].state` de `"active"` a `"archived"`
 - Agregar campo `archived_at` con timestamp actual ISO 8601
 - Actualizar `updated_at` con timestamp actual

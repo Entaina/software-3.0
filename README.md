@@ -139,8 +139,9 @@ Comienza a rastrear cambios en tu proyecto.
 # Listar todas las features
 /feature:listar
 
-# Implementar código desde el plan
-/feature:implementar-codigo
+# Programar código desde el plan (siguiente tarea o todas)
+/feature:programar siguiente
+/feature:programar todo
 ```
 
 #### 3. Organizar y Planificar
@@ -232,7 +233,7 @@ Los agentes especializados están disponibles automáticamente y pueden invocars
 | `/feature:crear-prd` | Crear Product Requirements Document |
 | `/feature:crear-plan` | Crear plan técnico de implementación |
 | `/feature:organizar-plan` | Organizar plan existente |
-| `/feature:implementar-codigo` | Implementar código desde plan |
+| `/feature:programar [siguiente\|todo]` | Programar tareas del plan (siguiente o todas) |
 
 ### Comandos de Utilidad
 

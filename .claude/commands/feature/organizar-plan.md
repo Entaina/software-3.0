@@ -191,7 +191,7 @@ Modificar `_features/state.json`:
   ```json
   "workflow": {
     "current_stage": "ready_for_development",
-    "next_recommended_command": "/feature:implementar-codigo"
+    "next_recommended_command": "/feature:programar siguiente"
   }
   ```
 - Actualizar `updated_at` con timestamp actual
@@ -208,8 +208,10 @@ Mostrar:
 📊 Progreso:
 [✓ JTBD] [✓ PRD] [✓ Plan] [✓ Organized] [○ Code]
 
-🚀 Próximo Paso: /feature:implementar-codigo
-   (Implementará la primera tarea pendiente del plan organizado)
+🚀 Próximo Paso: /feature:programar siguiente
+   (Programará la primera tarea pendiente del plan organizado)
+
+   Para programar todas las tareas: /feature:programar todo
 ```
 
 ## Criterios de Éxito

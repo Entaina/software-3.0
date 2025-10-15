@@ -59,7 +59,7 @@ Basándose en el estado previo:
   - Si hay JTBD pero no PRD → `/feature:crear-prd`
   - Si hay PRD pero no plan → `/feature:crear-plan`
   - Si hay plan pero no plan-organized → `/feature:organizar-plan`
-  - Si hay plan-organized y tareas pendientes → `/feature:implementar-codigo`
+  - Si hay plan-organized y tareas pendientes → `/feature:programar siguiente`
 
 ### 8. Ofrecer Cambiar Current Feature
 Preguntar al usuario si desea hacer esta feature la actual:

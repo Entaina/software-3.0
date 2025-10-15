@@ -1,19 +1,30 @@
 ---
-argument-hint: [contexto-adicional]
-description: Implementar siguiente tarea del plan organizado
+argument-hint: [siguiente|todo] [contexto-adicional]
+description: Programar tareas del plan organizado (siguiente tarea o todas)
 ---
 
-# Implementar Código
+# Programar
 
-Implementa la siguiente tarea del plan organizado orquestando agentes especializados según necesidades.
+Programa tareas del plan organizado orquestando agentes especializados según necesidades.
 
-**Uso**: `/feature:implementar-codigo [contexto-adicional]`
+**Uso**: `/feature:programar [siguiente|todo] [contexto-adicional]`
 
 ## Qué Hace Este Comando
 
-Implementa la siguiente tarea pendiente del plan organizado, creando el código necesario (modelos, servicios, controllers, views, tests) según el tipo de tarea y actualizando el progreso.
+Programa las tareas del plan organizado, creando el código necesario (modelos, servicios, controllers, views, tests) según el tipo de tarea y actualizando el progreso.
+
+**Modos de operación**:
+- `siguiente` (por defecto): Implementa la siguiente tarea pendiente (verificando dependencias)
+- `todo`: Implementa TODAS las tareas pendientes del plan (sin verificar dependencias)
 
 ## Implementación
+
+### 0. Determinar Modo de Operación
+- Leer primer argumento `$1`:
+  - Si es "siguiente" o está vacío: modo = `siguiente`
+  - Si es "todo": modo = `todo`
+  - Si es otro valor: modo = `siguiente` y tratar como contexto adicional
+- Resto de argumentos ($2, $3, etc.) se tratan como contexto adicional
 
 ### 1. Determinar Feature Actual
 - Leer `_features/current-feature`
@@ -23,15 +34,24 @@ Implementa la siguiente tarea pendiente del plan organizado, creando el código 
 - Verificar que existe `_features/active/[feature-actual]/plan-organized.md`
 - Si no existe, mostrar error: "Necesitas ejecutar /feature:organizar-plan primero"
 
-### 3. Identificar Siguiente Tarea Pendiente
+### 3. Identificar Tareas a Implementar
+
+**Si modo = `siguiente`**:
 Leer `plan-organized.md` y:
 - Buscar la primera tarea con checkbox `[ ]` (no completada)
 - Verificar que sus dependencias previas en la misma capacidad estén completas `[x]`
 - Si todas las dependencias no están completas, buscar la siguiente tarea disponible
 - Identificar a qué capacidad de usuario pertenece la tarea
 - Leer contexto de esa capacidad (valor usuario, dependencias, riesgos)
+- Guardar tarea en lista para procesar
 
-**Si todas las tareas `[ ]` están completadas `[x]`**:
+**Si modo = `todo`**:
+Leer `plan-organized.md` y:
+- Identificar TODAS las tareas con checkbox `[ ]` (no completadas)
+- Agregar todas las tareas a la lista para procesar
+- NO verificar dependencias - programar todas las tareas pendientes
+
+**Si todas las tareas `[ ]` están completadas `[x]`** (aplica a ambos modos):
 - Informar: "¡Todas las tareas están completas! Ejecuta /feature:archivar [nombre-feature] para archivar la feature."
 - Terminar ejecución
 
@@ -63,7 +83,9 @@ Basándose en la descripción de la tarea, determinar categoría:
 - Implementar specs RSpec
 - Seguir convenciones de testing del proyecto
 
-### 6. Implementar Código de la Tarea
+### 6. Implementar Código de las Tareas
+
+**Para cada tarea** en la lista de tareas a implementar (1 en modo `siguiente`, N en modo `todo`):
 
 Según el tipo de tarea identificado en paso 5, implementar código siguiendo patrones del proyecto:
 
@@ -105,7 +127,8 @@ Según el tipo de tarea identificado en paso 5, implementar código siguiendo pa
 ### 7. Actualizar Plan Organizado
 
 Modificar `_features/active/[feature-actual]/plan-organized.md`:
-- Cambiar `[ ]` a `[x]` para la tarea recién implementada
+- **Modo `siguiente`**: Cambiar `[ ]` a `[x]` para la tarea recién implementada
+- **Modo `todo`**: Cambiar `[ ]` a `[x]` para TODAS las tareas recién implementadas
 - Opcionalmente añadir nota si hay decisiones importantes: `[x] Tarea completada (nota: decisión X tomada)`
 
 ### 8. Contar Tareas Completadas
@@ -149,7 +172,7 @@ Modificar `_features/state.json`:
     ```json
     "workflow": {
       "current_stage": "development",
-      "next_recommended_command": "/feature:implementar-codigo"
+      "next_recommended_command": "/feature:programar siguiente"
     }
     ```
 
@@ -164,7 +187,8 @@ Crear barra de progreso visual:
 ```
 
 ### 11. Informar Usuario
-Mostrar:
+
+**Modo `siguiente`**:
 ```
 ✅ Tarea implementada: [descripción de la tarea]
 
@@ -176,9 +200,31 @@ Mostrar:
 
 [Si hay más tareas pendientes]
 🚀 Próxima Tarea: [descripción de siguiente tarea `[ ]`]
-   Ejecuta: /feature:implementar-codigo
+   Ejecuta: /feature:programar siguiente
+
+   Para programar todas las tareas pendientes:
+   /feature:programar todo
 
 [Si todas las tareas están completas]
+🎉 ¡Todas las tareas completadas!
+   Ejecuta: /feature:archivar [nombre-feature] para archivar
+```
+
+**Modo `todo`**:
+```
+✅ Tareas implementadas: [N tareas]
+
+📝 Tareas completadas:
+- [Tarea 1]
+- [Tarea 2]
+- [Tarea N]
+
+📝 Archivos modificados:
+- [listar todos los archivos creados/modificados]
+
+📊 Progreso de "[nombre-feature]":
+[██████████] 100% (10/10 tareas completadas)
+
 🎉 ¡Todas las tareas completadas!
    Ejecuta: /feature:archivar [nombre-feature] para archivar
 ```
@@ -186,8 +232,10 @@ Mostrar:
 ## Criterios de Éxito
 
 - ✅ Feature actual identificada y plan-organized.md validado
-- ✅ Siguiente tarea pendiente `[ ]` identificada correctamente
-- ✅ Dependencias de la tarea verificadas (tareas previas completas)
+- ✅ Modo de operación determinado correctamente (`siguiente` o `todo`)
+- ✅ Tareas pendientes identificadas según modo:
+  - **Modo `siguiente`**: Una tarea con dependencias verificadas
+  - **Modo `todo`**: Todas las tareas pendientes (sin verificar dependencias)
 - ✅ Tipo de tarea analizado (backend/frontend/interactividad/testing)
 - ✅ Código implementado siguiendo patrones del proyecto:
   - Backend: Modelos, Service Objects, Controllers, Jobs (si aplica)

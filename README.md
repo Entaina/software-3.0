@@ -4,13 +4,12 @@ A **Software 3.0** configuration repository that extends Claude Code with powerf
 
 ## What This Is
 
-This repository provides a comprehensive development environment for Claude Code with five major systems:
+This repository provides a comprehensive development environment for Claude Code with four major systems:
 
 1. **VCS Commands** - Simplified version control operations in plain language
 2. **Feature Management** - Complete product development lifecycle from idea to implementation
 3. **Specialized Agents** - Expert AI agents for Rails, Hotwire, Tailwind, Product Management, and Design Systems
-4. **Context Management** - Save and restore development contexts across sessions
-5. **Learning System** - Automatic documentation updates from conversation analysis
+4. **Learning System** - Automatic documentation updates from conversation analysis
 
 ## Features
 
@@ -36,12 +35,6 @@ This repository provides a comprehensive development environment for Claude Code
 ⚡ **Hotwire Specialist** - Turbo Frames, Turbo Streams, and Stimulus controllers
 🎨 **Tailwind Specialist** - Utility-first CSS, responsive design, and optimization
 📊 **Product Owner** - Lean product management and prioritization
-
-### Context Management
-💾 **Save Contexts** - Preserve development state and conversation context
-🔄 **Load Contexts** - Restore previous sessions with full context
-📝 **Update Contexts** - Modify existing saved contexts
-🔍 **Initialize Projects** - Set up new project contexts
 
 ### Learning System
 🧠 **Conversation Analysis** - Extract insights from development sessions
@@ -171,22 +164,6 @@ Start tracking changes in your project.
 /feature-restore feature-name
 ```
 
-### Context Management
-
-```bash
-# Save current development context
-/contexts:save "Working on authentication feature"
-
-# Load a saved context
-/contexts:load context-name
-
-# Update existing context
-/contexts:update context-name
-
-# Initialize new project context
-/contexts:init
-```
-
 ### Learning and Documentation
 
 ```bash
@@ -256,15 +233,6 @@ The specialized agents are automatically available and can be invoked directly i
 | `/create-plan` | Create technical implementation plan |
 | `/organize-plan` | Organize existing plan |
 | `/implement-code` | Implement code from plan |
-
-### Context Management Commands
-
-| Command | Description |
-|---------|-------------|
-| `/contexts:init` | Initialize new project context |
-| `/contexts:save [description]` | Save current development context |
-| `/contexts:load [name]` | Load saved context |
-| `/contexts:update [name]` | Update existing context |
 
 ### Utility Commands
 
@@ -423,7 +391,6 @@ This configuration extends Claude Code through three main components:
 Custom commands defined as markdown files in `.claude/commands/`:
 - **VCS commands** (`vcs/`) - 8 commands for version control
 - **Feature commands** (`feature/`) - 12 commands for feature lifecycle management
-- **Context commands** (`contexts/`) - 4 commands for context management
 - **Utility commands** - Command manager and learning system for self-improvement
 
 #### 2. Specialized Agents
@@ -434,12 +401,11 @@ AI agents with domain expertise in `.claude/agents/`:
 - Provides expert guidance in specific domains
 
 #### 3. State Management
-Persistent state tracking for features and contexts:
+Persistent state tracking for features:
 - `.features/active/` - Active feature development
 - `.features/archive/` - Completed features
 - `.features/trash/` - Soft-deleted features
 - `.features/state.json` - Current feature and metadata
-- `.contexts/` - Saved development contexts
 
 ### File Structure
 ```
@@ -447,7 +413,6 @@ Persistent state tracking for features and contexts:
 ├── commands/
 │   ├── vcs/           # 8 VCS commands
 │   ├── feature/       # 12 feature management commands
-│   ├── contexts/      # 4 context commands
 │   ├── commands-manager.md
 │   └── learn.md       # Learning system command
 ├── agents/
@@ -462,8 +427,6 @@ Persistent state tracking for features and contexts:
 ├── archive/          # Archived features
 ├── trash/            # Soft-deleted features
 └── state.json        # Current feature state
-
-.contexts/            # Saved contexts
 ```
 
 **No traditional build/test commands** - This is a configuration repository that extends Claude Code's capabilities.
@@ -484,21 +447,14 @@ Four specialized agents provide deep domain expertise:
 - **Automatic invocation** based on conversation context
 - **Complementary expertise** across product and engineering
 
-### 3. Context Preservation
-Never lose your place in complex development work:
-- **Save entire conversations** with full context
-- **Restore development state** across sessions
-- **Feature-specific context** keeps work organized
-- **Persistent metadata** tracks progress and decisions
-
-### 4. Simplified Workflows
+### 3. Simplified Workflows
 Complex operations made simple:
 - **Natural language** instead of technical commands
 - **Guided workflows** for feature creation
 - **Auto-generated artifacts** (commit messages, PRDs, plans)
 - **Safety confirmations** for destructive operations
 
-### 5. Self-Documenting System
+### 4. Self-Documenting System
 A learning configuration that improves itself:
 - **Conversation analysis** extracts patterns and decisions automatically
 - **CLAUDE.md updates** keep documentation synchronized with reality

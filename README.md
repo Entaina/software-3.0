@@ -26,6 +26,7 @@ Este repositorio proporciona un entorno de desarrollo completo para Claude Code 
 🎯 **Jobs To Be Done (JTBD)** - Define problemas del cliente antes de construir soluciones
 📋 **Product Requirements (PRD)** - Crea especificaciones completas de features
 📐 **Planificación Técnica** - Organiza la implementación con decisiones arquitectónicas
+⚡ **Programación Flexible** - Implementa tareas una por una (incremental) o todas de golpe (rápido)
 🔄 **Gestión del Ciclo de Vida** - Rastrea features desde la creación hasta el archivo
 💾 **Persistencia de Estado** - Mantén el contexto de features entre sesiones
 🗂️ **Organización de Features** - Lista, cambia, archiva y restaura features
@@ -138,9 +139,19 @@ Comienza a rastrear cambios en tu proyecto.
 
 # Listar todas las features
 /feature:listar
+```
 
-# Programar código desde el plan (siguiente tarea o todas)
+#### Programar Tareas del Plan
+
+El comando `/feature:programar` implementa el código según el plan organizado:
+
+```bash
+# Modo incremental - Implementa la siguiente tarea
+# Verifica dependencias y permite revisión después de cada tarea
 /feature:programar siguiente
+
+# Modo rápido - Implementa TODAS las tareas pendientes
+# Ideal cuando quieres completar la feature de una sola vez
 /feature:programar todo
 ```
 
@@ -269,6 +280,30 @@ El comando `/vcs:diferencias` proporciona:
 
 ### Historial Interactivo
 Usar `/vcs:cargar` sin parámetros muestra tu historial de commits y te permite elegir qué versión restaurar interactivamente.
+
+### Programación de Tareas Flexible
+El comando `/feature:programar` ofrece dos modos de implementación:
+
+**Modo `siguiente` (por defecto)**:
+- Implementa la siguiente tarea pendiente del plan organizado
+- Verifica que las dependencias previas estén completas
+- Ideal para desarrollo incremental y controlado
+- Permite revisión después de cada tarea
+
+**Modo `todo`**:
+- Implementa TODAS las tareas pendientes en una sola ejecución
+- No verifica dependencias - asume que estás listo para completar la feature
+- Perfecto para acelerar el desarrollo cuando tienes el contexto completo
+- Útil para features pequeñas o cuando todas las dependencias están claras
+
+Ejemplos:
+```bash
+# Desarrollo incremental - una tarea a la vez
+/feature:programar siguiente
+
+# Desarrollo rápido - completar toda la feature
+/feature:programar todo
+```
 
 ## Características de Seguridad
 
